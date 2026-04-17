@@ -29,7 +29,7 @@
                 <li class="nav-group">Web Foundations</li>
                 <li><a href="#network-foundations" class="nav-link">Network Foundations</a></li>
                 <li><a href="#html-foundations" class="nav-link active">HTML Essentials</a></li>
-                <li><a href="#css-foundations" class="nav-link">CSS Core Mechanics</a></li>
+                <li><a href="#css-foundations" class="nav-link">CSS & Box Model</a></li>
                 <li><a href="#js-foundations" class="nav-link">JS Fundamentals</a></li>
                 <li><a href="#js-prototypes" class="nav-link">JS Advanced Prototypes</a></li>
                 <li class="nav-group">Core Architecture</li>
@@ -56,56 +56,60 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- Network Foundations -->
+            <!-- 1. Network Foundations -->
             <section id="network-foundations" class="lesson-section">
                 <h2>Network Foundations: The Anatomy of a Request</h2>
-                <p>Before a single line of HTML is parsed, a complex sequence of network events must occur. Understanding the <strong>OSI Model</strong> and the <strong>TCP/IP Stack</strong> is essential for optimizing the "Time to First Byte" (TTFB).</p>
+                <p>Before a browser can render pixels, it must negotiate a complex handshake over the physical wire. Scholarly frontend engineering begins with understanding <strong>Latency</strong> and the <strong>TCP/IP Stack</strong>.</p>
                 
-                <h3>1. The DNS & TCP Handshake</h3>
+                <h3>A. The DNS Resolution Phase</h3>
+                <p>The browser first checks its local cache for an IP address. If missing, it queries a <strong>Recursive DNS Resolver</strong>. This process involves the Root, TLD (.com), and Authoritative Name Servers. Every millisecond here contributes to the <strong>TTFB (Time to First Byte)</strong>.</p>
+                
+                <h3>B. The TCP 3-Way Handshake</h3>
+                <p>TCP (Transmission Control Protocol) ensures data integrity. The handshake consists of three steps:</p>
                 <ol>
-                    <li><strong>DNS Resolution:</strong> Domain to IP translation.</li>
-                    <li><strong>TCP 3-Way Handshake:</strong> SYN -> SYN-ACK -> ACK.</li>
-                    <li><strong>TLS Negotiation:</strong> The security layer for HTTPS.</li>
+                    <li><strong>SYN:</strong> Client sends a synchronization packet.</li>
+                    <li><strong>SYN-ACK:</strong> Server acknowledges and sends its own sync packet.</li>
+                    <li><strong>ACK:</strong> Client acknowledges. The connection is now open.</li>
                 </ol>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources & Documentation:**
                     <ul>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">MDN: Overview of HTTP</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">MDN: An Overview of HTTP</a></li>
+                        <li><a href="https://www.cloudflare.com/learning/dns/what-is-dns/">Cloudflare Learning: DNS Fundamentals</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- HTML Foundations -->
-            <section id="html-foundations" class="lesson-section active">
+            <!-- 2. HTML Foundations -->
+            <section id="html-foundations" class="lesson-section">
                 <h2>HTML5: The Structural Semantic Foundation</h2>
-                <p>HTML defines the <strong>Semantic Hierarchy</strong> of a document. It provides the "What" before CSS provides the "How."</p>
+                <p>HTML is not a programming language; it is a <strong>Markup Language</strong> that defines the semantic meaning of content. A scholar views HTML as the <strong>Data Model</strong> for the Document Object Model (DOM).</p>
                 
-                <h3>1. Anatomy of the Boilerplate</h3>
+                <h3>A. The Professional Boilerplate</h3>
                 <div class="code-block">
                     <pre><code><span class="keyword">&lt;!DOCTYPE html&gt;</span>
 <span class="keyword">&lt;html</span> <span class="type">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span>
 <span class="keyword">&lt;head&gt;</span>
     <span class="keyword">&lt;meta</span> <span class="type">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span>
-    <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"viewport"</span> <span class="type">content</span>=<span class="string">"width=device-width"</span><span class="keyword">&gt;</span>
-    <span class="keyword">&lt;title&gt;</span>Scholarly Frontend<span class="keyword">&lt;/title&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"viewport"</span> <span class="type">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span>
+    <span class="keyword">&lt;title&gt;</span>Scholarly Document<span class="keyword">&lt;/title&gt;</span>
 <span class="keyword">&lt;/head&gt;</span></code></pre>
                 </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources & Documentation:**
                     <ul>
-                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG HTML Living Standard</a></li>
+                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- CSS Foundations -->
+            <!-- 3. CSS Foundations & Box Model -->
             <section id="css-foundations" class="lesson-section">
                 <h2>CSS: Core Mechanics & The Box Model</h2>
-                <p>CSS is a formal rule-based language. Mastering the <strong>Box Model</strong> is critical for precise 2D layout engineering.</p>
+                <p>CSS is the rule-based language that provides the "How" for our semantic "What." Scholarly CSS requires a deep understanding of the <strong>Visual Formatting Model</strong>.</p>
                 
-                <h3>1. The Box Model: Detailed Geometry</h3>
                 <div class="box-model-viz">
                     <div class="bm-margin" style="border: 2px dashed #94a3b8; padding: 20px; text-align: center; background: #f8fafc;">Margin
                         <div class="bm-border" style="border: 2px solid #64748b; padding: 20px; background: #e2e8f0;">Border
@@ -116,119 +120,160 @@
                     </div>
                 </div>
 
-                <div class="code-block">
-                    <pre><code><span class="comment">/* Box Model Example: The Professional Standard */</span>
-<span class="type">.container</span> {
-    <span class="type">width</span>: <span class="number">100</span>%;
-    <span class="type">padding</span>: <span class="number">32</span>px;   <span class="comment">/* Breathing room inside */</span>
-    <span class="type">margin</span>: <span class="number">16</span>px <span class="number">0</span>;  <span class="comment">/* Spacing between vertical elements */</span>
-    <span class="type">border</span>: <span class="number">2</span>px solid #e2e8f0;
-    <span class="type">box-sizing</span>: border-box; <span class="comment">/* Border and Padding are INSIDE the width */</span>
-}</code></pre>
-                </div>
-
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources & Documentation:**
                     <ul>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model">MDN: The Box Model</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model">MDN: The Box Model Guide</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- JS Fundamentals -->
+            <!-- 4. JS Fundamentals -->
             <section id="js-foundations" class="lesson-section">
-                <h2>JavaScript: Lexical Scoping & Foundations</h2>
-                <p>Scholarly JS begins with <strong>Lexical Scoping</strong> and the memory models (Stack vs Heap).</p>
+                <h2>JavaScript: Lexical Scoping & Memory Foundations</h2>
+                <p>JavaScript is the <strong>Logic Layer</strong>. Professional JS requires moving beyond "how to write a loop" toward how the engine manages <strong>Scoping</strong> and <strong>Memory</strong>.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources & Documentation:**
                     <ul>
-                        <li><a href="https://tc39.es/ecma262/">ECMAScript Specification</a></li>
+                        <li><a href="https://tc39.es/ecma262/">ECMA-262 Specification</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- JS Advanced Prototypes -->
+            <!-- 5. JS Advanced Prototypes -->
             <section id="js-prototypes" class="lesson-section">
-                <h2>JS Advanced: The Prototype Chain</h2>
-                <p>JS uses <strong>Prototypal Inheritance</strong> via behavioral delegation.</p>
+                <h2>JS Advanced: The Prototype Chain & Delegation</h2>
+                <p>JavaScript does not use traditional Class-based inheritance. Instead, it uses <strong>Behavioral Delegation</strong> via the Prototype Chain.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources & Documentation:**
                     <ul>
                         <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">MDN: Prototypes</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Modern HTML5 & APIs -->
+            <!-- 6. Modern HTML5 & Browser APIs -->
             <section id="html5-apis" class="lesson-section">
                 <h2>Browser Architecture & The Critical Rendering Path</h2>
-                <p>The <strong>CRP</strong> is the sequence of steps from HTML/CSS to pixels. Understanding multi-process architecture is key to performance.</p>
+                <p>Modern browsers are complex operating systems. Mastering the <strong>Critical Rendering Path (CRP)</strong> is the "holy grail" of frontend performance engineering.</p>
                 
+                <h3>A. Steps of the CRP</h3>
+                <ol>
+                    <li><strong>DOM Construction:</strong> Tokenizing HTML into nodes.</li>
+                    <li><strong>CSSOM Construction:</strong> Parsing CSS into a rule tree.</li>
+                    <li><strong>Render Tree:</strong> Combining DOM and CSSOM.</li>
+                    <li><strong>Layout:</strong> Calculating geometry.</li>
+                    <li><strong>Paint:</strong> Converting boxes to pixels.</li>
+                </ol>
+
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Primary Sources:**
                     <ul>
-                        <li><a href="https://web.dev/critical-rendering-path/">Web.dev: Critical Rendering Path</a></li>
+                        <li><a href="https://web.dev/critical-rendering-path/">Web.dev: CRP</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Advanced CSS & Layout -->
+            <!-- 7. Advanced CSS -->
             <section id="advanced-css" class="lesson-section">
                 <h2>Advanced CSS: Grid, Flexbox & Containers</h2>
-                <p>Deep dive into 2D (Grid) and 1D (Flexbox) layout algorithms.</p>
+                <p>Scaling CSS in enterprise applications requires moving beyond "styling" to <strong>Visual Formatting Algorithms</strong>.</p>
+                
+                <h3>A. CSS Architecture: BEM</h3>
+                <p><strong>BEM (Block, Element, Modifier)</strong> ensures modular styles.</p>
+
+                <div class="note-box">
+                    📚 **Primary Sources:**
+                    <ul>
+                        <li><a href="https://getbem.com/">BEM Methodology</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- JS Engine & Event Loop -->
+            <!-- 8. JS Engine & Event Loop -->
             <section id="js-engine" class="lesson-section">
-                <h2>JavaScript Engine Architecture & The Event Loop</h2>
+                <h2>JavaScript Engine: V8 & The Event Loop</h2>
                 <p>Analysis of V8 pipeline (Ignition/TurboFan) and the <strong>Microtask Queue</strong>.</p>
             </section>
 
-            <!-- React & RSC -->
-            <section id="react" class="lesson-section">
-                <h2>React: RSC & Modern Architecture</h2>
-                <p>React Server Components and the <strong>Suspense</strong> orchestration model.</p>
-                
-                <div class="note-box">
-                    📚 **Official Documentation:**
-                    <ul>
-                        <li><a href="https://react.dev/">React Docs</a></li>
-                    </ul>
-                </div>
+            <!-- 9. Async JS -->
+            <section id="js-async" class="lesson-section">
+                <h2>Async JS: The Promise/A+ Specification</h2>
+                <p>Formal states of a Promise: Pending, Fulfilled, Rejected.</p>
             </section>
 
-            <!-- TypeScript Intro -->
+            <!-- 10. Accessibility -->
+            <section id="a11y-semantic" class="lesson-section">
+                <h2>Accessibility (A11y) & Universal Design</h2>
+                <p>The <strong>POUR</strong> principles: Perceivable, Operable, Understandable, Robust.</p>
+            </section>
+
+            <!-- 11. Angular -->
+            <section id="angular" class="lesson-section">
+                <h2>Angular: Enterprise Architecture</h2>
+                <p>Hierarchical Dependency Injection and RxJS reactive streams.</p>
+            </section>
+
+            <!-- 12. React -->
+            <section id="react" class="lesson-section">
+                <h2>React: RSC & Modern Architecture</h2>
+                <p>React Server Components and the Suspense model.</p>
+            </section>
+
+            <!-- 13. State Management -->
+            <section id="state-management" class="lesson-section">
+                <h2>Advanced State Management</h2>
+                <p>Flux architecture and Redux Toolkit.</p>
+            </section>
+
+            <!-- 14. TypeScript -->
             <section id="ts-intro" class="lesson-section">
                 <h2>TypeScript: Architectural Superset</h2>
                 <p>Structural Typing theory and the compilation pipeline.</p>
             </section>
 
-            <!-- Web Performance -->
+            <!-- 15. TS Types -->
+            <section id="ts-basic-types" class="lesson-section">
+                <h2>TS Type Hierarchy: top vs. bottom</h2>
+                <p>Analysis of <code>unknown</code> and <code>never</code>.</p>
+            </section>
+
+            <!-- 16. Advanced TS -->
+            <section id="ts-advanced-types" class="lesson-section">
+                <h2>Advanced TypeScript: Generics & Utility Types</h2>
+                <p>Mapped types and Conditional types.</p>
+            </section>
+
+            <!-- 17. SASS & LESS -->
+            <section id="css-sass" class="lesson-section">
+                <h2>SASS & LESS: CSS Preprocessing</h2>
+                <p>The Modular system (<code>@use</code>) and advanced mixins.</p>
+            </section>
+
+            <!-- 18. Tailwind CSS -->
+            <section id="tailwind" class="lesson-section">
+                <h2>Tailwind CSS: Utility-First Architecture</h2>
+                <p>Atomic CSS and the JIT Engine mechanics.</p>
+            </section>
+
+            <!-- 19. Web Performance -->
             <section id="web-perf" class="lesson-section">
                 <h2>Web Performance & Core Web Vitals</h2>
-                <p>Metrics for LCP, FID, and CLS. Resource prioritization via Hints.</p>
-                <div class="note-box">
-                    📚 **Official Documentation:**
-                    <ul>
-                        <li><a href="https://web.dev/vitals/">Web.dev: Core Web Vitals</a></li>
-                    </ul>
-                </div>
+                <p>Metrics for LCP, FID, and CLS.</p>
             </section>
 
-            <!-- Gulp -->
+            <!-- 20. Modern Build -->
+            <section id="modern-build" class="lesson-section">
+                <h2>Modern Build Tooling: Vite & Webpack</h2>
+                <p>Bundle-based vs. ESM-based paradigms.</p>
+            </section>
+
+            <!-- 21. Gulp -->
             <section id="gulp" class="lesson-section">
                 <h2>Gulp: Task Orchestration Architecture</h2>
-                <p>Pipe-and-filter pattern using Node.js <strong>Streams</strong>.</p>
+                <p>Pipe-and-filter pattern using Node.js Streams.</p>
             </section>
-        </main>
-    </div>
-
-    <footer class="main-footer">
-        <p>&copy; 2026 Full Stack Mastery Platform. All Rights Reserved.</p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+            
+            <script src="script.js"></script>
