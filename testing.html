@@ -54,9 +54,15 @@
                     <strong>The Testing Pyramid vs. The Testing Trophy:</strong>
                     <ul>
                         <li><strong>The Pyramid (Traditional):</strong> Focuses heavily on <strong>Unit Tests</strong> (bottom), with decreasing volume for Integration and E2E tests. Best for backend systems.</li>
-                        <li><strong>The Trophy (Modern Frontend):</strong> Popularized by Kent C. Dodds, it emphasizes <strong>Integration Tests</strong> (the middle) as the "sweet spot" for ROI.</li>
+                        <li><strong>The Trophy (Modern Frontend):</strong> Popularized by Kent C. Dodds, it emphasizes <strong>Integration Tests</strong> (the middle) as the "sweet spot" for return on investment (ROI).</li>
                     </ul>
                 </div>
+
+                <h3>A. Fundamental Paradigms: Black-Box vs. White-Box</h3>
+                <ul>
+                    <li><strong>White-Box Testing (Structural):</strong> The tester has knowledge of the internal code structure. It aims to maximize <strong>Branch Coverage</strong> and reduce <strong>Cyclomatic Complexity</strong>.</li>
+                    <li><strong>Black-Box Testing (Functional):</strong> The tester only interacts with external interfaces (API/UI) without knowledge of the implementation.</li>
+                </ul>
 
                 <div class="note-box">
                     📚 **Official Documentation:**
@@ -77,6 +83,7 @@
                             <th>Type</th>
                             <th>Scope</th>
                             <th>Execution Speed</th>
+                            <th>Reliability (Flakiness)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,16 +91,19 @@
                             <td><strong>Unit</strong></td>
                             <td>Single Function/Class</td>
                             <td>Sub-millisecond</td>
+                            <td>High (Stable)</td>
                         </tr>
                         <tr>
                             <td><strong>Integration</strong></td>
                             <td>Multiple Units/Modules</td>
                             <td>Seconds</td>
+                            <td>Medium</td>
                         </tr>
                         <tr>
                             <td><strong>E2E (System)</strong></td>
                             <td>Full App Flow</td>
                             <td>Minutes</td>
+                            <td>Low (Often Flaky)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -102,41 +112,60 @@
             <!-- 3. TDD/BDD -->
             <section id="tdd-approach" class="lesson-section">
                 <h2>Methodologies: TDD, BDD, and Gherkin</h2>
-                <p>Professional engineering often adopts "Test-First" methodologies like <strong>Test-Driven Development (TDD)</strong> and <strong>Behavior-Driven Development (BDD)</strong>.</p>
+                <p>Professional engineering adopts "Test-First" methodologies to ensure that testing is an integral part of the design process.</p>
                 
+                <h3>A. Test-Driven Development (TDD)</h3>
+                <p>TDD follows the <strong>Red-Green-Refactor</strong> cycle. This ensures high code coverage and encourages <strong>YAGNI</strong> (You Ain't Gonna Need It) by forcing the developer to write only the code necessary to pass the test.</p>
+                
+                <h3>B. Behavior-Driven Development (BDD)</h3>
+                <p>BDD extends TDD by writing tests in a natural language utilizing the <strong>Gherkin Syntax</strong>.</p>
                 <div class="code-block">
-                    <pre><code><span class="comment">// Example: The TDD Cycle (Red-Green-Refactor)</span>
-<span class="comment">// 1. RED: Write a test that fails</span>
-<span class="function">test</span>(<span class="string">'factorial(5) should be 120'</span>, () => {
-    <span class="function">expect</span>(<span class="function">factorial</span>(<span class="number">5</span>)).<span class="function">toBe</span>(<span class="number">120</span>);
-});
-<span class="comment">// 2. GREEN: Write minimum code to pass...</span></code></pre>
+                    <pre><code><span class="keyword">Feature:</span> User Login
+  <span class="keyword">Scenario:</span> Successful login with valid credentials
+    <span class="keyword">Given</span> I am on the login page
+    <span class="keyword">When</span> I enter <span class="string">"admin"</span> and <span class="string">"password123"</span>
+    <span class="keyword">Then</span> I should be redirected to the dashboard</code></pre>
                 </div>
             </section>
 
             <!-- 4. Unit Testing -->
             <section id="jest-js" class="lesson-section">
                 <h2>Unit Testing: Structural Integrity & The AAA Pattern</h2>
-                <p>Scholarly unit testing follows the <strong>AAA (Arrange, Act, Assert)</strong> pattern to ensure that every test is a clear, self-contained verification.</p>
+                <p>Scholarly unit testing follows the <strong>AAA (Arrange, Act, Assert)</strong> pattern to ensure that every test is a clear, self-contained mathematical proof of correctness.</p>
                 
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Jest AAA Test</span>
+<span class="function">test</span>(<span class="string">'should apply 20% tax'</span>, () => {
+    <span class="keyword">const</span> subtotal = <span class="number">100</span>; <span class="comment">// Arrange</span>
+    <span class="keyword">const</span> result = <span class="function">calculateTax</span>(subtotal); <span class="comment">// Act</span>
+    <span class="function">expect</span>(result).<span class="function">toBe</span>(<span class="number">120</span>); <span class="comment">// Assert</span>
+});</code></pre>
+                </div>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
                         <li><a href="https://jestjs.io/docs/getting-started">Jest Documentation</a></li>
+                        <li><a href="https://docs.pytest.org/en/7.1.x/explanation/fixtures.html">PyTest: Fixtures Architecture</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 5. Property-Based Testing -->
+            <!-- 5. Property-Based Testing (New) -->
             <section id="property-based" class="lesson-section">
                 <h2>Property-Based Testing: Mathematical Verification</h2>
-                <p>Standard unit tests are "Example-based." Scholarly engineering utilizes <strong>Property-Based Testing</strong> to verify logic invariants across randomly generated datasets.</p>
+                <p>Standard unit tests are "Example-based." Scholarly engineering utilizes <strong>Property-Based Testing</strong> to verify that a function's <em>Properties</em> hold true for hundreds of randomly generated inputs.</p>
                 
+                <div class="note-box">
+                    <strong>Shrinking: Pull</strong>
+                    <p>When a property-based test fails, the engine (like <strong>fast-check</strong> or <strong>Hypothesis</strong>) performs <strong>Shrinking</strong>: it automatically tries to find the smallest, simplest input that still causes the failure.</p>
+                </div>
+
                 <div class="code-block">
                     <pre><code><span class="comment">// Example: fast-check (JavaScript) property test</span>
 <span class="function">fc.assert</span>(
   <span class="function">fc.property</span>(fc.<span class="function">string</span>(), (s) => {
-    <span class="keyword">return</span> <span class="function">reverse</span>(<span class="function">reverse</span>(s)) === s;
+    <span class="keyword">return</span> <span class="function">reverse</span>(<span class="function">reverse</span>(s)) === s; <span class="comment">// Property invariant</span>
   })
 );</code></pre>
                 </div>
@@ -152,40 +181,60 @@
             <!-- 6. Mocking -->
             <section id="mocking-spying" class="lesson-section">
                 <h2>Dependency Isolation: The Theory of Test Doubles</h2>
-                <p>Analyzing <strong>Mocks, Stubs, Spies, Dummies, and Fakes</strong> as mechanisms for isolating the system under test (SUT).</p>
+                <p>Gerard Meszaros categorized Test Doubles into five types: <strong>Mocks, Stubs, Spies, Dummies, and Fakes</strong>. These isolate the system under test from external dependencies like databases or APIs.</p>
             </section>
 
             <!-- 7. Integration & E2E -->
             <section id="cypress-playwright" class="lesson-section">
                 <h2>E2E Testing & Browser Orchestration</h2>
-                <p>Simulating user journeys with <strong>Playwright</strong> and <strong>Cypress</strong>. Professional frameworks solve flakiness via <strong>Auto-Waiting</strong>.</p>
+                <p>Simulating user journeys with <strong>Playwright</strong> or <strong>Cypress</strong>. Professional frameworks solve <strong>Flakiness</strong> via <strong>Auto-Waiting</strong>—retrying assertions until conditions are met.</p>
                 
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://playwright.dev/">Playwright Docs</a></li>
-                        <li><a href="https://docs.cypress.io/">Cypress Docs</a></li>
+                        <li><a href="https://playwright.dev/docs/intro">Playwright Docs</a></li>
+                        <li><a href="https://docs.cypress.io/guides/overview/why-cypress">Cypress: Why Cypress?</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 8. Visual Regression -->
+            <!-- 8. Visual Regression (New) -->
             <section id="visual-regression" class="lesson-section">
                 <h2>Visual Regression Testing: Pixel-Perfect Verification</h2>
-                <p>Functional tests can pass even if the UI is visually broken. We use snapshot diffing to compare rendered UI against a known-good baseline.</p>
+                <p>Functional tests can pass even if the UI is visually broken. <strong>Visual Regression Testing</strong> uses "Snapshot Diffing" to compare the current UI against a known-good baseline image.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.percy.io/">Percy Documentation</a></li>
+                    </ul>
+                </div>
             </section>
 
             <!-- 9. Mutation Testing -->
             <section id="code-coverage" class="lesson-section">
                 <h2>Code Quality Metrics & Mutation Testing</h2>
-                <p><strong>Mutation Testing</strong> introduces code "mutants" to verify test suite quality, ensuring that your tests actually catch bugs.</p>
+                <p>Scholarly code quality is measured by more than just lines hit. <strong>Mutation Testing</strong> introduces code "mutants" to ensure your tests actually detect logic changes.</p>
+                
+                <div class="pro-tip-box">
+                    <strong>Mutation Paradigm: Pull</strong>
+                    <p>If you change a <code>></code> to a <code>>=</code> in your code and all tests still pass, the mutant "survived." This indicates your test suite is weak, even if you have 100% line coverage.</p>
+                </div>
             </section>
 
             <!-- 10. Load Testing -->
             <section id="load-testing" class="lesson-section">
                 <h2>Load, Stress & Performance Engineering</h2>
-                <p>Quantitative analysis of system behavior under workload. Scholarly engineers focus on <strong>p99 Latency</strong> to ensure a stable user experience.</p>
+                <p>Analyzing system behavior under workload. Professional engineers use <strong>k6</strong> to monitor <strong>p99 Latency</strong>, ensuring the system remains responsive for 99% of users.</p>
                 
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: k6 Performance Script</span>
+<span class="keyword">export default</span> <span class="keyword">function</span> () {
+  <span class="keyword">const</span> res = http.<span class="function">get</span>(<span class="string">'https://api.mastery.com/health'</span>);
+  <span class="function">check</span>(res, { <span class="string">'status is 200'</span>: (r) => r.status === <span class="number">200</span> });
+}</code></pre>
+                </div>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>

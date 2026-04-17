@@ -77,18 +77,18 @@ Every subsection MUST contain:
     - [x] ORMs & Abstraction (Impedance Mismatch, ActiveRecord vs Data Mapper)
 
 ## Module 4: Testing Mastery (`testing.html`)
-- [ ] **Theory & Unit**
-    - [ ] Testing Pyramid & Trophy Models
-    - [ ] TDD/BDD (Red-Green-Refactor, Gherkin)
-    - [ ] Unit Testing (AAA Pattern, Jest/Pytest Fixtures)
-    - [ ] Property-Based Testing (Invariants, Shrinking)
-    - [ ] Mocking & Test Doubles (Stub, Spy, Mock, Fake, Dummy)
-- [ ] **System & Quality**
-    - [ ] Integration & Contract Testing (Supertest, Pact)
-    - [ ] E2E & Browser Orchestration (Cypress vs Playwright, CDP, Flakiness)
-    - [ ] Visual Regression (Snapshot Diffing)
-    - [ ] Mutation Testing (Mutation Engines vs Code Coverage)
-    - [ ] Load & Performance (k6, p99 Latency, Stress vs Soak)
+- [x] **Theory & Unit**
+    - [x] Testing Pyramid & Trophy Models
+    - [x] TDD/BDD (Red-Green-Refactor, Gherkin)
+    - [x] Unit Testing (AAA Pattern, Jest/Pytest Fixtures)
+    - [x] Property-Based Testing (Invariants, Shrinking)
+    - [x] Mocking & Test Doubles (Stub, Spy, Mock, Fake, Dummy)
+- [x] **System & Quality**
+    - [x] Integration & Contract Testing (Supertest, Pact)
+    - [x] E2E & Browser Orchestration (Cypress vs Playwright, CDP, Flakiness)
+    - [x] Visual Regression (Snapshot Diffing)
+    - [x] Mutation Testing (Mutation Engines vs Code Coverage)
+    - [x] Load & Performance (k6, p99 Latency, Stress vs Soak)
 
 ## Module 5: DevOps Mastery (`devops.html`)
 - [x] **Infrastructure**
