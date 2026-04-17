@@ -41,24 +41,24 @@ Every subsection MUST contain:
     - [x] Gulp & Orchestration (Streams, Vinyl FS, Task Series/Parallel)
 
 ## Module 2: Backend Mastery (`backend.html`)
-- [ ] **Foundations**
-    - [ ] Programming Logic (Data Types, Control Flow, Determinism)
-    - [ ] Environment Setup (Runtimes, Version Managers, CLI)
-    - [ ] Package Management (Dependency Theory, Lock Files)
-- [ ] **Runtimes**
-    - [ ] Node.js Runtime (Event Loop - Deep, Clustering, Worker Threads)
-    - [ ] Python & Django (GIL, MVT, ORM, Async task queues)
-    - [ ] PHP & Laravel (Service Container, Reflection, Eloquent)
-    - [ ] Go (CSP, Goroutines, Implicit Interfaces, Slices)
-- [ ] **API & Distributed Systems**
-    - [ ] RESTful Services (Roy Fielding Constraints, Idempotency, HATEOAS)
-    - [ ] GraphQL (AST, Resolvers, N+1 Problem, DataLoader)
-    - [ ] Communication Protocols (gRPC, Protobuf)
-    - [ ] Resilience Patterns (Circuit Breaker, Saga, Bulkhead)
-    - [ ] Security (JWT, OAuth2 Grant Types, OIDC)
-- [ ] **Architecture**
-    - [ ] Backend Design Patterns (Microservices vs Monolith, CQRS, Hexagonal)
-    - [ ] Caching & Redis (Memory Hierarchy, Eviction Policies, Consistency)
+- [x] **Foundations**
+    - [x] Programming Logic (Data Types, Control Flow, Determinism)
+    - [x] Environment Setup (Runtimes, Version Managers, CLI)
+    - [x] Package Management (Dependency Theory, Lock Files)
+- [x] **Runtimes**
+    - [x] Node.js Runtime (Event Loop - Deep, Clustering, Worker Threads)
+    - [x] Python & Django (GIL, MVT, ORM, Async task queues)
+    - [x] PHP & Laravel (Service Container, Reflection, Eloquent)
+    - [x] Go (CSP, Goroutines, Implicit Interfaces, Slices)
+- [x] **API & Distributed Systems**
+    - [x] RESTful Services (Roy Fielding Constraints, Idempotency, HATEOAS)
+    - [x] GraphQL (AST, Resolvers, N+1 Problem, DataLoader)
+    - [x] Communication Protocols (gRPC, Protobuf)
+    - [x] Resilience Patterns (Circuit Breaker, Saga, Bulkhead)
+    - [x] Security (JWT, OAuth2 Grant Types, OIDC)
+- [x] **Architecture**
+    - [x] Backend Design Patterns (Microservices vs Monolith, CQRS, Hexagonal)
+    - [x] Caching & Redis (Memory Hierarchy, Eviction Policies, Consistency)
 
 ## Module 3: Database Mastery (`database.html`)
 - [ ] **Foundations**

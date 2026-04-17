@@ -48,17 +48,17 @@
                 <li><a href="#auth-deep-dive" class="nav-link">OAuth2 & OIDC</a></li>
                 <li class="nav-group">Optimization</li>
                 <li><a href="#caching" class="nav-link">Caching & Redis</a></li>
-                <li><a href="#design-patterns" class="nav-link">Backend Patterns</a></li>
+                <li><a href="#design-patterns" class="nav-link">System Architecture</a></li>
             </ul>
         </nav>
 
         <main class="content-area" id="content">
-            <!-- Backend Foundations: The Scholarly Perspective on Logic -->
+            <!-- 1. Backend Foundations -->
             <section id="logic-foundations" class="lesson-section active">
                 <h2>Programming Logic & Backend Data Structures</h2>
                 <p>Backend engineering is the art of <strong>Computational Logic</strong>. Before mastering specific frameworks, a scholar must understand how data is transformed and controlled through memory and logical operations.</p>
                 
-                <h3>1. Variables & Primitive Types</h3>
+                <h3>A. Variables & Primitive Types</h3>
                 <p>In the backend, data types determine memory allocation and performance. Understanding the difference between <strong>Integers</strong>, <strong>Floating-point</strong> numbers, and <strong>Booleans</strong> is foundational.</p>
                 
                 <div class="code-block">
@@ -68,13 +68,9 @@
 <span class="keyword">const</span> total = price * quantity; <span class="comment">// Result: 99.95</span></code></pre>
                 </div>
 
-                <h3>2. Control Flow: Determinism in Action</h3>
+                <h3>B. Control Flow: Determinism in Action</h3>
                 <p>Control flow defines the execution path of a program. Scholarly backend design avoids "Spaghetti Code" by utilizing clean conditional branching and efficient loops.</p>
-                <ul>
-                    <li><strong>Conditionals (if/else, switch):</strong> Used for making decisions based on state.</li>
-                    <li><strong>Iterators (for, while, each):</strong> Used for processing collections of data.</li>
-                </ul>
-
+                
                 <div class="code-block">
                     <pre><code><span class="comment">// Professional Switch Pattern</span>
 <span class="keyword">switch</span> (userRole) {
@@ -85,12 +81,12 @@
                 </div>
             </section>
 
-            <!-- Environment Setup: The Infrastructure Start -->
+            <!-- 2. Environment Setup -->
             <section id="environment-setup" class="lesson-section">
                 <h2>Environment Runtimes & CLI Basics</h2>
                 <p>A backend developer's workshop is the <strong>Command Line Interface (CLI)</strong>. Setting up a local environment requires installing a <strong>Runtime</strong>—the engine that executes your code.</p>
                 
-                <h3>1. Popular Backend Runtimes</h3>
+                <h3>A. Popular Backend Runtimes</h3>
                 <ul>
                     <li><strong>Node.js:</strong> An execution environment for JavaScript outside the browser.</li>
                     <li><strong>Python Interpreter:</strong> Executes Python scripts using the CPython engine.</li>
@@ -103,7 +99,7 @@
                 </div>
             </section>
 
-            <!-- Package Management: The Dependency Tree -->
+            <!-- 3. Package Management -->
             <section id="package-management" class="lesson-section">
                 <h2>Package Management & Dependency Theory</h2>
                 <p>Modern backend development relies on <strong>Open Source Packages</strong>. A Package Manager handles the installation, versioning, and security of these external modules.</p>
@@ -114,813 +110,268 @@
                             <th>Language</th>
                             <th>Package Manager</th>
                             <th>Manifest File</th>
-                            <th>Lock File</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>JavaScript</strong></td>
-                            <td>npm / yarn / pnpm</td>
+                            <td>npm / pnpm</td>
                             <td>package.json</td>
-                            <td>package-lock.json</td>
                         </tr>
                         <tr>
                             <td><strong>Python</strong></td>
                             <td>pip / poetry</td>
                             <td>requirements.txt</td>
-                            <td>poetry.lock</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Go</strong></td>
-                            <td>go mod</td>
-                            <td>go.mod</td>
-                            <td>go.sum</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="pro-tip-box">
                     <strong>The Importance of the Lock File: Pull</strong>
-                    <p>The <strong>Lock File</strong> records the exact version of every dependency (including sub-dependencies). This guarantees that the "Build" is <strong>Deterministic</strong>—the code that runs on your laptop is identical to the code that runs in production.</p>
+                    <p>The <strong>Lock File</strong> records the exact version of every dependency. This guarantees that the build is <strong>Deterministic</strong>—the code that runs on your machine is identical to production.</p>
                 </div>
             </section>
 
-            <!-- Express.js: Enterprise Routing & Control -->
-            <section id="express-js" class="lesson-section">
-                <h2>Express.js: High-Order API Design</h2>
-                <p>Express acts as a minimal, flexible "meta-framework" for Node.js. It provides a thin layer of fundamental web application features without obscuring the core Node.js features.</p>
+            <!-- 4. Node.js Runtime: The Scholarly Perspective -->
+            <section id="node-runtime" class="lesson-section">
+                <h2>Node.js: Architectural Foundations</h2>
+                <p>Node.js is an asynchronous, event-driven JavaScript runtime designed to build scalable network applications. It is built upon the <strong>V8 JavaScript engine</strong> and <strong>Libuv</strong>, a multi-platform support library with a focus on asynchronous I/O.</p>
                 
-                <h3>1. Advanced Routing Concepts</h3>
-                <p>Routing determines how an application responds to a client request to a particular endpoint. Express supports sophisticated regex-based and parameterized routing.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="keyword">const</span> express = <span class="keyword">require</span>(<span class="string">'express'</span>);
-<span class="keyword">const</span> app = <span class="function">express</span>();
+                <h3>A. The V8 Engine & Hidden Classes</h3>
+                <p>V8 compiles JavaScript directly to native machine code using <strong>JIT (Just-In-Time) compilation</strong>. To optimize property access, V8 uses "Hidden Classes" (Shapes), which allow it to bypass expensive hash table lookups.</p>
 
-<span class="comment">// Example: Route Parameters with Validation</span>
-app.<span class="function">get</span>(<span class="string">'/user/:userId([0-9]+)'</span>, (req, res) => {
-    <span class="comment">// Only matches if userId is numeric</span>
-    res.<span class="function">send</span>({ id: req.params.userId });
-});
-
-<span class="comment">// Example: Chained Route Handlers</span>
-app.<span class="function">route</span>(<span class="string">'/book'</span>)
-  .<span class="function">get</span>((req, res) => res.<span class="function">send</span>(<span class="string">'Get a random book'</span>))
-  .<span class="function">post</span>((req, res) => res.<span class="function">send</span>(<span class="string">'Add a book'</span>))
-  .<span class="function">put</span>((req, res) => res.<span class="function">send</span>(<span class="string">'Update the book'</span>));</code></pre>
-                </div>
-            </section>
-
-            <!-- Middleware: The Chain of Responsibility -->
-            <section id="middleware" class="lesson-section">
-                <h2>Middleware: Theoretical & Practical Execution</h2>
-                <p>Middleware follows the <strong>Chain of Responsibility</strong> design pattern. A request moves through a "stack" of functions, each of which can end the request-response cycle or pass control to the next function.</p>
-                
-                <h3>1. Middleware Composition</h3>
-                <p>Professional applications compose multiple middleware layers to handle cross-cutting concerns like logging, authentication, and request sanitization.</p>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. The Logger (Observability)</span>
-<span class="keyword">const</span> <span class="function">logger</span> = (req, res, next) => {
-    req.requestTime = Date.<span class="function">now</span>();
-    <span class="function">next</span>();
-};
-
-<span class="comment">// 2. The Authenticator (Security)</span>
-<span class="keyword">const</span> <span class="function">authenticate</span> = (req, res, next) => {
-    <span class="keyword">const</span> token = req.headers[<span class="string">'x-auth-token'</span>];
-    <span class="keyword">if</span> (!token) <span class="keyword">return</span> res.<span class="function">status</span>(<span class="number">401</span>).<span class="function">send</span>(<span class="string">'Unauthorized'</span>);
-    <span class="function">next</span>();
-};
-
-<span class="comment">// Composition at the route level</span>
-app.<span class="function">get</span>(<span class="string">'/api/secure-data'</span>, logger, authenticate, (req, res) => {
-    res.<span class="function">send</span>({ time: req.requestTime, data: <span class="string">"Secret"</span> });
-});</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>The "next('route')" Trick</strong>
-                    <p>In Express, calling <code>next('route')</code> will skip all remaining middleware in the current router stack and pass control to the next matching route. This is useful for conditional branching in your API logic.</p>
-                </div>
-            </section>
-
-            <!-- Python: The Scholarly Guide -->
-            <section id="python-django" class="lesson-section">
-                <h2>Python: A Comprehensive Scholarly Overview</h2>
-                <p>Python, conceived by Guido van Rossum in the late 1980s, is an interpreted, high-level, general-purpose programming language. Its design philosophy emphasizes <strong>code readability</strong> and a "batteries-included" approach, which has led it to become the lingua franca of data science, artificial intelligence, and scalable backend infrastructure.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>The Zen of Python (PEP 20)</strong>
-                    <p>Python's development is guided by nineteen aphorisms, including: <em>"Beautiful is better than ugly," "Explicit is better than implicit,"</em> and <em>"Readability counts."</em> These principles dictate that there should ideally be one—and preferably only one—obvious way to do it.</p>
-                </div>
-
-                <h3>1. Lexical Structure & Syntax Rules</h3>
-                <p>Unlike languages derived from C, Python utilizes <strong>whitespace indentation</strong> (the Off-side Rule) to delimit blocks, rather than curly braces or keywords. This enforces a uniform visual structure.</p>
-                <ul>
-                    <li><strong>Case Sensitivity:</strong> <code>variable</code> and <code>Variable</code> are distinct identifiers.</li>
-                    <li><strong>Dynamic Typing:</strong> Types are associated with objects, not variable names. A name can be rebound to an object of a different type during execution.</li>
-                    <li><strong>Strong Typing:</strong> Python will not implicitly perform "unsafe" type conversions (e.g., <code>"2" + 2</code> raises a <code>TypeError</code>).</li>
-                </ul>
-
-                <h3>2. Variables, Scoping, and Memory</h3>
-                <p>In Python, variables are not "containers" for values but <strong>references (names)</strong> bound to objects in memory. This is known as <strong>Name Binding</strong>.</p>
+                <h3>B. The Event Loop Mechanics</h3>
+                <p>JavaScript execution is single-threaded, but the <strong>Event Loop</strong> allows Node.js to perform non-blocking I/O operations by offloading tasks to the system kernel or a background thread pool (managed by Libuv).</p>
                 
                 <div class="note-box">
-                    <strong>The LEGB Scoping Rule:</strong>
-                    <p>Python resolves names in a specific order: <strong>Local</strong> (function), <strong>Enclosing</strong> (non-local), <strong>Global</strong> (module), and <strong>Built-in</strong>.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="comment"># Memory introspection</span>
-x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
-y = x  <span class="comment"># y references the same object as x</span>
-<span class="keyword">print</span>(<span class="function">id</span>(x) == <span class="function">id</span>(y)) <span class="comment"># True (Reference Equality)</span></code></pre>
-                </div>
-
-                <h3>3. Built-in Data Structures</h3>
-                <p>Python's core power lies in its highly optimized built-in collections. Understanding their Big O complexity is vital for enterprise-level performance.</p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Structure</th>
-                            <th>Nature</th>
-                            <th>Key Characteristic</th>
-                            <th>Common Complexity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>List</strong></td>
-                            <td>Mutable Sequence</td>
-                            <td>Dynamic Array</td>
-                            <td>Append: O(1) amortized</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tuple</strong></td>
-                            <td>Immutable Sequence</td>
-                            <td>Hashable, Fixed-size</td>
-                            <td>Access: O(1)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Dict</strong></td>
-                            <td>Mutable Mapping</td>
-                            <td>Hash Table implementation</td>
-                            <td>Lookup: O(1) average</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Set</strong></td>
-                            <td>Mutable Collection</td>
-                            <td>Unique elements, Unordered</td>
-                            <td>Membership: O(1)</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>4. Functions & Functional Programming</h3>
-                <p>Functions in Python are <strong>First-Class Citizens</strong>, meaning they can be passed as arguments, returned from other functions, and assigned to variables.</p>
-                
-                <h4>Decorators (Metaprogramming)</h4>
-                <p>Decorators allow developers to modify the behavior of a function or class without permanently changing its source code. They are high-order functions that "wrap" another function.</p>
-                <div class="code-block">
-                    <pre><code><span class="keyword">def</span> <span class="function">debug</span>(func):
-    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
-        <span class="keyword">print</span>(f<span class="string">"Calling {func.__name__}"</span>)
-        <span class="keyword">return</span> <span class="function">func</span>(*args, **kwargs)
-    <span class="keyword">return</span> wrapper
-
-<span class="function">@debug</span>
-<span class="keyword">def</span> <span class="function">add</span>(a, b): <span class="keyword">return</span> a + b</code></pre>
-                </div>
-
-                <h3>5. Object-Oriented Programming (OOP)</h3>
-                <p>In Python, <strong>everything is an object</strong>, including integers and functions. Python supports multiple inheritance and uses <strong>C3 Linearization</strong> for Method Resolution Order (MRO).</p>
-                
-                <div class="pro-tip-box">
-                    <strong>The "Dunder" Methods (Magic Methods)</strong>
-                    <p>Methods like <code>__init__</code> (initializer), <code>__str__</code> (string representation), and <code>__call__</code> (making an object callable) allow objects to hook into Python's core syntax and protocols.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="keyword">class</span> <span class="type">Account</span>:
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, owner, balance=<span class="number">0</span>):
-        self.owner = owner
-        self.<span class="keyword">__balance</span> = balance <span class="comment"># Name Mangling for "Private" attributes</span>
-
-    <span class="function">@property</span>
-    <span class="keyword">def</span> <span class="function">balance</span>(self): <span class="keyword">return</span> self.<span class="keyword">__balance</span></code></pre>
-                </div>
-
-                <h3>6. Iterators & Generators</h3>
-                <p>To handle massive datasets efficiently, Python uses <strong>Lazy Evaluation</strong> via Iterators and Generators. Generators yield values one at a time, maintaining their internal state and significantly reducing memory footprint.</p>
-                <div class="code-block">
-                    <pre><code><span class="keyword">def</span> <span class="function">infinite_sequence</span>():
-    num = <span class="number">0</span>
-    <span class="keyword">while</span> <span class="keyword">True</span>:
-        <span class="keyword">yield</span> num
-        num += <span class="number">1</span></code></pre>
-                </div>
-
-                <div class="note-box">
-                    <strong>Enterprise Perspective:</strong> Python's speed is often criticized, but in professional environments, performance bottlenecks are solved by <strong>Cython</strong>, <strong>PyPy</strong>, or delegating heavy computations to C-based libraries like <strong>NumPy</strong> or <strong>Pandas</strong>.
-                </div>
-            </section>
-
-            <!-- PHP & Laravel: A Scholarly Analysis -->
-            <section id="php-laravel" class="lesson-section">
-                <h2>PHP & Laravel: From Scripting to Enterprise Architecture</h2>
-                <p>PHP (Hypertext Preprocessor), created by Rasmus Lerdorf in 1994, has evolved from a simple set of C binaries into a sophisticated, fast, and statically-typeable language. Powering approximately 77% of the web, its modern iterations (PHP 7.x and 8.x) feature <strong>Just-In-Time (JIT) compilation</strong> and a highly optimized engine (Zend), making it a formidable competitor in the backend space.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>The PHP 8.x Revolution</strong>
-                    <p>Recent versions introduced <strong>Attributes</strong> (native metadata), <strong>Constructor Property Promotion</strong>, and <strong>Match Expressions</strong>, aligning PHP with modern functional and object-oriented standards found in languages like C# and Java.</p>
-                </div>
-
-                <h3>1. Lexical Structure & The Type System</h3>
-                <p>PHP's syntax is heavily influenced by C and Perl. Every variable is prefixed with the <code>$</code> sigil, and the language utilizes <strong>Gradual Typing</strong>, allowing developers to choose between dynamic flexibility and strict type safety.</p>
-                <ul>
-                    <li><strong>Scoping:</strong> Unlike JavaScript, PHP has separate scopes for functions and global variables. Accessing global variables within a function requires the <code>global</code> keyword or the <code>$GLOBALS</code> superglobal.</li>
-                    <li><strong>Strict Types:</strong> By declaring <code>declare(strict_types=1);</code>, developers can enforce rigorous type checking for scalar arguments and return values.</li>
-                </ul>
-
-                <h3>2. The "Everything" Array (Hybrid Data Structure)</h3>
-                <p>One of PHP's most unique features is its <strong>Array</strong> type. Under the hood, it is an ordered map—a hash table that can also act as a list, a stack, a queue, and even a dictionary. Understanding this is critical for memory optimization.</p>
-                
-                <div class="note-box">
-                    <strong>Internal Implementation:</strong>
-                    <p>PHP Arrays use a hash table with a linked list to preserve element order. This provides O(1) average time complexity for both key-based lookup and iteration, though it carries a higher memory overhead than a standard C-style array.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// Hybrid behavior</span>
-$data = [
-    <span class="string">"id"</span> => <span class="number">101</span>,      <span class="comment">// Associative (Map)</span>
-    <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,          <span class="comment">// Indexed (List)</span>
-    <span class="string">"tags"</span> => [<span class="string">"web"</span>] <span class="comment">// Nested</span>
-];</code></pre>
-                </div>
-
-                <h3>3. Object-Oriented PHP & Metaprogramming</h3>
-                <p>Modern PHP supports advanced OOP features, including <strong>Traits</strong> (for horizontal code reuse) and <strong>Anonymous Classes</strong>. It also provides a suite of "Magic Methods" (Interceptors) for metaprogramming.</p>
-                <ul>
-                    <li><strong>Traits:</strong> A mechanism for code reuse in single inheritance languages. They allow a developer to reuse sets of methods freely in several independent classes living in different class hierarchies.</li>
-                    <li><strong>Magic Methods:</strong> <code>__get</code>, <code>__set</code>, and <code>__call</code> allow classes to handle calls to properties or methods that do not exist, facilitating the creation of powerful proxy and decorator patterns.</li>
-                </ul>
-
-                <h3>4. Laravel: The Service Container & DI</h3>
-                <p>Laravel is built upon the <strong>Inversion of Control (IoC)</strong> principle. The <strong>Service Container</strong> is a powerful tool for managing class dependencies and performing dependency injection via <strong>Reflection</strong>.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>Interview Question: How does Laravel's DI work?</strong>
-                    <p>Laravel uses PHP's <strong>Reflection API</strong> to inspect the constructor of a class. When you type-hint a class or interface, the container automatically instantiates the dependency and "injects" it, allowing for highly decoupled and testable code.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// Binding an interface to an implementation</span>
-$this->app-><span class="function">bind</span>(PaymentGateway::class, StripePayment::class);
-
-<span class="comment">// Usage in a Controller</span>
-<span class="keyword">public function</span> <span class="function">store</span>(PaymentGateway $payment) {
-    <span class="comment">// $payment is automatically a StripePayment instance</span>
-}</code></pre>
-                </div>
-
-                <h3>5. Eloquent: The ActiveRecord Protocol</h3>
-                <p>Laravel's ORM, <strong>Eloquent</strong>, implements the ActiveRecord pattern. Every database table has a corresponding "Model" that is used to interact with that table. Eloquent handles relationships (One-to-Many, Polymorphic) through a fluent, object-oriented API.</p>
-
-                <div class="note-box">
-                    <strong>Scholarly Note on Performance:</strong>
-                    <p>While Eloquent is developer-friendly, it can be resource-intensive for massive datasets. Enterprise Laravel developers often switch to the <strong>Query Builder</strong> for complex analytical queries to bypass the object-hydration overhead.</p>
-                </div>
-            </section>
-
-            <!-- Go: The Scholarly Perspective on Systems Engineering -->
-            <section id="go-lang" class="lesson-section">
-                <h2>Go (Golang): Engineering for Scalability and Simplicity</h2>
-                <p>Go, developed at Google by Robert Griesemer, Rob Pike, and Ken Thompson, was designed to address the challenges of large-scale software development. It is a statically typed, compiled language that combines the efficiency of C++ with the safety of Java and the readability of Python. Its design philosophy centers on <strong>orthogonal features</strong>, minimizing complexity and maximizing programmer productivity.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>The Go Philosophy: Less is More</strong>
-                    <p>Go intentionally omits features common in other languages, such as classes, inheritance, and assertions. Instead, it favors composition over inheritance and explicit error handling over exceptions. This leads to code that is highly predictable and easy to maintain at scale.</p>
-                </div>
-
-                <h3>1. Lexical Structure & Visibility</h3>
-                <p>Go's syntax is clean and concise. A unique feature of the language is its approach to <strong>visibility</strong>: there are no <code>public</code> or <code>private</code> keywords. Instead, an identifier's visibility is determined by the capitalization of its first letter.</p>
-                <ul>
-                    <li><strong>Exported:</strong> Identifiers starting with an uppercase letter (e.g., <code>User</code>) are visible outside the package.</li>
-                    <li><strong>Unexported:</strong> Identifiers starting with a lowercase letter (e.g., <code>id</code>) are private to the package.</li>
-                </ul>
-
-                <h3>2. Data Structures: Arrays vs. Slices</h3>
-                <p>Understanding the difference between Arrays and Slices is fundamental to Go's memory management. While an <strong>Array</strong> is a fixed-size sequence of elements, a <strong>Slice</strong> is a descriptor for a contiguous segment of an underlying array.</p>
-                
-                <div class="note-box">
-                    <strong>The Slice Header:</strong>
-                    <p>A slice consists of three components: a pointer to the data, a length (<code>len</code>), and a capacity (<code>cap</code>). Passing a slice to a function is efficient because it only copies the header, not the underlying data.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: Creating and Manipulating Slices</span>
-nums := []<span class="type">int</span>{<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>} <span class="comment">// Slice literal</span>
-nums = <span class="function">append</span>(nums, <span class="number">4</span>)  <span class="comment">// O(1) amortized growth</span>
-
-<span class="comment">// Slicing a slice (shares underlying memory)</span>
-sub := nums[<span class="number">1</span>:<span class="number">3</span>] <span class="comment">// [2, 3]</span></code></pre>
-                </div>
-
-                <h3>3. Concurrency: Communicating Sequential Processes (CSP)</h3>
-                <p>Go's primary strength is its native support for concurrency via <strong>Goroutines</strong> and <strong>Channels</strong>. It follows the CSP model, which emphasizes communication as a means of synchronization.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>Goroutines: Lightweight Concurrency</strong>
-                    <p>A Goroutine is a function executing concurrently with other Goroutines in the same address space. They are multiplexed onto a small number of OS threads by the Go runtime, allowing you to run millions of them with minimal overhead.</p>
-                </div>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: Producer-Consumer Pattern</span>
-<span class="keyword">func</span> <span class="function">producer</span>(ch <span class="keyword">chan</span><- <span class="type">int</span>) {
-    <span class="keyword">for</span> i := <span class="number">0</span>; i < <span class="number">5</span>; i++ { ch <- i }
-    <span class="function">close</span>(ch)
-}
-
-<span class="keyword">func</span> <span class="function">main</span>() {
-    ch := <span class="function">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)
-    <span class="keyword">go</span> <span class="function">producer</span>(ch) <span class="comment">// Spin up goroutine</span>
-    
-    <span class="keyword">for</span> val := <span class="keyword">range</span> ch {
-        fmt.<span class="function">Println</span>(val)
-    }
-}</code></pre>
-                </div>
-
-                <h3>4. Implicit Interfaces & Structural Typing</h3>
-                <p>Go uses <strong>Structural Typing</strong> for interfaces. A type satisfies an interface by simply implementing its methods. There is no <code>implements</code> keyword, which promotes loose coupling and decoupling between packages.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="keyword">type</span> <span class="type">Writer</span> <span class="keyword">interface</span> {
-    <span class="function">Write</span>(p []<span class="type">byte</span>) (n <span class="type">int</span>, err <span class="type">error</span>)
-}
-
-<span class="comment">// Any type with a Write method is a Writer</span>
-<span class="keyword">type</span> <span class="type">File</span> <span class="keyword">struct</span> { name <span class="type">string</span> }
-<span class="keyword">func</span> (f <span class="type">File</span>) <span class="function">Write</span>(p []<span class="type">byte</span>) (<span class="type">int</span>, <span class="type">error</span>) {
-    <span class="comment">// Implementation...</span>
-    <span class="keyword">return</span> <span class="function">len</span>(p), <span class="keyword">nil</span>
-}</code></pre>
-                </div>
-
-                <div class="note-box">
-                    <strong>Standard Library Excellence:</strong> Go's <code>net/http</code> package is capable of handling heavy production loads without an external framework, encouraging the use of standard patterns over framework-specific ones.
-                </div>
-            </section>
-
-            <!-- RESTful Services: The Scholarly Perspective on API Architecture -->
-            <section id="rest-api" class="lesson-section">
-                <h2>RESTful Services: Theoretical Foundations & Enterprise Design</h2>
-                <p>REST (Representational State Transfer) is an architectural style for distributed hypermedia systems, first defined by <strong>Roy Fielding</strong> in his 2000 doctoral dissertation. Unlike SOAP, which is a protocol, REST is a set of <strong>six architectural constraints</strong> that, when followed, result in a system that is scalable, performant, and easily modifiable.</p>
-                
-                <div class="note-box">
-                    <strong>The Six REST Constraints:</strong>
+                    <strong>Phases of the Event Loop:</strong>
                     <ol>
-                        <li><strong>Client-Server:</strong> Separation of concerns between the UI and data storage.</li>
-                        <li><strong>Statelessness:</strong> Each request must contain all information necessary to understand the request.</li>
-                        <li><strong>Cacheability:</strong> Responses must define themselves as cacheable or not.</li>
-                        <li><strong>Layered System:</strong> A client cannot tell if it is connected directly to the end server or an intermediary (like a Load Balancer).</li>
-                        <li><strong>Uniform Interface:</strong> Simplifies and decouples the architecture.</li>
-                        <li><strong>Code on Demand (Optional):</strong> Servers can temporarily extend client functionality by transferring executable code (e.g., JavaScript).</li>
+                        <li><strong>Timers:</strong> Executes <code>setTimeout()</code> and <code>setInterval()</code> callbacks.</li>
+                        <li><strong>Poll:</strong> Retrieves new I/O events; executes I/O related callbacks.</li>
+                        <li><strong>Check:</strong> Executes <code>setImmediate()</code> callbacks.</li>
                     </ol>
                 </div>
 
-                <h3>1. Resource-Oriented Modeling</h3>
-                <p>In REST, the fundamental unit of data is a <strong>Resource</strong>. Every resource is identified by a unique <strong>URI (Uniform Resource Identifier)</strong>. Resources should be named using nouns (plural), never verbs.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Professional Resource Naming</span>
-GET    /users               <span class="comment">// Fetch all users (with pagination)</span>
-POST   /users               <span class="comment">// Create a new user</span>
-GET    /users/123           <span class="comment">// Fetch a specific user</span>
-GET    /users/123/orders    <span class="comment">// Sub-resource: Fetch orders for user 123</span></code></pre>
-                </div>
-
-                <h3>2. The HTTP Protocol as a Uniform Interface</h3>
-                <p>REST leverages the standard HTTP methods to perform operations on resources. Understanding <strong>Safety</strong> and <strong>Idempotency</strong> is critical for professional API design.</p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Method</th>
-                            <th>Action</th>
-                            <th>Safe?</th>
-                            <th>Idempotent?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>GET</strong></td>
-                            <td>Retrieve Resource</td>
-                            <td>Yes</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td><strong>POST</strong></td>
-                            <td>Create Resource</td>
-                            <td>No</td>
-                            <td>No</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PUT</strong></td>
-                            <td>Replace Resource</td>
-                            <td>No</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <td><strong>PATCH</strong></td>
-                            <td>Update Resource</td>
-                            <td>No</td>
-                            <td>No (usually)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>DELETE</strong></td>
-                            <td>Remove Resource</td>
-                            <td>No</td>
-                            <td>Yes</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>3. Example: A Full Request/Response Cycle</h3>
-                <p>A textbook REST interaction involves proper headers, status codes, and a structured body (usually JSON).</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// REQUEST</span>
-POST /api/v1/products HTTP/1.1
-Host: api.mastery.com
-Content-Type: application/json
-Authorization: Bearer <span class="string">token_here</span>
-
-{
-    <span class="string">"name"</span>: <span class="string">"Mechanical Keyboard"</span>,
-    <span class="string">"price"</span>: <span class="number">150.00</span>
-}
-
-<span class="comment">// RESPONSE</span>
-HTTP/1.1 201 Created
-Location: /api/v1/products/789
-Content-Type: application/json
-
-{
-    <span class="string">"id"</span>: <span class="number">789</span>,
-    <span class="string">"status"</span>: <span class="string">"success"</span>
-}</code></pre>
-                </div>
-
-                <h3>4. Advanced Patterns: HATEOAS & Idempotency Keys</h3>
-                <ul>
-                    <li><strong>HATEOAS:</strong> Hypermedia As The Engine Of Application State. The server provides links to other related actions, making the API self-discoverable.</li>
-                    <li><strong>Idempotency Keys:</strong> In distributed systems, a client might retry a <code>POST</code> request due to a network timeout. By sending a <code>X-Idempotency-Key</code> header, the server can ensure the operation is only performed once.</li>
-                </ul>
-
-                <div class="pro-tip-box">
-                    <strong>Enterprise Versioning Strategy</strong>
-                    <p>Avoid breaking changes by versioning your API. The two most common methods are <strong>URL Versioning</strong> (<code>/v1/users</code>) and <strong>Header Versioning</strong> (<code>Accept: application/vnd.mastery.v1+json</code>). URL versioning is generally preferred for its simplicity and cache-friendliness.</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">Node.js: The Event Loop Guide</a></li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- GraphQL: The Scholarly Perspective on Graph-Based Data Retrieval -->
-            <section id="graphql" class="lesson-section">
-                <h2>GraphQL: Strongly-Typed Graph Data Orchestration</h2>
-                <p>GraphQL, developed by Facebook in 2012 and open-sourced in 2015, represents a paradigm shift from the traditional resource-oriented approach of REST to a <strong>Graph-based</strong> data model. It is a query language for APIs and a runtime for fulfilling those queries by using a type system you define for your data.</p>
+            <!-- 5. Node.js Advanced: Beyond the Single Thread -->
+            <section id="node-advanced" class="lesson-section">
+                <h2>Node.js: Clustering & Multi-Core Utilization</h2>
+                <p>While Node.js is single-threaded at the event loop level, enterprise applications must utilize modern <strong>Multi-core CPUs</strong>.</p>
                 
-                <div class="pro-tip-box">
-                    <strong>Theoretical Advantage: Declarative Data Fetching</strong>
-                    <p>In REST, the server defines the shape of the data (endpoint-driven). In GraphQL, the <strong>client defines the shape</strong> of the data (query-driven). This eliminates the chronic issues of <strong>Overfetching</strong> (wasted bandwidth) and <strong>Underfetching</strong> (multiple round-trips).</p>
-                </div>
+                <h3>A. The Cluster Module</h3>
+                <p>Clustering allows you to spawn multiple instances of the Node.js process that share the same server port. This provides <strong>Fault Tolerance</strong>: if one worker crashes, the others continue to serve requests.</p>
 
-                <h3>1. The Type System & Schema Definition Language (SDL)</h3>
-                <p>A GraphQL service is created by defining types and fields on those types. This forms a <strong>Schema</strong>, which acts as a strictly enforced contract between the client and the server.</p>
-                
                 <div class="code-block">
-                    <pre><code><span class="comment">// Example: Textbook Schema Definition</span>
-<span class="keyword">type</span> <span class="type">Author</span> {
-    id: ID!
-    name: String!
-    books: [Book!]! <span class="comment">// A relationship (edge in the graph)</span>
-}
+                    <pre><code><span class="comment">// Example: Basic Clustering</span>
+<span class="keyword">const</span> cluster = <span class="keyword">require</span>(<span class="string">'cluster'</span>);
+<span class="keyword">const</span> numCPUs = <span class="keyword">require</span>(<span class="string">'os'</span>).<span class="function">cpus</span>().length;
 
-<span class="keyword">type</span> <span class="type">Book</span> {
-    id: ID!
-    title: String!
-    genre: Genre
-}
-
-<span class="keyword">enum</span> <span class="type">Genre</span> {
-    SCI_FI
-    FANTASY
-    NON_FICTION
-}
-
-<span class="keyword">type</span> <span class="type">Query</span> {
-    <span class="function">author</span>(id: ID!): Author
+<span class="keyword">if</span> (cluster.isMaster) {
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < numCPUs; i++) cluster.<span class="function">fork</span>();
+} <span class="keyword">else</span> {
+    <span class="comment">// Workers handle the actual HTTP logic</span>
+    http.<span class="function">createServer</span>((req, res) => { ... }).<span class="function">listen</span>(<span class="number">8000</span>);
 }</code></pre>
-                </div>
-
-                <h3>2. Execution Engine: From Query to AST</h3>
-                <p>When a GraphQL server receives a query, it doesn't just execute it. It passes through three distinct phases:</p>
-                <ul>
-                    <li><strong>Parsing:</strong> The query string is parsed into an <strong>Abstract Syntax Tree (AST)</strong>.</li>
-                    <li><strong>Validation:</strong> The AST is validated against the schema to ensure type safety and field existence.</li>
-                    <li><strong>Execution:</strong> The server traverses the AST and calls <strong>Resolvers</strong> for each field.</li>
-                </ul>
-
-                <h3>3. Resolvers & The N+1 Problem</h3>
-                <p>A resolver is a function that populates the data for a single field in the schema. Because resolvers are executed independently, fetching a list of items and their relationships can lead to the <strong>N+1 Query Problem</strong>.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Naive Resolver (The N+1 Trap)</span>
-<span class="keyword">const</span> resolvers = {
-    Author: {
-        <span class="function">books</span>: (author) => {
-            <span class="comment">// If fetching 10 authors, this hits the DB 10 times!</span>
-            <span class="keyword">return</span> db.books.<span class="function">find</span>({ authorId: author.id });
-        }
-    }
-};</code></pre>
                 </div>
 
                 <div class="note-box">
-                    <strong>Enterprise Solution: The Data Loader Pattern</strong>
-                    <p>To solve N+1 in GraphQL, we use <strong>DataLoader</strong>. It collects all requests for a specific resource during a single execution tick, <strong>batches</strong> them into a single database query (e.g., <code>WHERE id IN (...)</code>), and <strong>caches</strong> the results for the duration of the request.</p>
-                </div>
-
-                <h3>4. Mutations & Real-time Subscriptions</h3>
-                <p>GraphQL handles data modification through <strong>Mutations</strong> and real-time event streaming through <strong>Subscriptions</strong> (usually implemented over WebSockets).</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: A Mutation with Variables</span>
-mutation <span class="function">CreateBook</span>($title: String!, $authorId: ID!) {
-    <span class="function">addBook</span>(title: $title, authorId: $authorId) {
-        id
-        title
-    }
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Scholarly Note on Introspection</strong>
-                    <p>One of GraphQL's most powerful features is <strong>Introspection</strong>. A client can query the server for its own schema (e.g., <code>query { __schema { types { name } } }</code>). This enables powerful developer tools like GraphiQL and automatic documentation generation.</p>
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://nodejs.org/api/cluster.html">Node.js: Cluster API</a></li>
+                        <li><a href="https://nodejs.org/api/worker_threads.html">Node.js: Worker Threads</a></li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- Authentication: The Scholarly Perspective on Identity & Access -->
-            <section id="authentication" class="lesson-section">
-                <h2>Authentication & Cryptographic Identity</h2>
-                <p>In secure systems engineering, we distinguish between <strong>Authentication (AuthN)</strong>—the process of verifying a user's identity—and <strong>Authorization (AuthZ)</strong>—the process of verifying what an authenticated user is permitted to do. Modern web architectures favor <strong>Stateless Authentication</strong> using JSON Web Tokens (JWT) to ensure horizontal scalability across distributed services.</p>
+            <!-- 6. Express.js -->
+            <section id="express-js" class="lesson-section">
+                <h2>Express.js: High-Order API Design</h2>
+                <p>Express acts as a minimal, flexible "meta-framework" for Node.js, providing a thin layer of fundamental web features.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Route Parameters with Validation</span>
+app.<span class="function">get</span>(<span class="string">'/user/:userId([0-9]+)'</span>, (req, res) => {
+    <span class="comment">// Only matches if userId is numeric</span>
+    res.<span class="function">send</span>({ id: req.params.userId });
+});</code></pre>
+                </div>
+            </section>
+
+            <!-- 7. Middleware -->
+            <section id="middleware" class="lesson-section">
+                <h2>Middleware: The Chain of Responsibility</h2>
+                <p>Middleware follows the <strong>Chain of Responsibility</strong> design pattern. A request moves through a "stack" of functions until it is terminated.</p>
+            </section>
+
+            <!-- 8. gRPC & Protocol Buffers -->
+            <section id="communication-protocols" class="lesson-section">
+                <h2>gRPC: High-Performance Service Communication</h2>
+                <p>In microservices, REST's text-based JSON overhead can be a bottleneck. <strong>gRPC</strong> is a high-performance, universal RPC framework developed by Google.</p>
+                
+                <h3>A. Protocol Buffers (Protobuf)</h3>
+                <p>Protobuf is gRPC's binary interface definition language. It is <strong>Smaller, Faster, and Stronger</strong> than JSON, offering strictly typed contracts between services.</p>
+
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Proto3 Definition</span>
+syntax = <span class="string">"proto3"</span>;
+message UserRequest { int32 id = <span class="number">1</span>; }
+service UserService { rpc GetUser(UserRequest) returns (UserResponse); }</code></pre>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://grpc.io/docs/what-is-grpc/introduction/">gRPC: Introduction</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 9. Distributed Resilience Patterns -->
+            <section id="distributed-patterns" class="lesson-section">
+                <h2>Resilience Patterns: Circuit Breakers & Sagas</h2>
+                <p>In distributed systems, failures are inevitable. We use specific patterns to prevent a single failure from cascading.</p>
+                
+                <h3>A. The Circuit Breaker Pattern</h3>
+                <p>When a downstream service fails, the Circuit Breaker "opens" and immediately returns an error, preventing the application from wasting resources.</p>
+                
+                <h3>B. The Saga Pattern</h3>
+                <p>Manages <strong>Distributed Transactions</strong> across microservices through local transactions and <strong>Compensating Transactions</strong> (rollbacks) if a step fails.</p>
+            </section>
+
+            <!-- 10. Python: The Scholarly Guide -->
+            <section id="python-django" class="lesson-section">
+                <h2>Python: A Comprehensive Scholarly Overview</h2>
+                <p>Python is an interpreted, high-level language known for <strong>code readability</strong>. It is the lingua franca of data science and scalable backend infrastructure.</p>
+                
+                <h3>A. Lexical Structure & The GIL</h3>
+                <p>Python uses <strong>whitespace indentation</strong> to delimit blocks. A critical scholarly concept is the <strong>GIL (Global Interpreter Lock)</strong>: a mutex that allows only one thread to execute bytecode at a time, protecting memory but limiting CPU-bound multithreading.</p>
+                
+                <h3>B. Memory & Scoping (LEGB)</h3>
+                <p>Python resolves names in a specific order: <strong>Local</strong>, <strong>Enclosing</strong>, <strong>Global</strong>, and <strong>Built-in</strong>.</p>
+
+                <div class="code-block">
+                    <pre><code><span class="comment">// 3. Enterprise: Optimized Decorator (Staff-level)</span>
+<span class="keyword">def</span> <span class="function">memoize</span>(func):
+    cache = {}
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args):
+        <span class="keyword">if</span> args <span class="keyword">not in</span> cache: cache[args] = <span class="function">func</span>(*args)
+        <span class="keyword">return</span> cache[args]
+    <span class="keyword">return</span> wrapper</code></pre>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.python.org/3/reference/datamodel.html">Python: Data Model</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 11. PHP & Laravel: Scholarly Analysis -->
+            <section id="php-laravel" class="lesson-section">
+                <h2>PHP & Laravel: From Scripting to Enterprise Architecture</h2>
+                <p>Modern PHP (8.x) features <strong>JIT compilation</strong> and a highly optimized engine. Laravel elevates it with the <strong>Service Container</strong> and <strong>Dependency Injection</strong> via Reflection.</p>
+                
+                <div class="note-box">
+                    <strong>The "Everything" Array:</strong>
+                    <p>Under the hood, a PHP Array is an ordered map—a hash table that preserves element order. This provides O(1) average lookup but carries higher memory overhead.</p>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://laravel.com/docs/container">Laravel: Service Container</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 12. Go: Systems Engineering -->
+            <section id="go-lang" class="lesson-section">
+                <h2>Go (Golang): Engineering for Scalability</h2>
+                <p>Designed at Google, Go combines the efficiency of C++ with the safety of Java. It excels in concurrency via the <strong>CSP (Communicating Sequential Processes)</strong> model.</p>
+                
+                <h3>A. Goroutines & Channels</h3>
+                <p>Goroutines are lightweight threads multiplexed onto OS threads. <strong>Channels</strong> allow goroutines to communicate without sharing memory.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://go.dev/doc/effective_go">Effective Go</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 13. RESTful Services -->
+            <section id="rest-api" class="lesson-section">
+                <h2>RESTful Services: Theoretical Foundations</h2>
+                <p>REST is an architectural style defined by <strong>Roy Fielding</strong>. It relies on <strong>six constraints</strong> including Statelessness and a Uniform Interface.</p>
+                
+                <h3>A. Idempotency Keys</h3>
+                <p>In distributed systems, a client might retry a <code>POST</code> request. By sending an <strong>Idempotency Key</strong>, the server ensures the operation is only performed once.</p>
+            </section>
+
+            <!-- 14. GraphQL -->
+            <section id="graphql" class="lesson-section">
+                <h2>GraphQL: Strongly-Typed Graph Retrieval</h2>
+                <p>A paradigm shift from resource-oriented to <strong>Graph-based</strong> fetching. It eliminates <strong>Overfetching</strong> by allowing the client to define the data shape.</p>
+                
+                <h3>A. The Data Loader Pattern</h3>
+                <p>Solves the <strong>N+1 Problem</strong> by batching independent requests into a single database query during the execution tick.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://graphql.org/learn/">GraphQL: Learning Guide</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 15. OAuth2 & OIDC -->
+            <section id="auth-deep-dive" class="lesson-section">
+                <h2>Security: OAuth2 & OpenID Connect (OIDC)</h2>
+                <p>While JWTs represent claims, <strong>OAuth2</strong> is the protocol for authorization. <strong>OIDC</strong> adds an identity layer (the <code>id_token</code>) on top of OAuth2.</p>
                 
                 <div class="pro-tip-box">
-                    <strong>HTTP Status Codes: 401 vs. 403</strong>
+                    <strong>Grant Types: Authorization Code vs. Client Credentials Pull</strong>
                     <ul>
-                        <li><strong>401 Unauthorized:</strong> "I don't know who you are." (Authentication failure).</li>
-                        <li><strong>403 Forbidden:</strong> "I know who you are, but you don't have permission for this." (Authorization failure).</li>
+                        <li><strong>Auth Code with PKCE:</strong> Standard for web/mobile apps (protects against code injection).</li>
+                        <li><strong>Client Credentials:</strong> Used for secure machine-to-machine communication.</li>
                     </ul>
                 </div>
 
-                <h3>1. JWT Anatomy (RFC 7519)</h3>
-                <p>A JWT is a compact, URL-safe means of representing claims. It is composed of three Base64URL-encoded parts, separated by periods (<code>.</code>):</p>
-                <ul>
-                    <li><strong>Header:</strong> Specifies the token type and the hashing algorithm used (e.g., HS256, RS256).</li>
-                    <li><strong>Payload:</strong> Contains the <strong>Claims</strong>—statements about the user (e.g., <code>sub</code> for user ID, <code>exp</code> for expiration).</li>
-                    <li><strong>Signature:</strong> Used to verify that the sender is who they say they are and to ensure the message wasn't changed along the way.</li>
-                </ul>
-
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: A Decoded JWT Payload</span>
-{
-  <span class="string">"sub"</span>: <span class="string">"1234567890"</span>,
-  <span class="string">"name"</span>: <span class="string">"John Doe"</span>,
-  <span class="string">"iat"</span>: <span class="number">1516239022</span>,
-  <span class="string">"exp"</span>: <span class="number">1516242622</span>,
-  <span class="string">"role"</span>: <span class="string">"admin"</span>
-}</code></pre>
-                </div>
-
-                <h3>2. Cryptographic Signing: Symmetric vs. Asymmetric</h3>
-                <p>Enterprise systems must choose between <strong>HS256</strong> (Symmetric: shared secret) and <strong>RS256</strong> (Asymmetric: Private/Public key pair).</p>
-                
                 <div class="note-box">
-                    <strong>The RS256 Advantage:</strong>
-                    <p>In a microservices architecture, the Auth Service uses a <strong>Private Key</strong> to sign tokens, while all other services use the <strong>Public Key</strong> to verify them. This prevents other services from ever being able to forge a token if they are compromised.</p>
-                </div>
-
-                <h3>3. Security: Where to Store the Token?</h3>
-                <p>The storage of tokens involves a critical trade-off between two primary web vulnerabilities:</p>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Storage Method</th>
-                            <th>Primary Threat</th>
-                            <th>Defense Mechanism</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>LocalStorage</strong></td>
-                            <td><strong>XSS</strong> (Cross-Site Scripting)</td>
-                            <td>Content Security Policy (CSP)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>HttpOnly Cookie</strong></td>
-                            <td><strong>CSRF</strong> (Cross-Site Request Forgery)</td>
-                            <td>SameSite: Strict + CSRF Tokens</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>4. Modern Password Hashing: Argon2 & Bcrypt</h3>
-                <p>Passwords must never be stored in plaintext or using "fast" hashes like MD5 or SHA-256. Modern protocols use <strong>Salted Adaptive Hashes</strong>.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Professional Hashing with Argon2 (The OWASP Recommendation)</span>
-<span class="keyword">const</span> argon2 = <span class="keyword">require</span>(<span class="string">'argon2'</span>);
-
-<span class="keyword">async function</span> <span class="function">securePassword</span>(password) {
-  <span class="comment">// Argon2 automatically handles salting and is memory-hard</span>
-  <span class="keyword">const</span> hash = <span class="keyword">await</span> argon2.<span class="function">hash</span>(password, {
-    type: argon2.argon2id,
-    memoryCost: <span class="number">2</span> ** <span class="number">16</span>, <span class="comment">// 64MB</span>
-    timeCost: <span class="number">3</span>
-  });
-  <span class="keyword">return</span> hash;
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Refresh Token Rotation</strong>
-                    <p>To mitigate the risk of a stolen long-lived refresh token, implement <strong>Rotation</strong>: every time a refresh token is used to get a new access token, the old refresh token is invalidated and a new one is issued. If an old token is reused, the entire session is revoked as it indicates a potential theft.</p>
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://oauth.net/2/">OAuth 2.0 Official</a></li>
+                        <li><a href="https://openid.net/connect/">OpenID Connect Official</a></li>
+                    </ul>
                 </div>
             </section>
 
-            <!-- Caching: The Scholarly Perspective on Performance Optimization -->
+            <!-- 16. Caching & Redis -->
             <section id="caching" class="lesson-section">
                 <h2>Caching & In-Memory Data Systems</h2>
-                <p>Caching is an optimization technique based on the <strong>Principle of Locality</strong>: the tendency of a processor to access the same set of memory locations repetitively over a short period (Temporal Locality) or to access storage locations that are near each other (Spatial Locality). In backend architecture, caching mitigates the <strong>Latency Gap</strong> between high-speed CPU registers/RAM and relatively slow persistent storage (SSDs/HDDs).</p>
-                
-                <div class="note-box">
-                    <strong>The Memory Hierarchy & Latency</strong>
-                    <p>In a typical enterprise system, a memory access (RAM) takes ~100ns, while a disk seek can take ~10,000,000ns. Caching effectively moves "hot" data up the hierarchy to reduce the average memory access time (AMAT).</p>
-                </div>
-
-                <h3>1. Redis: Beyond a Simple Key-Value Store</h3>
-                <p>Redis (Remote Dictionary Server) is an open-source, in-memory <strong>Data Structure Store</strong>. Unlike simple caches like Memcached, Redis supports complex data types, each optimized for specific algorithmic complexities.</p>
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Data Type</th>
-                            <th>Internal Structure</th>
-                            <th>Enterprise Use Case</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Strings</strong></td>
-                            <td>Binary-safe sequences</td>
-                            <td>Session tokens, HTML fragments</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Lists</strong></td>
-                            <td>Linked Lists</td>
-                            <td>Message queues (LPUSH/RPOP)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sets</strong></td>
-                            <td>Hash Tables</td>
-                            <td>Unique visitor tracking, Tagging</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sorted Sets</strong></td>
-                            <td>Skip Lists + Hash Tables</td>
-                            <td>Real-time leaderboards, Rate limiting</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Hashes</strong></td>
-                            <td>Hash Tables</td>
-                            <td>Representing objects (e.g., User profiles)</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>2. Caching Patterns & Consistency Models</h3>
-                <p>Maintaining <strong>Cache Coherence</strong> (ensuring the cache matches the database) is one of the "Two Hard Things" in Computer Science. The choice of pattern depends on the application's tolerance for stale data.</p>
-
-                <h4>A. Cache-Aside (Lazy Loading)</h4>
-                <div class="code-block">
-                    <pre><code><span class="keyword">async function</span> <span class="function">getUser</span>(id) {
-    <span class="comment">// 1. Try to fetch from cache</span>
-    <span class="keyword">let</span> user = <span class="keyword">await</span> redis.<span class="function">get</span>(<span class="string">`user:${id}`</span>);
-    
-    <span class="keyword">if</span> (user) <span class="keyword">return</span> JSON.<span class="function">parse</span>(user); <span class="comment">// Cache Hit</span>
-    
-    <span class="comment">// 2. Cache Miss: Fetch from DB</span>
-    user = <span class="keyword">await</span> db.users.<span class="function">findById</span>(id);
-    
-    <span class="comment">// 3. Update cache for next time</span>
-    <span class="keyword">await</span> redis.<span class="function">setex</span>(<span class="string">`user:${id}`</span>, <span class="number">3600</span>, JSON.<span class="function">stringify</span>(user));
-    <span class="keyword">return</span> user;
-}</code></pre>
-                </div>
-
-                <h4>B. Write-Through & Write-Behind</h4>
-                <p>In <strong>Write-Through</strong>, the application updates the cache and the database synchronously, ensuring immediate consistency. In <strong>Write-Behind (Write-Back)</strong>, the application updates the cache and acknowledges the user immediately, while a background process asynchronously syncs the database, maximizing write performance.</p>
-
-                <h3>3. Eviction Policies & Memory Management</h3>
-                <p>When the cache reaches its memory limit, it must "evict" data. Enterprise systems use sophisticated algorithms to decide what to discard:</p>
-                <ul>
-                    <li><strong>LRU (Least Recently Used):</strong> Discards the items not accessed for the longest time.</li>
-                    <li><strong>LFU (Least Frequently Used):</strong> Discards items based on how often they are accessed.</li>
-                    <li><strong>TTL (Time To Live):</strong> Hard expiration dates on keys to prevent stale data buildup.</li>
-                </ul>
-
-                <h3>4. Distributed Caching Challenges</h3>
-                <div class="pro-tip-box">
-                    <strong>The "Thundering Herd" Problem (Cache Stampede)</strong>
-                    <p>When a heavily accessed key expires, multiple application instances may simultaneously detect the miss and attempt to regenerate the data from the database, potentially crashing it. <strong>Solution:</strong> Use "Jitter" (randomized TTL) and distributed locking (Redlock) to ensure only one process updates the cache.</p>
-                </div>
-
-                <h3>5. Redis Persistence: RDB vs. AOF</h3>
-                <p>While Redis is in-memory, it provides two mechanisms for durability:</p>
-                <ul>
-                    <li><strong>RDB (Redis Database):</strong> Periodic point-in-time snapshots. Faster for restarts but risks losing data since the last snapshot.</li>
-                    <li><strong>AOF (Append Only File):</strong> Logs every write operation. Extremely durable but results in larger files and slower recovery times.</li>
-                </ul>
+                <p>Caching leverages the <strong>Principle of Locality</strong> to reduce latency. Redis provides optimized data types for real-time performance.</p>
             </section>
 
-            <!-- Backend Patterns: The Scholarly Perspective on System Architecture -->
+            <!-- 17. System Architecture -->
             <section id="design-patterns" class="lesson-section">
-                <h2>Backend Design Patterns & System Architecture</h2>
-                <p>System architecture is the conceptual model that defines the structure and behavior of a backend system. Modern software engineering has shifted from <strong>Monolithic</strong> designs to <strong>Decoupled</strong> and <strong>Distributed</strong> patterns to meet the demands of global scale and rapid deployment cycles.</p>
+                <h2>Backend Design Patterns & Architecture</h2>
+                <p>Exploration of <strong>Monolith vs. Microservices</strong>, the Fallacies of Distributed Computing, and patterns like <strong>CQRS</strong> and <strong>Event Sourcing</strong>.</p>
                 
                 <div class="note-box">
-                    <strong>The Fallacies of Distributed Computing</strong>
-                    <p>When moving away from a monolith, engineers must acknowledge eight false assumptions, including: <em>"The network is reliable," "Latency is zero,"</em> and <em>"Bandwidth is infinite."</em> Ignoring these leads to fragile systems that fail under real-world conditions.</p>
-                </div>
-
-                <h3>1. Monolith vs. Microservices</h3>
-                <p>The choice between these two is a trade-off between <strong>Operational Simplicity</strong> and <strong>Scalability</strong>.</p>
-                <ul>
-                    <li><strong>Monolithic Architecture:</strong> A single, indivisible unit where the UI, business logic, and data access layer are tightly coupled. It is easier to test and deploy initially but becomes a "Big Ball of Mud" as the codebase grows.</li>
-                    <li><strong>Microservices Architecture:</strong> A suite of small, independent services, each running in its own process and communicating via lightweight mechanisms (REST, gRPC). This allows for <strong>Polyglot Persistence</strong> (using different databases for different services).</li>
-                </ul>
-
-                <h3>2. Serverless & Function-as-a-Service (FaaS)</h3>
-                <p>Serverless architecture abstracts the underlying infrastructure entirely. Developers write discrete functions that are executed in response to events (HTTP requests, file uploads, database changes).</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: AWS Lambda (FaaS) implementation</span>
-<span class="keyword">exports</span>.<span class="function">handler</span> = <span class="keyword">async</span> (event) => {
-    <span class="keyword">const</span> data = JSON.<span class="function">parse</span>(event.body);
-    <span class="comment">// Business logic here...</span>
-    <span class="keyword">return</span> {
-        statusCode: <span class="number">200</span>,
-        body: JSON.<span class="function">stringify</span>({ message: <span class="string">"Processed successfully"</span> })
-    };
-};</code></pre>
-                </div>
-
-                <h3>3. Event-Driven Architecture (EDA)</h3>
-                <p>EDA is a pattern where the flow of the program is determined by events. It utilizes <strong>Message Brokers</strong> (e.g., Apache Kafka, RabbitMQ) to facilitate asynchronous communication between services, ensuring <strong>Temporal Decoupling</strong>.</p>
-                
-                <div class="pro-tip-box">
-                    <strong>Pub/Sub vs. Message Queues</strong>
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><strong>Message Queue (1:1):</strong> One message is consumed by exactly one consumer (e.g., Job Processing).</li>
-                        <li><strong>Pub/Sub (1:N):</strong> One event is broadcast to multiple subscribers who act on it independently (e.g., User Signup triggering "Welcome Email" AND "Analytics Update").</li>
+                        <li><a href="https://microservices.io/">Microservices Patterns</a></li>
                     </ul>
                 </div>
-
-                <h3>4. CQRS & Event Sourcing</h3>
-                <p>In high-scale systems, the data model for writing is often vastly different from the model needed for complex reads. <strong>CQRS (Command Query Responsibility Segregation)</strong> addresses this by splitting the application into two paths.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Command Side (Write): Optimized for consistency</span>
-<span class="keyword">function</span> <span class="function">updateOrder</span>(orderId, items) {
-    db.orders.<span class="function">update</span>({ id: orderId }, { $set: { items } });
-    <span class="comment">// Emit 'OrderUpdated' event</span>
-}
-
-<span class="comment">// 2. Query Side (Read): Optimized for fast retrieval</span>
-<span class="keyword">function</span> <span class="function">getOrderSummary</span>(orderId) {
-    <span class="comment">// Fetches from a pre-calculated, flattened Read View</span>
-    <span class="keyword">return</span> elasticsearch.<span class="function">get</span>(<span class="string">`order_summary:${orderId}`</span>);
-}</code></pre>
-                </div>
-
-                <div class="note-box">
-                    <strong>Event Sourcing:</strong> Instead of storing the <em>current state</em>, you store the <em>sequence of events</em> that led to that state. This provides a perfect audit log and allows you to "reconstruct" the state of the system at any specific point in history.
-                </div>
-
-                <h3>5. Hexagonal Architecture (Ports and Adapters)</h3>
-                <p>The goal of Hexagonal Architecture is to keep the <strong>Core Domain Logic</strong> isolated from external concerns like databases, UI, and third-party APIs. The core interacts with "Ports," and "Adapters" (e.g., a SQL Adapter) implement those ports.</p>
             </section>
         </main>
     </div>
