@@ -106,13 +106,13 @@ Every subsection MUST contain:
     - [x] Observability (Metrics, Logs, Traces, Golden Signals)
 
 ## Module 6: Career Mastery (`career.html`)
-- [ ] **Interview & Portfolio**
-    - [ ] System Design (Blueprint framework, QPS/Storage estimation)
-    - [ ] DSA Patterns (Sliding Window, DP, Two Pointers, Big O)
-    - [ ] Behavioral (STAR method, EQ, Conflict Resolution)
-    - [ ] Portfolio & OSS (Proof-of-Work, Technical Branding)
-    - [ ] Resume Engineering (Google Formula, ATS theory)
-- [ ] **Professionalism**
-    - [ ] Salary Negotiation (BATNA, ZOPA, Information Asymmetry)
-    - [ ] Developer Productivity (Flow State, Context Switching cost)
-    - [ ] Team Collaboration (Agile theory, Scrum vs Kanban, Psych Safety)
+- [x] **Interview & Portfolio**
+    - [x] System Design (Blueprint framework, QPS/Storage estimation)
+    - [x] DSA Patterns (Sliding Window, DP, Two Pointers, Big O)
+    - [x] Behavioral (STAR method, EQ, Conflict Resolution)
+    - [x] Portfolio & OSS (Proof-of-Work, Technical Branding)
+    - [x] Resume Engineering (Google Formula, ATS theory)
+- [x] **Professionalism**
+    - [x] Salary Negotiation (BATNA, ZOPA, Information Asymmetry)
+    - [x] Developer Productivity (Flow State, Context Switching cost)
+    - [x] Team Collaboration (Agile theory, Scrum vs Kanban, Psych Safety)

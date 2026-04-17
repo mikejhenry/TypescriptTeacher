@@ -45,16 +45,33 @@
             <!-- 1. System Design -->
             <section id="system-design" class="lesson-section active">
                 <h2>System Design: Architectural Blueprinting at Scale</h2>
-                <p>System Design evaluates your ability to build complex, scalable systems. Scholarly design focuses on <strong>Load Balancing</strong>, <strong>Consistency vs. Availability</strong>, and identifying <strong>Single Points of Failure (SPOF)</strong>.</p>
+                <p>System Design is the process of defining the architecture, modules, and data flow for a system to satisfy specified requirements. In scholarly engineering, we move beyond simple "box and arrow" diagrams to a rigorous analysis of <strong>Scalability</strong>, <strong>Reliability</strong>, and <strong>Maintainability</strong>.</p>
                 
                 <div class="note-box">
-                    <strong>The Systematic Framework:</strong>
-                    <ol>
-                        <li><strong>Requirements:</strong> Functional vs. Non-functional.</li>
-                        <li><strong>Scale:</strong> Estimating QPS and Storage.</li>
-                        <li><strong>APIs:</strong> Defining the service contract.</li>
-                        <li><strong>Data Model:</strong> Relational vs. Non-relational mapping.</li>
-                    </ol>
+                    <strong>The Scaling Paradigm: Vertical vs. Horizontal</strong>
+                    <ul>
+                        <li><strong>Vertical Scaling (Scaling Up):</strong> Increasing the capacity of a single machine (CPU, RAM). It is limited by hardware ceilings and represents a single point of failure.</li>
+                        <li><strong>Horizontal Scaling (Scaling Out):</strong> Adding more machines to the network. This is the foundation of <strong>Cloud-Native</strong> architecture and requires a <strong>Load Balancer</strong> to distribute traffic.</li>
+                    </ul>
+                </div>
+
+                <h3>A. The Systematic Framework</h3>
+                <p>Professional system design follows a 7-step pedagogical approach:</p>
+                <ol>
+                    <li><strong>Requirements Clarification:</strong> Defining functional and non-functional goals.</li>
+                    <li><strong>Back-of-the-envelope Estimation:</strong> Calculating <strong>QPS (Queries Per Second)</strong> and storage needs.</li>
+                    <li><strong>API Interface Definition:</strong> Designing the contract between services.</li>
+                    <li><strong>Data Model Definition:</strong> Choosing between Relational (SQL) and Non-Relational (NoSQL).</li>
+                    <li><strong>High-Level Design:</strong> Mapping the flow from Client to Database.</li>
+                    <li><strong>Detailed Component Design:</strong> Deep dives into Caching, DB Indexing, and Load Balancing.</li>
+                    <li><strong>Bottleneck Identification:</strong> Addressing Single Points of Failure (SPOF).</li>
+                </ol>
+
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Back-of-the-envelope Calculation</span>
+<span class="comment">// Daily Active Users (DAU): 100 Million. Read Ratio: 100:1.</span>
+<span class="comment">// 100M * 100 requests / 86400 seconds ≈ 115,000 QPS.</span>
+<span class="comment">// Conclusion: Requires intensive caching (Redis) and DB Read Replicas.</span></code></pre>
                 </div>
 
                 <div class="note-box">
@@ -67,48 +84,84 @@
 
             <!-- 2. DSA Patterns -->
             <section id="dsa-patterns" class="lesson-section">
-                <h2>Algorithmic Design Paradigms & Big O</h2>
-                <p>DSA forms the mathematical foundation of software efficiency. Professional mastery focuses on <strong>Big O Notation</strong>—the asymptotic analysis of time and space complexity.</p>
+                <h2>Algorithmic Design Paradigms & Big O Complexity</h2>
+                <p>Data Structures and Algorithms (DSA) form the mathematical foundation of software efficiency. Professional mastery focuses on <strong>Big O Notation</strong>—the asymptotic analysis of time and space complexity.</p>
                 
+                <h3>A. Core Design Paradigms</h3>
+                <ul>
+                    <li><strong>Divide and Conquer:</strong> Breaking a problem into sub-problems (e.g., Merge Sort).</li>
+                    <li><strong>Dynamic Programming (DP):</strong> Solving sub-problems and storing results (<strong>Memoization</strong>).</li>
+                    <li><strong>Greedy Algorithms:</strong> Making the locally optimal choice at each stage.</li>
+                    <li><strong>Backtracking:</strong> Incremental building of candidates; discarding those that fail constraints.</li>
+                </ul>
+
                 <div class="code-block">
-                    <pre><code><span class="comment">// Example: Sliding Window Pattern (O(n) vs O(n^2))</span>
-<span class="keyword">function</span> <span class="function">maxSum</span>(arr, k) {
-    <span class="keyword">let</span> max = <span class="number">0</span>, window = <span class="number">0</span>;
-    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i<arr.length; i++) {
-        window += arr[i];
-        <span class="keyword">if</span>(i >= k-<span class="number">1</span>) {
-            max = Math.<span class="function">max</span>(max, window);
-            window -= arr[i-(k-<span class="number">1</span>)];
+                    <pre><code><span class="comment">// Example: Sliding Window Pattern (O(n) complexity)</span>
+<span class="keyword">function</span> <span class="function">maxSubarraySum</span>(arr, k) {
+    <span class="keyword">let</span> maxSum = <span class="number">0</span>, windowSum = <span class="number">0</span>;
+    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i < arr.length; i++) {
+        windowSum += arr[i];
+        <span class="keyword">if</span> (i >= k - <span class="number">1</span>) {
+            maxSum = Math.<span class="function">max</span>(maxSum, windowSum);
+            windowSum -= arr[i - (k - <span class="number">1</span>)];
         }
     }
-    <span class="keyword">return</span> max;
+    <span class="keyword">return</span> maxSum;
 }</code></pre>
                 </div>
             </section>
 
             <!-- 3. Behavioral -->
             <section id="behavioral-star" class="lesson-section">
-                <h2>Behavioral Engineering: EQ & The STAR Method</h2>
-                <p>Navigating conflict and leadership via the <strong>STAR (Situation, Task, Action, Result)</strong> framework. Scholars focus on <strong>Interest-Based Negotiation</strong> and data-driven outcomes.</p>
+                <h2>Behavioral Engineering: EQ & The STAR Narrative</h2>
+                <p>Behavioral interviews evaluate how you navigate ambiguity, resolve conflict, and lead without authority using the <strong>STAR Method</strong>.</p>
+                
+                <div class="note-box">
+                    <strong>The STAR Method Logic Framework:</strong>
+                    <ul>
+                        <li><strong>Situation:</strong> Set the context precisely (10%).</li>
+                        <li><strong>Task:</strong> Describe the conflict or constraint at stake.</li>
+                        <li><strong>Action:</strong> The "Meat" (60%). Detail the specific steps <strong>you</strong> took.</li>
+                        <li><strong>Result:</strong> Quantify the outcome (e.g., "Reduced latency by 20%").</li>
+                    </ul>
+                </div>
+
+                <div class="pro-tip-box">
+                    <strong>The "Disagree and Commit" Principle: Pull</strong>
+                    <p>High-performing teams debate rigorously, but once a decision is made, everyone commits 100% to its success to prevent organizational friction.</p>
+                </div>
             </section>
 
             <!-- 4. Portfolio -->
             <section id="github-presence" class="lesson-section">
-                <h2>Portfolio & GitHub: Digital Proof-of-Work</h2>
-                <p>Your GitHub is your verifiable resume. Scholarly branding involves contributing to <strong>Open Source Software (OSS)</strong> and maintaining clear architectural documentation.</p>
-            </section>
-
-            <!-- 5. Resume -->
-            <section id="resume-strategy" class="lesson-section">
-                <h2>Resume Engineering: The Google Formula</h2>
-                <p>Impact-based metrics: <em>"Accomplished [X] as measured by [Y], by doing [Z]."</em> Essential for passing through <strong>ATS (Applicant Tracking Systems)</strong>.</p>
-            </section>
-
-            <!-- 6. Salary Negotiation -->
-            <section id="salary-negotiation" class="lesson-section">
-                <h2>Salary Negotiation: The Theory of BATNA</h2>
-                <p>Negotiation point of power: <strong>Best Alternative to a Negotiated Agreement</strong>. Identifying the <strong>ZOPA</strong> (Zone of Possible Agreement).</p>
+                <h2>Portfolio & GitHub: Proof-of-Work in the Digital Age</h2>
+                <p>Your GitHub profile serves as a verifiable record of your coding style, documentation skills, and consistency.</p>
                 
+                <div class="code-block">
+                    <pre><code><span class="comment"># Elements of a Professional GitHub README</span>
+1. **The "Why"**: Problem the project solves.
+2. **Architecture**: Diagram explaining component interaction.
+3. **Setup**: One-command initialization (e.g., `docker-compose up`).
+4. **Testing**: Proof of correctness (e.g., `npm test`).</code></pre>
+                </div>
+            </section>
+
+            <!-- 5. Resume Strategy -->
+            <section id="resume-strategy" class="lesson-section">
+                <h2>Resume Engineering: Impact over Activity</h2>
+                <p>A professional resume is a technical specification of your impact. Use the <strong>Google Formula</strong>: <em>"Accomplished [X] as measured by [Y], by doing [Z]."</em></p>
+                
+                <div class="pro-tip-box">
+                    <strong>Impact Example: Pull</strong>
+                    <p>"Improved application responsiveness by 40% (X), as measured by LCP scores (Y), through implementation of code-splitting across the React component tree (Z)."</p>
+                </div>
+            </section>
+
+            <!-- 6. Salary Negotiation (New Chapter) -->
+            <section id="salary-negotiation" class="lesson-section">
+                <h2>Salary Negotiation: The Theory of BATNA & ZOPA</h2>
+                <p>Negotiation point of power is built on the <strong>BATNA (Best Alternative to a Negotiated Agreement)</strong>. Identifying the <strong>ZOPA (Zone of Possible Agreement)</strong> is critical for successful outcomes.</p>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
@@ -118,23 +171,30 @@
                 </div>
             </section>
 
-            <!-- 7. Productivity -->
+            <!-- 7. Developer Productivity (New Chapter) -->
             <section id="productivity-flow" class="lesson-section">
-                <h2>Developer Productivity: The Cost of Context Switching</h2>
-                <p>Engineering focus requires <strong>Flow State</strong>. Scholars guard "Deep Work" blocks and minimize interruptions to increase cognitive impact.</p>
-                
+                <h2>Developer Productivity: Flow State & Context Switching</h2>
+                <p>Engineering is high-cognitive work. Scholarly productivity focuses on <strong>Flow State</strong> and minimizing the 23-minute cost of <strong>Context Switching</strong>.</p>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
                         <li><a href="http://www.paulgraham.com/makersschedule.html">Paul Graham: Maker's Schedule</a></li>
+                        <li><a href="https://www.calnewport.com/books/deep-work/">Cal Newport: Deep Work</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 8. Collaboration -->
+            <!-- 8. Networking -->
+            <section id="networking" class="lesson-section">
+                <h2>Networking & The Developer Ecosystem</h2>
+                <p>Professional growth is accelerated by integration into the global developer community through peer review and mentorship.</p>
+            </section>
+
+            <!-- 9. Team Collaboration -->
             <section id="collaboration" class="lesson-section">
                 <h2>Agile Methodologies & Team Dynamics</h2>
-                <p>Iterative development via <strong>Scrum</strong> or <strong>Kanban</strong>. The importance of <strong>Psychological Safety</strong> for high-performing engineering teams.</p>
+                <p>Scholarly collaboration centers on <strong>Agile Theory</strong> (Scrum vs. Kanban) and the foundation of <strong>Psychological Safety</strong>.</p>
             </section>
         </main>
     </div>
