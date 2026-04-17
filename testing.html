@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Testing Mastery | Full Stack Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="back-link">← Home</a>
+            <h1 class="site-title">Testing Mastery</h1>
+            <nav class="top-nav">
+                <a href="frontend.html">Frontend</a>
+                <a href="backend.html">Backend</a>
+                <a href="database.html">Database</a>
+                <a href="testing.html" class="active">Testing</a>
+                <a href="devops.html">DevOps</a>
+                <a href="career.html">Career</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-links">
+                <li class="nav-group">Fundamental Concepts</li>
+                <li><a href="#testing-pyramid" class="nav-link active">The Testing Pyramid</a></li>
+                <li><a href="#test-types" class="nav-link">Unit vs. Integration vs. E2E</a></li>
+                <li><a href="#tdd-approach" class="nav-link">TDD & BDD</a></li>
+                <li class="nav-group">Unit Testing</li>
+                <li><a href="#jest-js" class="nav-link">Jest & AAA Pattern</a></li>
+                <li><a href="#property-based" class="nav-link">Property-Based Testing</a></li>
+                <li><a href="#mocking-spying" class="nav-link">Mocking & Test Doubles</a></li>
+                <li class="nav-group">Integration & E2E</li>
+                <li><a href="#api-testing" class="nav-link">API Contract Testing</a></li>
+                <li><a href="#cypress-playwright" class="nav-link">Cypress & Playwright</a></li>
+                <li><a href="#visual-regression" class="nav-link">Visual Regression</a></li>
+                <li class="nav-group">Quality & Automation</li>
+                <li><a href="#code-coverage" class="nav-link">Mutation Testing</a></li>
+                <li><a href="#load-testing" class="nav-link">Load & Perf Testing</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area" id="content">
+            <!-- Testing Foundations -->
+            <section id="testing-pyramid" class="lesson-section active">
+                <h2>Software Testing Theory & The Testing Pyramid</h2>
+                <p>The <strong>Testing Pyramid</strong> Blueprints a balanced test suite. Enterprise modernism adds <strong>The Testing Trophy</strong> focused on Integration.</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://martinfowler.com/articles/practical-test-pyramid.html">Practical Test Pyramid</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Test Types -->
+            <section id="test-types" class="lesson-section">
+                <h2>The Taxonomy of Automated Testing</h2>
+                <p>Categorization from atomized <strong>Unit Tests</strong> to system-wide <strong>End-to-End (E2E)</strong> flows.</p>
+            </section>
+
+            <!-- TDD/BDD -->
+            <section id="tdd-approach" class="lesson-section">
+                <h2>Methodologies: TDD, BDD, and Gherkin</h2>
+                <p>Writing tests before code (Red-Green-Refactor) and behavioral specifications using <strong>Gherkin Syntax</strong>.</p>
+            </section>
+
+            <!-- Jest -->
+            <section id="jest-js" class="lesson-section">
+                <h2>Unit Testing: Structural Integrity & The AAA Pattern</h2>
+                <p><strong>Arrange, Act, Assert</strong> is the scholarly standard for unit verification.</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://jestjs.io/">Jest Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Property-Based -->
+            <section id="property-based" class="lesson-section">
+                <h2>Property-Based Testing: Mathematical Verification</h2>
+                <p>Testing logic invariants across randomly generated datasets with <strong>fast-check</strong>.</p>
+            </section>
+
+            <!-- Mocking -->
+            <section id="mocking-spying" class="lesson-section">
+                <h2>Dependency Isolation: Test Doubles</h2>
+                <p>Analyzing <strong>Mocks, Stubs, and Spies</strong> as mechanisms for isolating components.</p>
+            </section>
+
+            <!-- E2E -->
+            <section id="cypress-playwright" class="lesson-section">
+                <h2>E2E Testing & Browser Orchestration</h2>
+                <p>Simulating user journeys with <strong>Playwright</strong> and the Chrome DevTools Protocol.</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://playwright.dev/">Playwright Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Visual Regression -->
+            <section id="visual-regression" class="lesson-section">
+                <h2>Visual Regression Testing: Pixel-Perfect Verification</h2>
+                <p>Snapshot diffing engines like <strong>Percy</strong> for identifying visual regressions.</p>
+            </section>
+
+            <!-- Mutation Testing -->
+            <section id="code-coverage" class="lesson-section">
+                <h2>Code Quality Metrics & Mutation Testing</h2>
+                <p>Verifying test suite efficacy by introducing code "mutants."</p>
+            </section>
+
+            <!-- Performance Testing -->
+            <section id="load-testing" class="lesson-section">
+                <h2>Load, Stress & Performance Engineering</h2>
+                <p>Quantitative analysis of <strong>Throughput</strong> and <strong>p99 Latency</strong> using <strong>k6</strong>.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Full Stack Mastery Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

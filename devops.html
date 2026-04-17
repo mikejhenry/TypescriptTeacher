@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DevOps Mastery | Full Stack Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="back-link">← Home</a>
+            <h1 class="site-title">DevOps Mastery</h1>
+            <nav class="top-nav">
+                <a href="frontend.html">Frontend</a>
+                <a href="backend.html">Backend</a>
+                <a href="database.html">Database</a>
+                <a href="testing.html">Testing</a>
+                <a href="devops.html" class="active">DevOps</a>
+                <a href="career.html">Career</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-links">
+                <li class="nav-group">Infrastructure Core</li>
+                <li><a href="#linux-internals" class="nav-link active">Linux & Shell Theory</a></li>
+                <li><a href="#docker" class="nav-link">Docker & Containers</a></li>
+                <li><a href="#kubernetes" class="nav-link">Kubernetes (K8s)</a></li>
+                <li class="nav-group">CI/CD Pipelines</li>
+                <li><a href="#github-actions" class="nav-link">GitHub Actions</a></li>
+                <li><a href="#jenkins" class="nav-link">Jenkins</a></li>
+                <li class="nav-group">Cloud & Security</li>
+                <li><a href="#aws-core" class="nav-link">AWS Core Services</a></li>
+                <li><a href="#cloud-security" class="nav-link">Identity & IAM</a></li>
+                <li><a href="#terraform" class="nav-link">Terraform (IaC)</a></li>
+                <li class="nav-group">Observability & FaaS</li>
+                <li><a href="#serverless-mechanics" class="nav-link">Serverless & FaaS</a></li>
+                <li><a href="#monitoring" class="nav-link">Monitoring & Logging</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area" id="content">
+            <!-- Linux Internals -->
+            <section id="linux-internals" class="lesson-section active">
+                <h2>Linux Internals & The Shell Workshop</h2>
+                <p>DevOps begins at the operating system level. Understanding <strong>Kernel-space</strong> vs. <strong>User-space</strong> is fundamental.</p>
+                <div class="code-block">
+                    <pre><code><span class="comment"># Example: Linux Permissions</span>
+<span class="keyword">chmod</span> 755 deploy.sh <span class="comment"># rwx for owner</span></code></pre>
+                </div>
+            </section>
+
+            <!-- Docker -->
+            <section id="docker" class="lesson-section">
+                <h2>Docker: OS-Level Virtualization & Containers</h2>
+                <p>Containers virtualize the <strong>Software Environment</strong> using Linux Namespaces and Cgroups.</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.docker.com/">Docker Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Kubernetes -->
+            <section id="kubernetes" class="lesson-section">
+                <h2>Kubernetes (K8s): Distributed Orchestration</h2>
+                <p>The <strong>Controller Pattern</strong> reconciles actual state with desired state (Etcd).</p>
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://kubernetes.io/docs/home/">Kubernetes Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- GitHub Actions -->
+            <section id="github-actions" class="lesson-section">
+                <h2>Continuous Integration & Delivery (CI/CD) Architecture</h2>
+                <p>Automation of the software lifecycle using <strong>Pipeline-as-Code</strong>.</p>
+            </section>
+
+            <!-- Jenkins -->
+            <section id="jenkins" class="lesson-section">
+                <h2>Jenkins: Enterprise Task Orchestration</h2>
+                <p>Self-hosted automation server utilizing a <strong>Groovy DSL</strong> for complex pipelines.</p>
+            </section>
+
+            <!-- AWS Architecture -->
+            <section id="aws-core" class="lesson-section">
+                <h2>Cloud Computing & The AWS Architecture</h2>
+                <p>Understanding the <strong>Shared Responsibility Model</strong> and core IaaS services.</p>
+            </section>
+
+            <!-- Cloud Security -->
+            <section id="cloud-security" class="lesson-section">
+                <h2>Cloud Security: Identity & Access Management (IAM)</h2>
+                <p>Implementing the <strong>Principle of Least Privilege</strong> via RBAC.</p>
+            </section>
+
+            <!-- Terraform -->
+            <section id="terraform" class="lesson-section">
+                <h2>Terraform: Infrastructure as Code (IaC) Theory</h2>
+                <p>Declarative infrastructure management using <strong>HCL</strong> and idempotent state tracking.</p>
+            </section>
+
+            <!-- Serverless Mechanics -->
+            <section id="serverless-mechanics" class="lesson-section">
+                <h2>Serverless Mechanics: Cold Starts & Memory</h2>
+                <p>FaaS theory and optimization strategies like Provisioned Concurrency.</p>
+            </section>
+
+            <!-- Observability -->
+            <section id="monitoring" class="lesson-section">
+                <h2>Observability: Metrics, Logs & Traces</h2>
+                <p>Implementation of the <strong>Three Pillars</strong> and Google's <strong>Four Golden Signals</strong>.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Full Stack Mastery Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

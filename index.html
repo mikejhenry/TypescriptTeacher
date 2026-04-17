@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Full Stack Mastery | The Complete Path</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-page">
+    <header class="main-header">
+        <div class="header-container">
+            <h1 class="site-title">Full Stack Mastery</h1>
+            <div class="search-container">
+                <input type="text" id="global-search" placeholder="Search curriculum (e.g. LSM Tree, V8)..." aria-label="Search">
+                <div id="search-results" class="search-results-dropdown"></div>
+            </div>
+            <nav class="top-nav">
+                <a href="frontend.html">Frontend</a>
+                <a href="backend.html">Backend</a>
+                <a href="database.html">Database</a>
+                <a href="testing.html">Testing</a>
+                <a href="devops.html">DevOps</a>
+                <a href="career.html">Career</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="hero-section">
+        <div class="hero-content">
+            <h1>Scholarly Full Stack Engineering</h1>
+            <p>Moving beyond basic tutorials to deep architectural mastery. Designed for Senior and Staff-level engineering trajectories.</p>
+        </div>
+
+        <!-- Pedagogy Section -->
+        <div class="pedagogy-section">
+            <h2>The Scholarly Pedagogy</h2>
+            <p>Unlike standard documentation, this platform utilizes a <strong>Theoretical-First Approach</strong>. We don't just teach you <em>how</em> to write code; we teach you the <em>first principles</em>—the computer science foundations, mathematical trade-offs, and architectural paradigms—that govern modern enterprise systems.</p>
+        </div>
+
+        <!-- Enterprise Learning Path -->
+        <div class="stack-map-container">
+            <h3>Enterprise Learning Path & Prerequisites</h3>
+            <div class="learning-path-viz">
+                <div class="path-node" data-prereq="None">
+                    <span class="node-title">Foundations</span>
+                    <span class="node-desc">HTML5 Internals, Browser Architecture</span>
+                </div>
+                <div class="path-arrow">↘</div>
+                <div class="path-node" data-prereq="Foundations">
+                    <span class="node-title">Data Mastery</span>
+                    <span class="node-desc">Relational Theory, Indexing, CAP Theorem</span>
+                </div>
+                <div class="path-arrow">↘</div>
+                <div class="path-node" data-prereq="Data Mastery">
+                    <span class="node-title">Backend Architecture</span>
+                    <span class="node-desc">Distributed Systems, Event Loops, Concurrency</span>
+                </div>
+                <div class="path-arrow">↘</div>
+                <div class="path-node" data-prereq="Backend Architecture">
+                    <span class="node-title">DevOps & Scale</span>
+                    <span class="node-desc">Containerization, K8s, Observability</span>
+                </div>
+            </div>
+            <p class="diagram-caption">A structured trajectory from browser internals to distributed infrastructure.</p>
+        </div>
+
+        <!-- Domain Cards -->
+        <div class="domain-grid">
+            <a href="frontend.html" class="domain-card">
+                <div class="card-icon">🎨</div>
+                <h3>Frontend</h3>
+                <p>Master UI/UX with React, Angular, and advanced TypeScript.</p>
+            </a>
+            <a href="backend.html" class="domain-card">
+                <div class="card-icon">⚙️</div>
+                <h3>Backend</h3>
+                <p>Build scalable APIs with Node, Python, and system design.</p>
+            </a>
+            <a href="database.html" class="domain-card">
+                <div class="card-icon">💾</div>
+                <h3>Database</h3>
+                <p>Data modeling, SQL joins, sharding, and ACID properties.</p>
+            </a>
+            <a href="testing.html" class="domain-card">
+                <div class="card-icon">🧪</div>
+                <h3>Testing</h3>
+                <p>Unit, integration, and E2E testing for enterprise stability.</p>
+            </a>
+            <a href="devops.html" class="domain-card">
+                <div class="card-icon">🚀</div>
+                <h3>DevOps</h3>
+                <p>CI/CD, AWS Cloud, Docker, and infrastructure as code.</p>
+            </a>
+            <a href="career.html" class="domain-card">
+                <div class="card-icon">💼</div>
+                <h3>Career</h3>
+                <p>System design, STAR method, and soft skills for engineers.</p>
+            </a>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Full Stack Mastery Platform. Built for the modern engineer.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

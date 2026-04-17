@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Database Mastery | Full Stack Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a href="index.html" class="back-link">← Home</a>
+            <h1 class="site-title">Database Mastery</h1>
+            <nav class="top-nav">
+                <a href="frontend.html">Frontend</a>
+                <a href="backend.html">Backend</a>
+                <a href="database.html" class="active">Database</a>
+                <a href="testing.html">Testing</a>
+                <a href="devops.html">DevOps</a>
+                <a href="career.html">Career</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <nav class="sidebar" id="sidebar">
+            <ul class="nav-links">
+                <li class="nav-group">Database Foundations</li>
+                <li><a href="#db-intro" class="nav-link active">What is a Database?</a></li>
+                <li><a href="#schema-basics" class="nav-link">Schema & Table Design</a></li>
+                <li><a href="#basic-crud" class="nav-link">Basic CRUD Operations</a></li>
+                <li class="nav-group">Relational (SQL)</li>
+                <li><a href="#sql-fundamentals" class="nav-link">SQL Fundamentals</a></li>
+                <li><a href="#advanced-sql" class="nav-link">Advanced SQL (CTEs)</a></li>
+                <li><a href="#acid-properties" class="nav-link">ACID Properties</a></li>
+                <li><a href="#joins-normalization" class="nav-link">Joins & Normalization</a></li>
+                <li><a href="#indexing" class="nav-link">Indexing & Tuning</a></li>
+                <li class="nav-group">Specialized Storage</li>
+                <li><a href="#search-engine-theory" class="nav-link">Search Engine Theory</a></li>
+                <li><a href="#mongodb" class="nav-link">Document: MongoDB</a></li>
+                <li><a href="#redis-deep" class="nav-link">Key-Value: Redis</a></li>
+                <li><a href="#wide-column" class="nav-link">Wide-Column & Graph</a></li>
+                <li class="nav-group">Distributed Architecture</li>
+                <li><a href="#cap-theorem" class="nav-link">The CAP Theorem</a></li>
+                <li><a href="#sharding-replication" class="nav-link">Sharding & Consensus</a></li>
+                <li><a href="#orm-vs-sql" class="nav-link">ORMs & Abstraction</a></li>
+            </ul>
+        </nav>
+
+        <main class="content-area" id="content">
+            <!-- Database Foundations -->
+            <section id="db-intro" class="lesson-section active">
+                <h2>Introduction to Databases & Persistence Theory</h2>
+                <p>A database is an organized collection of structured information. In scholarly terms, it solves the <strong>Persistence Problem</strong>: reliably storing data beyond an application's lifecycle.</p>
+                
+                <h3>1. Database Management Systems (DBMS)</h3>
+                <p>A DBMS is software for interacting with users and applications to capture and analyze data.</p>
+                <ul>
+                    <li><strong>Relational (RDBMS):</strong> Structured tables (e.g., PostgreSQL, MySQL).</li>
+                    <li><strong>Non-Relational (NoSQL):</strong> Flexible document/graph formats (e.g., MongoDB, Redis).</li>
+                </ul>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://www.postgresql.org/docs/">PostgreSQL Official Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Schema Basics -->
+            <section id="schema-basics" class="lesson-section">
+                <h2>Schema Design & Table Creation</h2>
+                <p>A <strong>Schema</strong> is the blueprint defining data structure. We use <code>CREATE TABLE</code> to define columns and <strong>Data Types</strong>.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">-- Example: Creating a Table</span>
+<span class="keyword">CREATE TABLE</span> users (
+    id <span class="type">SERIAL PRIMARY KEY</span>,
+    username <span class="type">VARCHAR(50) UNIQUE NOT NULL</span>,
+    email <span class="type">VARCHAR(255) UNIQUE NOT NULL</span>,
+    created_at <span class="type">TIMESTAMP DEFAULT CURRENT_TIMESTAMP</span>
+);</code></pre>
+                </div>
+            </section>
+
+            <!-- Basic CRUD -->
+            <section id="basic-crud" class="lesson-section">
+                <h2>Basic CRUD Operations: INSERT, SELECT, UPDATE, DELETE</h2>
+                <p>CRUD represents the four basic persistent storage operations, mapping directly to SQL commands.</p>
+            </section>
+
+            <!-- SQL Fundamentals -->
+            <section id="sql-fundamentals" class="lesson-section">
+                <h2>SQL: Relational Algebra & Data Definition</h2>
+                <p>SQL is the declarative implementation of <strong>Relational Algebra</strong>. Queries are operations on mathematical sets.</p>
+            </section>
+
+            <!-- Advanced SQL -->
+            <section id="advanced-sql" class="lesson-section">
+                <h2>Advanced SQL: Analytic Functions & Complex State</h2>
+                <p>Enterprise reporting uses <strong>Window Functions</strong> and <strong>Common Table Expressions (CTEs)</strong> for complex data analysis.</p>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://www.postgresql.org/docs/current/queries-with.html">PostgreSQL: CTEs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ACID Properties -->
+            <section id="acid-properties" class="lesson-section">
+                <h2>ACID Theory & Transactional Integrity</h2>
+                <p>The ACID model ensures consistency through <strong>Atomicity, Consistency, Isolation, and Durability</strong>.</p>
+            </section>
+
+            <!-- Indexing & Tuning -->
+            <section id="indexing" class="lesson-section">
+                <h2>Indexing Architecture & Internal Tuning</h2>
+                <p>Scholarly indexing focuses on <strong>B+ Trees</strong> and <strong>LSM Trees</strong>. Tuning includes <strong>Buffer Pools</strong> and <strong>Vacuuming</strong>.</p>
+            </section>
+
+            <!-- Search Engine Theory -->
+            <section id="search-engine-theory" class="lesson-section">
+                <h2>Search Engine Theory: Full-Text & Inverted Indexing</h2>
+                <p>Search engines like Elasticsearch utilize the <strong>Inverted Index</strong> to map tokens to Document IDs.</p>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html">Elasticsearch Docs</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MongoDB -->
+            <section id="mongodb" class="lesson-section">
+                <h2>MongoDB: The Document Paradigm</h2>
+                <p>MongoDB uses the <strong>WiredTiger</strong> engine and BSON storage for horizontal scalability.</p>
+            </section>
+
+            <!-- Redis -->
+            <section id="redis-deep" class="lesson-section">
+                <h2>Redis: In-Memory Data Structure Mastery</h2>
+                <p>In-memory performance with persistence models like <strong>RDB</strong> and <strong>AOF</strong>.</p>
+            </section>
+
+            <!-- Wide-Column & Graph -->
+            <section id="wide-column" class="lesson-section">
+                <h2>Advanced NoSQL: Wide-Column & Graph Theory</h2>
+                <p>Cassandra's <strong>Ring Architecture</strong> and Neo4j's <strong>Index-free Adjacency</strong>.</p>
+            </section>
+
+            <!-- CAP Theorem -->
+            <section id="cap-theorem" class="lesson-section">
+                <h2>The CAP & PACELC Theorems</h2>
+                <p>Foundational trade-offs in distributed data systems between Consistency and Availability.</p>
+            </section>
+
+            <!-- Sharding & Replication -->
+            <section id="sharding-replication" class="lesson-section">
+                <h2>Sharding, Replication & Distributed Consensus</h2>
+                <p>Distributed state management using algorithms like <strong>Raft</strong> and <strong>Paxos</strong>.</p>
+            </section>
+
+            <!-- ORMs -->
+            <section id="orm-vs-sql" class="lesson-section">
+                <h2>Abstraction Layers: ORMs & The Impedance Mismatch</h2>
+                <p>Patterns like <strong>ActiveRecord</strong> and <strong>Data Mapper</strong> to bridge objects and tables.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Full Stack Mastery Platform. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
