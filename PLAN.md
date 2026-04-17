@@ -61,20 +61,20 @@ Every subsection MUST contain:
     - [x] Caching & Redis (Memory Hierarchy, Eviction Policies, Consistency)
 
 ## Module 3: Database Mastery (`database.html`)
-- [ ] **Foundations**
-    - [ ] Persistence Theory (ACID vs BASE)
-    - [ ] Schema & Table Design (Data Types, Normal Forms 1NF-BCNF)
-    - [ ] Basic CRUD Operations (Mapping to DML)
-- [ ] **Relational & Performance**
-    - [ ] SQL Fundamentals (Relational Algebra, Sargability)
-    - [ ] Advanced SQL (CTEs, Window Functions)
-    - [ ] Indexing & Tuning (B+ Trees vs LSM, Buffer Pools, Vacuuming)
-- [ ] **Specialized & Distributed**
-    - [ ] NoSQL Ecosystem (Document, Key-Value, Wide-Column, Graph)
-    - [ ] Search Engine Theory (Inverted Index, Tokenization)
-    - [ ] CAP & PACELC Theorems
-    - [ ] Sharding & Consensus (Raft/Paxos, Quorum Mechanics)
-    - [ ] ORMs & Abstraction (Impedance Mismatch, ActiveRecord vs Data Mapper)
+- [x] **Foundations**
+    - [x] Persistence Theory (ACID vs BASE)
+    - [x] Schema & Table Design (Data Types, Normal Forms 1NF-BCNF)
+    - [x] Basic CRUD Operations (Mapping to DML)
+- [x] **Relational & Performance**
+    - [x] SQL Fundamentals (Relational Algebra, Sargability)
+    - [x] Advanced SQL (CTEs, Window Functions)
+    - [x] Indexing & Tuning (B+ Trees vs LSM, Buffer Pools, Vacuuming)
+- [x] **Specialized & Distributed**
+    - [x] NoSQL Ecosystem (Document, Key-Value, Wide-Column, Graph)
+    - [x] Search Engine Theory (Inverted Index, Tokenization)
+    - [x] CAP & PACELC Theorems
+    - [x] Sharding & Consensus (Raft/Paxos, Quorum Mechanics)
+    - [x] ORMs & Abstraction (Impedance Mismatch, ActiveRecord vs Data Mapper)
 
 ## Module 4: Testing Mastery (`testing.html`)
 - [ ] **Theory & Unit**

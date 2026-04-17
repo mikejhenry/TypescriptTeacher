@@ -49,33 +49,39 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- Database Foundations -->
+            <!-- 1. Database Foundations -->
             <section id="db-intro" class="lesson-section active">
                 <h2>Introduction to Databases & Persistence Theory</h2>
-                <p>A database is an organized collection of structured information. In scholarly terms, it solves the <strong>Persistence Problem</strong>: reliably storing data beyond an application's lifecycle.</p>
+                <p>A database is an organized collection of structured information. In scholarly terms, a database solves the <strong>Persistence Problem</strong>: how to reliably store and retrieve data so that it survives beyond the lifecycle of a single application process.</p>
                 
-                <h3>1. Database Management Systems (DBMS)</h3>
-                <p>A DBMS is software for interacting with users and applications to capture and analyze data.</p>
+                <h3>A. Database Management Systems (DBMS)</h3>
+                <p>Professional engineering distinguishes between two primary categories:</p>
                 <ul>
-                    <li><strong>Relational (RDBMS):</strong> Structured tables (e.g., PostgreSQL, MySQL).</li>
-                    <li><strong>Non-Relational (NoSQL):</strong> Flexible document/graph formats (e.g., MongoDB, Redis).</li>
+                    <li><strong>Relational (RDBMS):</strong> Data organized into tables with predefined schemas (e.g., PostgreSQL, MySQL).</li>
+                    <li><strong>Non-Relational (NoSQL):</strong> Data stored in flexible formats like documents, graphs, or key-value pairs (e.g., MongoDB, Redis).</li>
                 </ul>
+
+                <div class="note-box">
+                    <strong>The Persistence Gap: Pull</strong>
+                    <p>While you could store data in a simple file, databases provide <strong>Concurrency Control</strong>, <strong>Security</strong>, <strong>Crash Recovery</strong>, and <strong>Efficient Querying</strong>. Without a DBMS, handling millions of simultaneous users would result in catastrophic data corruption.</p>
+                </div>
 
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.postgresql.org/docs/">PostgreSQL Official Docs</a></li>
+                        <li><a href="https://www.postgresql.org/docs/current/intro-whatis.html">PostgreSQL: What is a Relational Database?</a></li>
+                        <li><a href="https://www.mongodb.com/nosql-explained">MongoDB: NoSQL Explained</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Schema Basics -->
+            <!-- 2. Schema Basics -->
             <section id="schema-basics" class="lesson-section">
                 <h2>Schema Design & Table Creation</h2>
-                <p>A <strong>Schema</strong> is the blueprint defining data structure. We use <code>CREATE TABLE</code> to define columns and <strong>Data Types</strong>.</p>
+                <p>A <strong>Schema</strong> is the formal blueprint that defines how data is structured. In SQL, we use <strong>DDL (Data Definition Language)</strong> to create these structures.</p>
                 
                 <div class="code-block">
-                    <pre><code><span class="comment">-- Example: Creating a Table</span>
+                    <pre><code><span class="comment">-- Example: Creating a Scholarly Table</span>
 <span class="keyword">CREATE TABLE</span> users (
     id <span class="type">SERIAL PRIMARY KEY</span>,
     username <span class="type">VARCHAR(50) UNIQUE NOT NULL</span>,
@@ -85,90 +91,134 @@
                 </div>
             </section>
 
-            <!-- Basic CRUD -->
+            <!-- 3. Basic CRUD -->
             <section id="basic-crud" class="lesson-section">
                 <h2>Basic CRUD Operations: INSERT, SELECT, UPDATE, DELETE</h2>
-                <p>CRUD represents the four basic persistent storage operations, mapping directly to SQL commands.</p>
+                <p>CRUD is the foundation of data manipulation. These operations map directly to <strong>DML (Data Manipulation Language)</strong> commands.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">-- Create, Read, Update, Delete</span>
+<span class="keyword">INSERT INTO</span> users (username) <span class="keyword">VALUES</span> (<span class="string">'staff_dev'</span>);
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> users <span class="keyword">WHERE</span> id = <span class="number">1</span>;
+<span class="keyword">UPDATE</span> users <span class="keyword">SET</span> username = <span class="string">'lead_dev'</span> <span class="keyword">WHERE</span> id = <span class="number">1</span>;
+<span class="keyword">DELETE FROM</span> users <span class="keyword">WHERE</span> id = <span class="number">1</span>;</code></pre>
+                </div>
             </section>
 
-            <!-- SQL Fundamentals -->
+            <!-- 4. SQL Fundamentals -->
             <section id="sql-fundamentals" class="lesson-section">
                 <h2>SQL: Relational Algebra & Data Definition</h2>
-                <p>SQL is the declarative implementation of <strong>Relational Algebra</strong>. Queries are operations on mathematical sets.</p>
+                <p>SQL is the declarative implementation of <strong>Relational Algebra</strong>. Every query is a series of set operations: Selection (σ), Projection (π), and Join (⋈).</p>
             </section>
 
-            <!-- Advanced SQL -->
+            <!-- 5. Advanced SQL: Analytic Functions (New Chapter) -->
             <section id="advanced-sql" class="lesson-section">
-                <h2>Advanced SQL: Analytic Functions & Complex State</h2>
-                <p>Enterprise reporting uses <strong>Window Functions</strong> and <strong>Common Table Expressions (CTEs)</strong> for complex data analysis.</p>
+                <h2>Advanced SQL: Analytics, CTEs & Window Functions</h2>
+                <p>Enterprise reporting requires calculating values across sets of rows that are related to the current row without using a traditional <code>GROUP BY</code> clause.</p>
+                
+                <h3>A. Common Table Expressions (CTEs)</h3>
+                <p>CTEs improve query <strong>Readability</strong> and allow for <strong>Recursive Queries</strong> (e.g., traversing a threaded comment system or organizational chart).</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">-- Example: CTE for Recursive Hierarchy</span>
+<span class="keyword">WITH RECURSIVE</span> subordinates <span class="keyword">AS</span> (
+    <span class="keyword">SELECT</span> id, name, manager_id <span class="keyword">FROM</span> employees <span class="keyword">WHERE</span> name = <span class="string">'CEO'</span>
+    <span class="keyword">UNION ALL</span>
+    <span class="keyword">SELECT</span> e.id, e.name, e.manager_id <span class="keyword">FROM</span> employees e
+    <span class="keyword">INNER JOIN</span> subordinates s <span class="keyword">ON</span> s.id = e.manager_id
+)
+<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> subordinates;</code></pre>
+                </div>
+
+                <h3>B. Window Functions (OVER / PARTITION BY)</h3>
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Calculating a running total without grouping</span>
+<span class="keyword">SELECT</span> date, amount,
+       <span class="function">SUM</span>(amount) <span class="keyword">OVER</span> (<span class="keyword">ORDER BY</span> date) <span class="keyword">as</span> running_total
+<span class="keyword">FROM</span> sales;</code></pre>
+                </div>
 
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.postgresql.org/docs/current/queries-with.html">PostgreSQL: CTEs</a></li>
+                        <li><a href="https://www.postgresql.org/docs/current/queries-with.html">PostgreSQL: CTEs (WITH)</a></li>
+                        <li><a href="https://www.postgresql.org/docs/current/tutorial-window.html">PostgreSQL: Window Functions</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- ACID Properties -->
+            <!-- 6. ACID Properties -->
             <section id="acid-properties" class="lesson-section">
                 <h2>ACID Theory & Transactional Integrity</h2>
-                <p>The ACID model ensures consistency through <strong>Atomicity, Consistency, Isolation, and Durability</strong>.</p>
+                <p>The ACID model (Atomicity, Consistency, Isolation, Durability) ensures that a database remains in a valid state. Professional mastery focuses on <strong>Isolation Levels</strong> and the <strong>Write-Ahead Log (WAL)</strong>.</p>
             </section>
 
-            <!-- Indexing & Tuning -->
+            <!-- 7. Joins & Normalization -->
+            <section id="joins-normalization" class="lesson-section">
+                <h2>Relational Normalization: Eliminating Anomaly</h2>
+                <p>Normalization (1NF through BCNF) minimizes redundancy. However, staff engineers must decide when to <strong>Denormalize</strong> for read performance in high-scale systems.</p>
+            </section>
+
+            <!-- 8. Indexing & Tuning -->
             <section id="indexing" class="lesson-section">
                 <h2>Indexing Architecture & Internal Tuning</h2>
-                <p>Scholarly indexing focuses on <strong>B+ Trees</strong> and <strong>LSM Trees</strong>. Tuning includes <strong>Buffer Pools</strong> and <strong>Vacuuming</strong>.</p>
-            </section>
-
-            <!-- Search Engine Theory -->
-            <section id="search-engine-theory" class="lesson-section">
-                <h2>Search Engine Theory: Full-Text & Inverted Indexing</h2>
-                <p>Search engines like Elasticsearch utilize the <strong>Inverted Index</strong> to map tokens to Document IDs.</p>
-
+                <p>Understanding <strong>B+ Trees</strong> vs. <strong>LSM Trees</strong> is critical for database tuning. We must also account for internal mechanisms like <strong>Buffer Pools</strong> and <strong>Vacuuming</strong>.</p>
+                
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html">Elasticsearch Docs</a></li>
+                        <li><a href="https://www.postgresql.org/docs/current/runtime-config-resource.html">PostgreSQL: Resource Consumption Tuning</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- MongoDB -->
-            <section id="mongodb" class="lesson-section">
-                <h2>MongoDB: The Document Paradigm</h2>
-                <p>MongoDB uses the <strong>WiredTiger</strong> engine and BSON storage for horizontal scalability.</p>
+            <!-- 9. Search Engine Theory (New Chapter) -->
+            <section id="search-engine-theory" class="lesson-section">
+                <h2>Search Engine Theory: Inverted Indexing</h2>
+                <p>B+ Trees are inefficient for full-text search. Scholarly engines like Elasticsearch use an <strong>Inverted Index</strong>—mapping tokens (words) to the document IDs where they appear.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/documents-indices.html">Elasticsearch: Data In and Out</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Redis -->
+            <!-- 10. NoSQL & BASE -->
+            <section id="mongodb" class="lesson-section">
+                <h2>NoSQL Ecosystem & The BASE Model</h2>
+                <p>NoSQL systems trade strict ACID consistency for <strong>Eventual Consistency (BASE)</strong> to achieve horizontal scalability.</p>
+            </section>
+
+            <!-- 11. Redis -->
             <section id="redis-deep" class="lesson-section">
                 <h2>Redis: In-Memory Data Structure Mastery</h2>
-                <p>In-memory performance with persistence models like <strong>RDB</strong> and <strong>AOF</strong>.</p>
+                <p>Analysis of persistence models (RDB vs. AOF) and eviction policies (LRU/LFU).</p>
             </section>
 
-            <!-- Wide-Column & Graph -->
+            <!-- 12. Wide-Column & Graph -->
             <section id="wide-column" class="lesson-section">
-                <h2>Advanced NoSQL: Wide-Column & Graph Theory</h2>
-                <p>Cassandra's <strong>Ring Architecture</strong> and Neo4j's <strong>Index-free Adjacency</strong>.</p>
+                <h2>Advanced NoSQL: Wide-Column & Graph</h2>
+                <p>Cassandra's Ring Architecture and Neo4j's Index-free Adjacency.</p>
             </section>
 
-            <!-- CAP Theorem -->
+            <!-- 13. CAP Theorem -->
             <section id="cap-theorem" class="lesson-section">
                 <h2>The CAP & PACELC Theorems</h2>
-                <p>Foundational trade-offs in distributed data systems between Consistency and Availability.</p>
+                <p>Theoretical constraints of distributed systems: Consistency, Availability, and Partition Tolerance.</p>
             </section>
 
-            <!-- Sharding & Replication -->
+            <!-- 14. Sharding & Replication -->
             <section id="sharding-replication" class="lesson-section">
                 <h2>Sharding, Replication & Distributed Consensus</h2>
-                <p>Distributed state management using algorithms like <strong>Raft</strong> and <strong>Paxos</strong>.</p>
+                <p>Mastering <strong>Raft</strong> and <strong>Paxos</strong> for state consensus across multiple nodes.</p>
             </section>
 
-            <!-- ORMs -->
+            <!-- 15. ORMs -->
             <section id="orm-vs-sql" class="lesson-section">
                 <h2>Abstraction Layers: ORMs & The Impedance Mismatch</h2>
-                <p>Patterns like <strong>ActiveRecord</strong> and <strong>Data Mapper</strong> to bridge objects and tables.</p>
+                <p>Comparison of <strong>ActiveRecord</strong> vs. <strong>Data Mapper</strong> patterns and preventing SQL Injection via <strong>Prepared Statements</strong>.</p>
             </section>
         </main>
     </div>
