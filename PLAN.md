@@ -91,19 +91,19 @@ Every subsection MUST contain:
     - [ ] Load & Performance (k6, p99 Latency, Stress vs Soak)
 
 ## Module 5: DevOps Mastery (`devops.html`)
-- [ ] **Infrastructure**
-    - [ ] Linux Internals (Kernel/User space, Permissions, Signals)
-    - [ ] Docker (OS Virtualization, Layering, CoW)
-    - [ ] Kubernetes (Control Plane, Controller Pattern, Reconciliation)
-- [ ] **Pipeline & Cloud**
-    - [ ] CI/CD Lifecycle (Integration vs Delivery vs Deployment)
-    - [ ] Pipeline-as-Code (GitHub Actions, Jenkins DSL)
-    - [ ] AWS Architecture (Shared Responsibility, Core Services)
-    - [ ] Cloud Security (IAM, RBAC, Least Privilege)
-    - [ ] Terraform (IaC, Idempotency, State Management)
-- [ ] **Visibility**
-    - [ ] Serverless Mechanics (Cold Starts, Provisioned Concurrency)
-    - [ ] Observability (Metrics, Logs, Traces, Golden Signals)
+- [x] **Infrastructure**
+    - [x] Linux Internals (Kernel/User space, Permissions, Signals)
+    - [x] Docker (OS Virtualization, Layering, CoW)
+    - [x] Kubernetes (Control Plane, Controller Pattern, Reconciliation)
+- [x] **Pipeline & Cloud**
+    - [x] CI/CD Lifecycle (Integration vs Delivery vs Deployment)
+    - [x] Pipeline-as-Code (GitHub Actions, Jenkins DSL)
+    - [x] AWS Architecture (Shared Responsibility, Core Services)
+    - [x] Cloud Security (IAM, RBAC, Least Privilege)
+    - [x] Terraform (IaC, Idempotency, State Management)
+- [x] **Visibility**
+    - [x] Serverless Mechanics (Cold Starts, Provisioned Concurrency)
+    - [x] Observability (Metrics, Logs, Traces, Golden Signals)
 
 ## Module 6: Career Mastery (`career.html`)
 - [ ] **Interview & Portfolio**

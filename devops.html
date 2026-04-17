@@ -44,52 +44,52 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- 1. Linux Internals -->
+            <!-- 1. Linux Internals: The Foundation of DevOps -->
             <section id="linux-internals" class="lesson-section active">
                 <h2>Linux Internals & The Shell Workshop</h2>
-                <p>DevOps begins at the operating system level. Linux is the backbone of the cloud, and a scholar must understand its <strong>Kernel-space</strong> vs. <strong>User-space</strong> architecture.</p>
+                <p>DevOps begins at the operating system level. Linux is the backbone of the cloud, and a scholar must understand its <strong>Kernel-space</strong> (privileged hardware access) vs. <strong>User-space</strong> (application execution) architecture.</p>
                 
                 <h3>A. Permissions & The Chmod Strategy</h3>
-                <p>Linux security is built on a <strong>Discretionary Access Control (DAC)</strong> model. Permissions are represented by a 3-digit octal code (User, Group, Others) or a symbolic representation.</p>
-                
+                <p>Linux security follows a <strong>Discretionary Access Control (DAC)</strong> model. Permissions are represented by a 3-digit octal code: User, Group, and Others.</p>
                 <div class="code-block">
                     <pre><code><span class="comment"># Example: Setting secure script permissions</span>
-<span class="keyword">chmod</span> 755 deploy.sh <span class="comment"># rwx for owner, r-x for others</span>
+<span class="keyword">chmod</span> 755 deploy.sh <span class="comment"># rwx (7) for owner, r-x (5) for group/others</span>
 <span class="keyword">ls</span> -l <span class="comment"># Result: -rwxr-xr-x</span></code></pre>
                 </div>
 
                 <h3>B. Process Management & Signals</h3>
-                <p>Distributed systems communicate with processes via <strong>Signals</strong>. A scholar must understand how to manage the process lifecycle.</p>
+                <p>Processes communicate via <strong>Signals</strong>. A staff engineer uses these to manage service lifecycles without data corruption.</p>
                 <ul>
-                    <li><strong>SIGTERM (15):</strong> Graceful shutdown request. The app can cleanup resources.</li>
-                    <li><strong>SIGKILL (9):</strong> Immediate termination. No cleanup allowed.</li>
+                    <li><strong>SIGTERM (15):</strong> Request graceful shutdown. The app should catch this to close DB connections.</li>
+                    <li><strong>SIGKILL (9):</strong> Forced immediate termination by the kernel.</li>
                 </ul>
 
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.kernel.org/doc/html/latest/admin-guide/index.html">Linux Kernel Documentation</a></li>
+                        <li><a href="https://www.kernel.org/doc/html/latest/admin-guide/index.html">Linux Kernel Admin Guide</a></li>
                         <li><a href="https://man7.org/linux/man-pages/man1/chmod.1.html">Linux Man Pages: Chmod</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 2. Docker -->
+            <!-- 2. Docker: The Scholarly Perspective on OS-level Virtualization -->
             <section id="docker" class="lesson-section">
                 <h2>Docker: OS-Level Virtualization & Container Theory</h2>
-                <p>Docker is the premier implementation of <strong>OS-level Virtualization</strong>, allowing isolated user-space instances (containers) to share the host OS kernel.</p>
+                <p>Docker virtualizes the <strong>Software Environment</strong> rather than the hardware. Containers share the host kernel while maintaining isolation via <strong>Linux Namespaces</strong> and <strong>Cgroups</strong>.</p>
                 
                 <div class="note-box">
                     <strong>The Union File System (CoW):</strong>
-                    <p>Docker images use a <strong>Union File System</strong> (e.g., OverlayFS) to stack immutable <strong>Layers</strong>. Modifications follow <strong>Copy-on-Write (CoW)</strong> logic.</p>
+                    <p>Docker images are composed of immutable <strong>Layers</strong>. Using <strong>Copy-on-Write (CoW)</strong>, only changes are written to a thin top layer, making containers extremely lightweight and fast to start.</p>
                 </div>
 
+                <h3>A. Multi-stage Builds</h3>
                 <div class="code-block">
-                    <pre><code><span class="comment"># Example: Multi-stage build for minimized footprint</span>
+                    <pre><code><span class="comment"># Example: Textbook Multi-stage Build</span>
 <span class="keyword">FROM</span> node:18-alpine <span class="keyword">AS</span> builder
 <span class="keyword">WORKDIR</span> /app
 <span class="keyword">COPY</span> . .
-<span class="keyword">RUN</span> npm run build
+<span class="keyword">RUN</span> npm install && npm run build
 
 <span class="keyword">FROM</span> nginx:alpine
 <span class="keyword">COPY</span> --from=builder /app/dist /usr/share/nginx/html</code></pre>
@@ -98,97 +98,118 @@
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://docs.docker.com/">Docker Documentation</a></li>
+                        <li><a href="https://docs.docker.com/get-started/overview/">Docker: Orientation and Architecture</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 3. Kubernetes -->
+            <!-- 3. Kubernetes: Distributed Orchestration -->
             <section id="kubernetes" class="lesson-section">
-                <h2>Kubernetes (K8s): Distributed Orchestration</h2>
-                <p>Kubernetes reconciles the <em>Actual State</em> of a cluster with the <em>Desired State</em> (Etcd) through continuous <strong>Control Loops</strong>.</p>
+                <h2>Kubernetes (K8s): Distributed Orchestration & Control Planes</h2>
+                <p>Kubernetes is a <strong>Distributed Database</strong> (Etcd) coupled with <strong>Control Loops</strong> that continuously reconcile the <em>Actual State</em> with the <em>Desired State</em>.</p>
                 
-                <h3>A. The Control Plane</h3>
-                <ul>
-                    <li><strong>Kube-APIServer:</strong> The primary interface for the cluster.</li>
-                    <li><strong>Etcd:</strong> Consistent and highly-available key value store for cluster data.</li>
-                    <li><strong>Kube-Scheduler:</strong> Assigns work to nodes.</li>
-                </ul>
+                <div class="pro-tip-box">
+                    <strong>Staff-Level Insight: The Sidecar Pattern</strong>
+                    <p>The Sidecar involves running a secondary container (e.g., a logging agent or service mesh proxy like Envoy) alongside the primary app container in the same Pod. They share <code>localhost</code> and storage, allowing for modular infrastructure concerns.</p>
+                </div>
 
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://kubernetes.io/docs/home/">Kubernetes Official Docs</a></li>
+                        <li><a href="https://kubernetes.io/docs/concepts/architecture/nodes/">Kubernetes: Node Architecture</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 4. CI/CD Architecture -->
+            <!-- 4. CI/CD: Continuous Integration & Delivery -->
             <section id="github-actions" class="lesson-section">
                 <h2>Continuous Integration & Delivery (CI/CD) Architecture</h2>
-                <p>Automation of the software lifecycle using <strong>Pipeline-as-Code</strong> to minimize human error and increase velocity.</p>
+                <p>Scholarly CI/CD focuses on <strong>Deployment Frequency</strong> and <strong>Lead Time</strong>. By automating the "Pipeline-as-Code," we ensure that every merge to 'main' is verified and releasable.</p>
                 
-                <div class="note-box">
-                    📚 **Official Documentation:**
-                    <ul>
-                        <li><a href="https://docs.github.com/en/actions">GitHub Actions Documentation</a></li>
-                    </ul>
+                <div class="code-block">
+                    <pre><code><span class="comment"># GitHub Actions Workflow (YAML)</span>
+<span class="keyword">jobs:</span>
+  <span class="keyword">test:</span>
+    <span class="keyword">runs-on:</span> ubuntu-latest
+    <span class="keyword">steps:</span>
+      - <span class="keyword">uses:</span> actions/checkout@v3
+      - <span class="keyword">run:</span> npm test</code></pre>
                 </div>
             </section>
 
-            <!-- 5. Jenkins -->
+            <!-- 5. Jenkins: Enterprise Orchestration -->
             <section id="jenkins" class="lesson-section">
                 <h2>Jenkins: Enterprise Task Orchestration</h2>
-                <p>Jenkins provides self-hosted automation using a <strong>Groovy DSL</strong> for complex pipelines.</p>
+                <p>Jenkins utilizes a <strong>Groovy DSL</strong> for complex, multi-branch pipelines. Staff engineers favor <strong>Declarative Pipelines</strong> for their robustness and error-checking.</p>
             </section>
 
             <!-- 6. AWS Architecture -->
             <section id="aws-core" class="lesson-section">
                 <h2>Cloud Computing & The AWS Architecture</h2>
-                <p>Built upon the <strong>Shared Responsibility Model</strong>: AWS manages the "Security <em>of</em> the Cloud," while customers manage "Security <em>in</em> the Cloud."</p>
-                
-                <div class="note-box">
-                    📚 **Official Documentation:**
-                    <ul>
-                        <li><a href="https://docs.aws.amazon.com/">AWS Documentation</a></li>
-                    </ul>
-                </div>
+                <p>Built upon the <strong>AWS Shared Responsibility Model</strong>: AWS manages the physical security, while the customer manages data encryption and OS patching.</p>
             </section>
 
-            <!-- 7. Cloud Security -->
+            <!-- 7. Cloud Security: IAM and RBAC -->
             <section id="cloud-security" class="lesson-section">
                 <h2>Cloud Security: Identity & Access Management (IAM)</h2>
-                <p>Following the <strong>Principle of Least Privilege (PoLP)</strong> via <strong>Role-Based Access Control (RBAC)</strong>.</p>
-            </section>
-
-            <!-- 8. Terraform -->
-            <section id="terraform" class="lesson-section">
-                <h2>Terraform: Infrastructure as Code (IaC) Theory</h2>
-                <p>Declarative infrastructure management using <strong>HCL</strong> and idempotent state tracking.</p>
+                <p>In the cloud, identity is the new perimeter. Scholarly security follows the <strong>Principle of Least Privilege (PoLP)</strong>.</p>
                 
+                <h3>A. RBAC vs. ABAC</h3>
+                <ul>
+                    <li><strong>RBAC:</strong> Permissions assigned based on job roles (e.g., "Developer" role).</li>
+                    <li><strong>ABAC:</strong> Permissions based on attributes (e.g., "Allow access if Tag:Project equals X").</li>
+                </ul>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://developer.hashicorp.com/terraform/docs">Terraform Docs</a></li>
+                        <li><a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">AWS: IAM Best Practices</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 9. Serverless Mechanics -->
-            <section id="serverless-mechanics" class="lesson-section">
-                <h2>Serverless Mechanics: Cold Starts & Memory</h2>
-                <p>FaaS theory and optimization strategies like Provisioned Concurrency to mitigate cold start latency.</p>
+            <!-- 8. Terraform: IaC Theory -->
+            <section id="terraform" class="lesson-section">
+                <h2>Terraform: Infrastructure as Code (IaC) Theory</h2>
+                <p>Terraform uses <strong>HCL (HashiCorp Configuration Language)</strong> to define infrastructure. A staff engineer knows that the <strong>State File</strong> is the absolute source of truth.</p>
+                
+                <div class="pro-tip-box">
+                    <strong>What is Configuration Drift? Pull</strong>
+                    <p>Drift occurs when resources are modified manually in the Cloud Console. Terraform detects this by comparing the state file to the real-world provider and "reconciles" it during <code>apply</code>.</p>
+                </div>
             </section>
 
-            <!-- 10. Observability -->
-            <section id="monitoring" class="lesson-section">
-                <h2>Observability: Metrics, Logs & Traces</h2>
-                <p>Implementation of the <strong>Three Pillars</strong> and Google's <strong>Four Golden Signals</strong> (Latency, Traffic, Errors, Saturation).</p>
+            <!-- 9. Serverless Mechanics: Cold Starts & FaaS -->
+            <section id="serverless-mechanics" class="lesson-section">
+                <h2>Serverless Mechanics: The FaaS Paradigm</h2>
+                <p>Serverless abstracts the server but introduces <strong>Cold Starts</strong>—the latency incurred when a provider (like AWS Lambda) initializes a new execution environment.</p>
                 
+                <h3>A. Optimization: Provisioned Concurrency</h3>
+                <p>To eliminate cold starts for enterprise APIs, use <strong>Provisioned Concurrency</strong> to keep a pool of warm instances ready to respond.</p>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://opentelemetry.io/docs/">OpenTelemetry Documentation</a></li>
+                        <li><a href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-concurrency.html">AWS: Lambda Concurrency</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 10. Observability: Metrics, Logs & Traces -->
+            <section id="monitoring" class="lesson-section">
+                <h2>Observability & The Three Pillars of Visibility</h2>
+                <p>Unlike monitoring ("Is it up?"), observability asks "Why is it behaving this way?". We monitor the <strong>Four Golden Signals</strong>: Latency, Traffic, Errors, and Saturation.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Trace Context Propagation</span>
+<span class="keyword">const</span> traceId = req.headers[<span class="string">'x-trace-id'</span>] || <span class="function">generateId</span>();
+<span class="comment">// Pass this ID to all downstream microservices</span></code></pre>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://opentelemetry.io/docs/concepts/observability-primer/">OpenTelemetry: Observability Primer</a></li>
                     </ul>
                 </div>
             </section>
