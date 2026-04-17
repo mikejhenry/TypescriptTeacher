@@ -42,10 +42,21 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- System Design -->
+            <!-- 1. System Design -->
             <section id="system-design" class="lesson-section active">
-                <h2>System Design: Architectural Blueprinting</h2>
-                <p>Architectural strategy for <strong>Horizontal vs. Vertical Scaling</strong> and identifying Single Points of Failure.</p>
+                <h2>System Design: Architectural Blueprinting at Scale</h2>
+                <p>System Design evaluates your ability to build complex, scalable systems. Scholarly design focuses on <strong>Load Balancing</strong>, <strong>Consistency vs. Availability</strong>, and identifying <strong>Single Points of Failure (SPOF)</strong>.</p>
+                
+                <div class="note-box">
+                    <strong>The Systematic Framework:</strong>
+                    <ol>
+                        <li><strong>Requirements:</strong> Functional vs. Non-functional.</li>
+                        <li><strong>Scale:</strong> Estimating QPS and Storage.</li>
+                        <li><strong>APIs:</strong> Defining the service contract.</li>
+                        <li><strong>Data Model:</strong> Relational vs. Non-relational mapping.</li>
+                    </ol>
+                </div>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
@@ -54,52 +65,76 @@
                 </div>
             </section>
 
-            <!-- DSA -->
+            <!-- 2. DSA Patterns -->
             <section id="dsa-patterns" class="lesson-section">
                 <h2>Algorithmic Design Paradigms & Big O</h2>
-                <p>Mathematical analysis of efficiency using <strong>Big O Notation</strong> and core paradigms like Dynamic Programming.</p>
+                <p>DSA forms the mathematical foundation of software efficiency. Professional mastery focuses on <strong>Big O Notation</strong>—the asymptotic analysis of time and space complexity.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: Sliding Window Pattern (O(n) vs O(n^2))</span>
+<span class="keyword">function</span> <span class="function">maxSum</span>(arr, k) {
+    <span class="keyword">let</span> max = <span class="number">0</span>, window = <span class="number">0</span>;
+    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i<arr.length; i++) {
+        window += arr[i];
+        <span class="keyword">if</span>(i >= k-<span class="number">1</span>) {
+            max = Math.<span class="function">max</span>(max, window);
+            window -= arr[i-(k-<span class="number">1</span>)];
+        }
+    }
+    <span class="keyword">return</span> max;
+}</code></pre>
+                </div>
             </section>
 
-            <!-- Behavioral -->
+            <!-- 3. Behavioral -->
             <section id="behavioral-star" class="lesson-section">
                 <h2>Behavioral Engineering: EQ & The STAR Method</h2>
-                <p>Navigating conflict and leadership via the <strong>STAR (Situation, Task, Action, Result)</strong> framework.</p>
+                <p>Navigating conflict and leadership via the <strong>STAR (Situation, Task, Action, Result)</strong> framework. Scholars focus on <strong>Interest-Based Negotiation</strong> and data-driven outcomes.</p>
             </section>
 
-            <!-- Portfolio -->
+            <!-- 4. Portfolio -->
             <section id="github-presence" class="lesson-section">
                 <h2>Portfolio & GitHub: Digital Proof-of-Work</h2>
-                <p>Building a verifiable record of engineering excellence through OSS contributions.</p>
+                <p>Your GitHub is your verifiable resume. Scholarly branding involves contributing to <strong>Open Source Software (OSS)</strong> and maintaining clear architectural documentation.</p>
             </section>
 
-            <!-- Resume -->
+            <!-- 5. Resume -->
             <section id="resume-strategy" class="lesson-section">
                 <h2>Resume Engineering: The Google Formula</h2>
-                <p>Impact-based metrics: <em>"Accomplished [X] as measured by [Y], by doing [Z]."</em></p>
+                <p>Impact-based metrics: <em>"Accomplished [X] as measured by [Y], by doing [Z]."</em> Essential for passing through <strong>ATS (Applicant Tracking Systems)</strong>.</p>
             </section>
 
-            <!-- Salary -->
+            <!-- 6. Salary Negotiation -->
             <section id="salary-negotiation" class="lesson-section">
                 <h2>Salary Negotiation: The Theory of BATNA</h2>
-                <p>Scholarly negotiation based on the <strong>Best Alternative to a Negotiated Agreement</strong>.</p>
+                <p>Negotiation point of power: <strong>Best Alternative to a Negotiated Agreement</strong>. Identifying the <strong>ZOPA</strong> (Zone of Possible Agreement).</p>
+                
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.levels.fyi/">Levels.fyi: Salary Data</a></li>
+                        <li><a href="https://www.levels.fyi/">Levels.fyi: Salary Benchmarks</a></li>
+                        <li><a href="https://hbr.org/2014/12/control-the-negotiation-before-it-begins">HBR: Control the Negotiation</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Productivity -->
+            <!-- 7. Productivity -->
             <section id="productivity-flow" class="lesson-section">
-                <h2>Developer Productivity & Flow State</h2>
-                <p>Analyzing the cost of <strong>Context Switching</strong> and the psychology of Maker's Schedules.</p>
+                <h2>Developer Productivity: The Cost of Context Switching</h2>
+                <p>Engineering focus requires <strong>Flow State</strong>. Scholars guard "Deep Work" blocks and minimize interruptions to increase cognitive impact.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="http://www.paulgraham.com/makersschedule.html">Paul Graham: Maker's Schedule</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Collaboration -->
+            <!-- 8. Collaboration -->
             <section id="collaboration" class="lesson-section">
                 <h2>Agile Methodologies & Team Dynamics</h2>
-                <p>Scrum vs. Kanban and the importance of <strong>Psychological Safety</strong>.</p>
+                <p>Iterative development via <strong>Scrum</strong> or <strong>Kanban</strong>. The importance of <strong>Psychological Safety</strong> for high-performing engineering teams.</p>
             </section>
         </main>
     </div>

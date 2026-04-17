@@ -44,80 +44,153 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- Linux Internals -->
+            <!-- 1. Linux Internals -->
             <section id="linux-internals" class="lesson-section active">
                 <h2>Linux Internals & The Shell Workshop</h2>
-                <p>DevOps begins at the operating system level. Understanding <strong>Kernel-space</strong> vs. <strong>User-space</strong> is fundamental.</p>
+                <p>DevOps begins at the operating system level. Linux is the backbone of the cloud, and a scholar must understand its <strong>Kernel-space</strong> vs. <strong>User-space</strong> architecture.</p>
+                
+                <h3>A. Permissions & The Chmod Strategy</h3>
+                <p>Linux security is built on a <strong>Discretionary Access Control (DAC)</strong> model. Permissions are represented by a 3-digit octal code (User, Group, Others) or a symbolic representation.</p>
+                
                 <div class="code-block">
-                    <pre><code><span class="comment"># Example: Linux Permissions</span>
-<span class="keyword">chmod</span> 755 deploy.sh <span class="comment"># rwx for owner</span></code></pre>
+                    <pre><code><span class="comment"># Example: Setting secure script permissions</span>
+<span class="keyword">chmod</span> 755 deploy.sh <span class="comment"># rwx for owner, r-x for others</span>
+<span class="keyword">ls</span> -l <span class="comment"># Result: -rwxr-xr-x</span></code></pre>
                 </div>
-            </section>
 
-            <!-- Docker -->
-            <section id="docker" class="lesson-section">
-                <h2>Docker: OS-Level Virtualization & Containers</h2>
-                <p>Containers virtualize the <strong>Software Environment</strong> using Linux Namespaces and Cgroups.</p>
+                <h3>B. Process Management & Signals</h3>
+                <p>Distributed systems communicate with processes via <strong>Signals</strong>. A scholar must understand how to manage the process lifecycle.</p>
+                <ul>
+                    <li><strong>SIGTERM (15):</strong> Graceful shutdown request. The app can cleanup resources.</li>
+                    <li><strong>SIGKILL (9):</strong> Immediate termination. No cleanup allowed.</li>
+                </ul>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://docs.docker.com/">Docker Docs</a></li>
+                        <li><a href="https://www.kernel.org/doc/html/latest/admin-guide/index.html">Linux Kernel Documentation</a></li>
+                        <li><a href="https://man7.org/linux/man-pages/man1/chmod.1.html">Linux Man Pages: Chmod</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Kubernetes -->
+            <!-- 2. Docker -->
+            <section id="docker" class="lesson-section">
+                <h2>Docker: OS-Level Virtualization & Container Theory</h2>
+                <p>Docker is the premier implementation of <strong>OS-level Virtualization</strong>, allowing isolated user-space instances (containers) to share the host OS kernel.</p>
+                
+                <div class="note-box">
+                    <strong>The Union File System (CoW):</strong>
+                    <p>Docker images use a <strong>Union File System</strong> (e.g., OverlayFS) to stack immutable <strong>Layers</strong>. Modifications follow <strong>Copy-on-Write (CoW)</strong> logic.</p>
+                </div>
+
+                <div class="code-block">
+                    <pre><code><span class="comment"># Example: Multi-stage build for minimized footprint</span>
+<span class="keyword">FROM</span> node:18-alpine <span class="keyword">AS</span> builder
+<span class="keyword">WORKDIR</span> /app
+<span class="keyword">COPY</span> . .
+<span class="keyword">RUN</span> npm run build
+
+<span class="keyword">FROM</span> nginx:alpine
+<span class="keyword">COPY</span> --from=builder /app/dist /usr/share/nginx/html</code></pre>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.docker.com/">Docker Documentation</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. Kubernetes -->
             <section id="kubernetes" class="lesson-section">
                 <h2>Kubernetes (K8s): Distributed Orchestration</h2>
-                <p>The <strong>Controller Pattern</strong> reconciles actual state with desired state (Etcd).</p>
+                <p>Kubernetes reconciles the <em>Actual State</em> of a cluster with the <em>Desired State</em> (Etcd) through continuous <strong>Control Loops</strong>.</p>
+                
+                <h3>A. The Control Plane</h3>
+                <ul>
+                    <li><strong>Kube-APIServer:</strong> The primary interface for the cluster.</li>
+                    <li><strong>Etcd:</strong> Consistent and highly-available key value store for cluster data.</li>
+                    <li><strong>Kube-Scheduler:</strong> Assigns work to nodes.</li>
+                </ul>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://kubernetes.io/docs/home/">Kubernetes Docs</a></li>
+                        <li><a href="https://kubernetes.io/docs/home/">Kubernetes Official Docs</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- GitHub Actions -->
+            <!-- 4. CI/CD Architecture -->
             <section id="github-actions" class="lesson-section">
                 <h2>Continuous Integration & Delivery (CI/CD) Architecture</h2>
-                <p>Automation of the software lifecycle using <strong>Pipeline-as-Code</strong>.</p>
+                <p>Automation of the software lifecycle using <strong>Pipeline-as-Code</strong> to minimize human error and increase velocity.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.github.com/en/actions">GitHub Actions Documentation</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Jenkins -->
+            <!-- 5. Jenkins -->
             <section id="jenkins" class="lesson-section">
                 <h2>Jenkins: Enterprise Task Orchestration</h2>
-                <p>Self-hosted automation server utilizing a <strong>Groovy DSL</strong> for complex pipelines.</p>
+                <p>Jenkins provides self-hosted automation using a <strong>Groovy DSL</strong> for complex pipelines.</p>
             </section>
 
-            <!-- AWS Architecture -->
+            <!-- 6. AWS Architecture -->
             <section id="aws-core" class="lesson-section">
                 <h2>Cloud Computing & The AWS Architecture</h2>
-                <p>Understanding the <strong>Shared Responsibility Model</strong> and core IaaS services.</p>
+                <p>Built upon the <strong>Shared Responsibility Model</strong>: AWS manages the "Security <em>of</em> the Cloud," while customers manage "Security <em>in</em> the Cloud."</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://docs.aws.amazon.com/">AWS Documentation</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Cloud Security -->
+            <!-- 7. Cloud Security -->
             <section id="cloud-security" class="lesson-section">
                 <h2>Cloud Security: Identity & Access Management (IAM)</h2>
-                <p>Implementing the <strong>Principle of Least Privilege</strong> via RBAC.</p>
+                <p>Following the <strong>Principle of Least Privilege (PoLP)</strong> via <strong>Role-Based Access Control (RBAC)</strong>.</p>
             </section>
 
-            <!-- Terraform -->
+            <!-- 8. Terraform -->
             <section id="terraform" class="lesson-section">
                 <h2>Terraform: Infrastructure as Code (IaC) Theory</h2>
                 <p>Declarative infrastructure management using <strong>HCL</strong> and idempotent state tracking.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://developer.hashicorp.com/terraform/docs">Terraform Docs</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Serverless Mechanics -->
+            <!-- 9. Serverless Mechanics -->
             <section id="serverless-mechanics" class="lesson-section">
                 <h2>Serverless Mechanics: Cold Starts & Memory</h2>
-                <p>FaaS theory and optimization strategies like Provisioned Concurrency.</p>
+                <p>FaaS theory and optimization strategies like Provisioned Concurrency to mitigate cold start latency.</p>
             </section>
 
-            <!-- Observability -->
+            <!-- 10. Observability -->
             <section id="monitoring" class="lesson-section">
                 <h2>Observability: Metrics, Logs & Traces</h2>
-                <p>Implementation of the <strong>Three Pillars</strong> and Google's <strong>Four Golden Signals</strong>.</p>
+                <p>Implementation of the <strong>Three Pillars</strong> and Google's <strong>Four Golden Signals</strong> (Latency, Traffic, Errors, Saturation).</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://opentelemetry.io/docs/">OpenTelemetry Documentation</a></li>
+                    </ul>
+                </div>
             </section>
         </main>
     </div>

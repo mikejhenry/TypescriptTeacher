@@ -45,82 +45,153 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- Testing Foundations -->
+            <!-- 1. Testing Foundations -->
             <section id="testing-pyramid" class="lesson-section active">
                 <h2>Software Testing Theory & The Testing Pyramid</h2>
-                <p>The <strong>Testing Pyramid</strong> Blueprints a balanced test suite. Enterprise modernism adds <strong>The Testing Trophy</strong> focused on Integration.</p>
+                <p>In software engineering, testing is the process of executing a program with the intent of finding errors. Scholarly testing theory differentiates between <strong>Verification</strong> ("Are we building the product right?") and <strong>Validation</strong> ("Are we building the right product?").</p>
+                
+                <div class="note-box">
+                    <strong>The Testing Pyramid vs. The Testing Trophy:</strong>
+                    <ul>
+                        <li><strong>The Pyramid (Traditional):</strong> Focuses heavily on <strong>Unit Tests</strong> (bottom), with decreasing volume for Integration and E2E tests. Best for backend systems.</li>
+                        <li><strong>The Trophy (Modern Frontend):</strong> Popularized by Kent C. Dodds, it emphasizes <strong>Integration Tests</strong> (the middle) as the "sweet spot" for ROI.</li>
+                    </ul>
+                </div>
+
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://martinfowler.com/articles/practical-test-pyramid.html">Practical Test Pyramid</a></li>
+                        <li><a href="https://martinfowler.com/articles/practical-test-pyramid.html">Martin Fowler: The Practical Test Pyramid</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Test Types -->
+            <!-- 2. Test Types -->
             <section id="test-types" class="lesson-section">
                 <h2>The Taxonomy of Automated Testing</h2>
-                <p>Categorization from atomized <strong>Unit Tests</strong> to system-wide <strong>End-to-End (E2E)</strong> flows.</p>
+                <p>Scholarly testing involves a hierarchy of scopes, each addressing different risk factors in the software lifecycle.</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Scope</th>
+                            <th>Execution Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Unit</strong></td>
+                            <td>Single Function/Class</td>
+                            <td>Sub-millisecond</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration</strong></td>
+                            <td>Multiple Units/Modules</td>
+                            <td>Seconds</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E2E (System)</strong></td>
+                            <td>Full App Flow</td>
+                            <td>Minutes</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
-            <!-- TDD/BDD -->
+            <!-- 3. TDD/BDD -->
             <section id="tdd-approach" class="lesson-section">
                 <h2>Methodologies: TDD, BDD, and Gherkin</h2>
-                <p>Writing tests before code (Red-Green-Refactor) and behavioral specifications using <strong>Gherkin Syntax</strong>.</p>
+                <p>Professional engineering often adopts "Test-First" methodologies like <strong>Test-Driven Development (TDD)</strong> and <strong>Behavior-Driven Development (BDD)</strong>.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: The TDD Cycle (Red-Green-Refactor)</span>
+<span class="comment">// 1. RED: Write a test that fails</span>
+<span class="function">test</span>(<span class="string">'factorial(5) should be 120'</span>, () => {
+    <span class="function">expect</span>(<span class="function">factorial</span>(<span class="number">5</span>)).<span class="function">toBe</span>(<span class="number">120</span>);
+});
+<span class="comment">// 2. GREEN: Write minimum code to pass...</span></code></pre>
+                </div>
             </section>
 
-            <!-- Jest -->
+            <!-- 4. Unit Testing -->
             <section id="jest-js" class="lesson-section">
                 <h2>Unit Testing: Structural Integrity & The AAA Pattern</h2>
-                <p><strong>Arrange, Act, Assert</strong> is the scholarly standard for unit verification.</p>
+                <p>Scholarly unit testing follows the <strong>AAA (Arrange, Act, Assert)</strong> pattern to ensure that every test is a clear, self-contained verification.</p>
+                
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://jestjs.io/">Jest Docs</a></li>
+                        <li><a href="https://jestjs.io/docs/getting-started">Jest Documentation</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Property-Based -->
+            <!-- 5. Property-Based Testing -->
             <section id="property-based" class="lesson-section">
                 <h2>Property-Based Testing: Mathematical Verification</h2>
-                <p>Testing logic invariants across randomly generated datasets with <strong>fast-check</strong>.</p>
+                <p>Standard unit tests are "Example-based." Scholarly engineering utilizes <strong>Property-Based Testing</strong> to verify logic invariants across randomly generated datasets.</p>
+                
+                <div class="code-block">
+                    <pre><code><span class="comment">// Example: fast-check (JavaScript) property test</span>
+<span class="function">fc.assert</span>(
+  <span class="function">fc.property</span>(fc.<span class="function">string</span>(), (s) => {
+    <span class="keyword">return</span> <span class="function">reverse</span>(<span class="function">reverse</span>(s)) === s;
+  })
+);</code></pre>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://fast-check.dev/">fast-check Documentation</a></li>
+                    </ul>
+                </div>
             </section>
 
-            <!-- Mocking -->
+            <!-- 6. Mocking -->
             <section id="mocking-spying" class="lesson-section">
-                <h2>Dependency Isolation: Test Doubles</h2>
-                <p>Analyzing <strong>Mocks, Stubs, and Spies</strong> as mechanisms for isolating components.</p>
+                <h2>Dependency Isolation: The Theory of Test Doubles</h2>
+                <p>Analyzing <strong>Mocks, Stubs, Spies, Dummies, and Fakes</strong> as mechanisms for isolating the system under test (SUT).</p>
             </section>
 
-            <!-- E2E -->
+            <!-- 7. Integration & E2E -->
             <section id="cypress-playwright" class="lesson-section">
                 <h2>E2E Testing & Browser Orchestration</h2>
-                <p>Simulating user journeys with <strong>Playwright</strong> and the Chrome DevTools Protocol.</p>
+                <p>Simulating user journeys with <strong>Playwright</strong> and <strong>Cypress</strong>. Professional frameworks solve flakiness via <strong>Auto-Waiting</strong>.</p>
+                
                 <div class="note-box">
                     📚 **Official Documentation:**
                     <ul>
                         <li><a href="https://playwright.dev/">Playwright Docs</a></li>
+                        <li><a href="https://docs.cypress.io/">Cypress Docs</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- Visual Regression -->
+            <!-- 8. Visual Regression -->
             <section id="visual-regression" class="lesson-section">
                 <h2>Visual Regression Testing: Pixel-Perfect Verification</h2>
-                <p>Snapshot diffing engines like <strong>Percy</strong> for identifying visual regressions.</p>
+                <p>Functional tests can pass even if the UI is visually broken. We use snapshot diffing to compare rendered UI against a known-good baseline.</p>
             </section>
 
-            <!-- Mutation Testing -->
+            <!-- 9. Mutation Testing -->
             <section id="code-coverage" class="lesson-section">
                 <h2>Code Quality Metrics & Mutation Testing</h2>
-                <p>Verifying test suite efficacy by introducing code "mutants."</p>
+                <p><strong>Mutation Testing</strong> introduces code "mutants" to verify test suite quality, ensuring that your tests actually catch bugs.</p>
             </section>
 
-            <!-- Performance Testing -->
+            <!-- 10. Load Testing -->
             <section id="load-testing" class="lesson-section">
                 <h2>Load, Stress & Performance Engineering</h2>
-                <p>Quantitative analysis of <strong>Throughput</strong> and <strong>p99 Latency</strong> using <strong>k6</strong>.</p>
+                <p>Quantitative analysis of system behavior under workload. Scholarly engineers focus on <strong>p99 Latency</strong> to ensure a stable user experience.</p>
+                
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://k6.io/docs/">k6 Documentation</a></li>
+                    </ul>
+                </div>
             </section>
         </main>
     </div>
