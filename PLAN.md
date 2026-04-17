@@ -1,23 +1,26 @@
-# Scholarly Full Stack Mastery: Project Plan
+# Scholarly Full Stack Mastery: Editorial Plan
+**Current Status: First Edition (Continual Improvement Mode)**
 
-## Pedagogy Standards (The "Staff-Level" Bar)
-Every subsection MUST contain:
-1.  **Theoretical Foundation:** 1-2 paragraphs on first principles and architectural rationale.
-2.  **Lexical/Structural Rules:** Explicit definitions of syntax, components, or lifecycle.
-3.  **Tiered Examples:**
-    *   *Beginner:* Basic "Hello World" implementation.
-    *   *Intermediate:* Real-world logic/composition.
-    *   *Enterprise:* High-scale, optimized, or secure implementation.
-4.  **Interview/Staff-Level Insight:** A "Pro-Tip" box addressing bottlenecks or common failures.
-5.  **Documentation Library:** Supplementary links to official specs.
+## Editorial Philosophy
+This project is a **living digital textbook**. We do not aim for "completion," but for **maximal pedagogical effectiveness**. Every section is subject to iterative refinement to increase thoroughness, clarity, and technical depth.
+
+### Standards for Content Expansion
+As we refine each "Edition," we evaluate topics against these four pillars:
+1.  **Vertical Depth:** Does this move from absolute basics (for the novice) to staff-level internals (for the expert)?
+2.  **Breadth of Context:** Does it explain *why* a technology exists in the broader ecosystem?
+3.  **Example Rigor:** Are the examples practical, secure, and idiomatic?
+4.  **Primary Source Alignment:** Is the content synchronized with the latest official specifications?
 
 ---
+
+## Roadmap for Continuous Refinement
+*The following list tracks the current state of our knowledge base. Items marked as [x] are in their 'First Edition' state and are ready for deeper 'Second Edition' expansion.*
 
 ## Module 1: Frontend Mastery (`frontend.html`)
 - [x] **Web Foundations**
     - [x] Network Foundations (DNS, TCP/TLS, HTTP/3)
     - [x] HTML Essentials (Boilerplate, Semantic Hierarchy, Void Tags)
-    - [x] CSS Core Mechanics (Box Model - Expanded, Specificity, Cascade)
+    - [x] CSS Core Mechanics (Box Model, Specificity, Cascade)
     - [x] JS Fundamentals (Scoping, TDZ, Memory/Heap vs Stack)
     - [x] JS Advanced Prototypes (Delegation, Prototype Chain)
 - [x] **Core Architecture**
@@ -116,3 +119,4 @@ Every subsection MUST contain:
     - [x] Salary Negotiation (BATNA, ZOPA, Information Asymmetry)
     - [x] Developer Productivity (Flow State, Context Switching cost)
     - [x] Team Collaboration (Agile theory, Scrum vs Kanban, Psych Safety)
+
