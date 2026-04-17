@@ -56,1163 +56,330 @@
         </nav>
 
         <main class="content-area" id="content">
-            <!-- 1. Network Foundations: The Scholarly Masterclass -->
+            <!-- 1. Network Foundations -->
             <section id="network-foundations" class="lesson-section active">
                 <h2>Network Foundations: The Anatomy of a High-Scale Request</h2>
-                <p>Scholarly frontend engineering begins not with code, but with the <strong>Wire</strong>. A web request is a complex orchestration of distributed systems protocols. Mastery of these foundations is critical for diagnosing performance bottlenecks and ensuring system-wide resilience.</p>
+                <p>Scholarly frontend engineering begins with the <strong>Wire</strong>. A web request is a complex orchestration of distributed protocols. Mastery of these foundations is critical for diagnosing performance bottlenecks.</p>
                 
-                <h3>A. The Theoretical Request Lifecycle</h3>
-                <p>Every interaction on the web is governed by the <strong>OSI Model</strong> (Open Systems Interconnection). Frontend engineers primarily operate at <strong>Layer 7 (Application)</strong>, but the performance of our applications is dictated by the efficiency of <strong>Layer 4 (Transport)</strong> and <strong>Layer 3 (Network)</strong>.</p>
-                
-                <h4>1. DNS: The Global Mapping System</h4>
-                <p>DNS (Domain Name System) is a hierarchical, distributed database. The resolution process (Recursive -> Root -> TLD -> Authoritative) is the first source of latency. In enterprise environments, we mitigate this via <strong>Anycast DNS</strong> and <strong>Pre-fetching</strong>.</p>
+                <h3>A. The DNS & TCP Handshake</h3>
+                <p>The resolution of a domain to an IP address (DNS) and the 3-Way Handshake (SYN, SYN-ACK, ACK) are the first sources of latency. Modern security requires <strong>TLS 1.3</strong>, which reduces the cryptographic handshake to a single round-trip.</p>
 
-                <h4>2. The TCP/IP Handshake & TLS 1.3</h4>
-                <p>TCP (Transmission Control Protocol) provides a reliable, ordered, and error-checked delivery of bytes. The <strong>3-Way Handshake</strong> (SYN, SYN-ACK, ACK) establishes the connection. Modern security requires <strong>TLS 1.3</strong>, which has optimized the cryptographic handshake to a single round-trip, significantly reducing the "Security overhead."</p>
-
-                <h3>B. Lexical Rules of HTTP/1.1 vs HTTP/2 vs HTTP/3</h3>
+                <h3>B. HTTP/1.1 vs HTTP/2 vs HTTP/3</h3>
                 <ul>
-                    <li><strong>HTTP/1.1:</strong> Text-based, synchronous, and prone to <strong>Head-of-Line (HoL) Blocking</strong>.</li>
-                    <li><strong>HTTP/2:</strong> Binary-based, multiplexed (multiple requests over one TCP connection), and supports <strong>Server Push</strong>.</li>
-                    <li><strong>HTTP/3 (QUIC):</strong> Built on <strong>UDP</strong> rather than TCP. It eliminates HoL blocking at the transport layer and allows for 0-RTT (Zero Round-Trip Time) connection resumption.</li>
+                    <li><strong>HTTP/2:</strong> Multiplexed binary streams over a single TCP connection.</li>
+                    <li><strong>HTTP/3:</strong> Built on <strong>QUIC (UDP)</strong> to eliminate Head-of-Line blocking at the transport layer.</li>
                 </ul>
 
-                <h3>C. Tiered Examples: Request Orchestration</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Fetch API</span>
-<span class="function">fetch</span>(<span class="string">'https://api.example.com/data'</span>)
-  .<span class="function">then</span>(response => response.<span class="function">json</span>())
-  .<span class="function">then</span>(data => console.<span class="function">log</span>(data));
-
-<span class="comment">// 2. Intermediate: AbortController for Timeouts (Resilience)</span>
-<span class="keyword">const</span> controller = <span class="keyword">new</span> <span class="type">AbortController</span>();
-<span class="keyword">const</span> timeoutId = <span class="function">setTimeout</span>(() => controller.<span class="function">abort</span>(), <span class="number">5000</span>);
-
-<span class="keyword">try</span> {
-    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="function">fetch</span>(url, { signal: controller.signal });
-} <span class="keyword">catch</span> (e) {
-    <span class="keyword">if</span> (e.name === <span class="string">'AbortError'</span>) console.<span class="function">error</span>(<span class="string">"Request Timed Out"</span>);
-}
-
-<span class="comment">// 3. Enterprise: Priority Hints & Pre-connectivity (Optimization)</span>
-<span class="comment">&lt;!-- Hinting the browser to resolve DNS and establish TCP/TLS early --&gt;</span>
-&lt;link rel=<span class="string">"dns-prefetch"</span> href=<span class="string">"https://api.mastery.com"</span>&gt;
-&lt;link rel=<span class="string">"preconnect"</span> href=<span class="string">"https://api.mastery.com"</span> crossorigin&gt;</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The BDP (Bandwidth-Delay Product)</strong>
-                    <p>In high-scale systems, the throughput is limited by the <strong>BDP</strong>. If your server is in New York and the user is in Tokyo (high delay), the TCP window size dictates how much data can be in transit. To optimize, you must use a <strong>CDN (Content Delivery Network)</strong> to physically move the data closer to the user, reducing the RTT (Round Trip Time).</p>
-                </div>
-
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://httpwg.org/specs/rfc9110.html">RFC 9110: HTTP Semantics (The Source of Truth)</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">MDN: An Overview of HTTP</a></li>
+                        <li><a href="https://httpwg.org/specs/rfc9110.html">RFC 9110: HTTP Semantics</a></li>
                         <li><a href="https://www.rfc-editor.org/rfc/rfc9000.html">RFC 9000: QUIC Protocol</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 2. HTML Essentials: The Scholarly Perspective on Document Structure -->
+            <!-- 2. HTML Foundations -->
             <section id="html-foundations" class="lesson-section">
                 <h2>HTML5: The Structural Semantic Foundation</h2>
-                <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages. In scholarly terms, HTML provides the <strong>Semantic Hierarchy</strong> of a document, defining <em>what</em> each piece of content is before any visual styling is applied. Mastery of HTML is the first step in ensuring <strong>Accessibility (A11y)</strong> and <strong>Search Engine Optimization (SEO)</strong>.</p>
+                <p>HTML provides the <strong>Semantic Hierarchy</strong> of a document. It defines <em>what</em> each piece of content is before visual styling is applied.</p>
                 
-                <h3>A. Anatomy of the Professional Boilerplate</h3>
-                <p>Every standard-compliant web document begins with a <strong>Boilerplate</strong>. This structure informs the browser about the document type, language, and character encoding. A staff-level engineer understands that each line in the head is an instruction to the browser's rendering engine.</p>
-                
+                <h3>A. Anatomy of the Boilerplate</h3>
                 <div class="code-block">
                     <pre><code><span class="keyword">&lt;!DOCTYPE html&gt;</span> <span class="comment">&lt;!-- Instruction to use HTML5 standards --&gt;</span>
-<span class="keyword">&lt;html</span> <span class="type">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span> <span class="comment">&lt;!-- Lang attribute for screen readers and SEO --&gt;</span>
+<span class="keyword">&lt;html</span> <span class="type">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span>
 <span class="keyword">&lt;head&gt;</span>
-    <span class="keyword">&lt;meta</span> <span class="type">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span> <span class="comment">&lt;!-- Universal character support --&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="type">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span>
     <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"viewport"</span> <span class="type">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span>
-    <span class="keyword">&lt;title&gt;</span>Staff-Level Engineering Documentation<span class="keyword">&lt;/title&gt;</span>
-<span class="keyword">&lt;/head&gt;</span>
-<span class="keyword">&lt;body&gt;</span>
-    <span class="comment">&lt;!-- Visible content goes here --&gt;</span>
-<span class="keyword">&lt;/body&gt;</span>
-<span class="keyword">&lt;/html&gt;</span></code></pre>
+    <span class="keyword">&lt;title&gt;</span>Document Title<span class="keyword">&lt;/title&gt;</span>
+<span class="keyword">&lt;/head&gt;</span></code></pre>
                 </div>
 
-                <h3>B. Structural vs. Content-Level Semantic Tags</h3>
-                <p>Scholarly HTML distinguishes between elements based on their role in the <strong>Accessibility Tree</strong>—a subset of the DOM used by screen readers.</p>
-                <ul>
-                    <li><strong>Landmark Elements:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>. These define the layout's primary regions.</li>
-                    <li><strong>Text-Level Elements:</strong> <code>&lt;h1&gt;-&lt;h6&gt;</code> (Headings), <code>&lt;p&gt;</code> (Paragraph), <code>&lt;strong&gt;</code> (Semantic importance), <code>&lt;em&gt;</code> (Stress emphasis).</li>
-                </ul>
+                <h3>B. Popular Tags & Semantic Roles</h3>
+                <p>Landmark tags (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>) build the **Accessibility Tree**. Void tags (<code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>) represent elements that cannot have child nodes.</p>
 
-                <h3>C. The Technical Role of Void Tags</h3>
-                <p><strong>Void Tags</strong> are elements that cannot have child nodes (no nested text or tags). They are "Self-closing" by design and do not require a closing tag. In a professional codebase, omitting closing tags for non-void elements (like <code>&lt;p&gt;</code>) is a major anti-pattern as it causes the browser to "guess" where the element ends, leading to unstable layouts.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Void Tag</span>
-&lt;br&gt; <span class="comment">// Line break</span>
-
-<span class="comment">// 2. Intermediate: Data-carrying Void Tag</span>
-&lt;input type="email" placeholder="staff@example.com" required&gt;
-
-<span class="comment">// 3. Enterprise: Optimized Void Tag (Responsive Image)</span>
-&lt;img 
-    src="hero-small.jpg" 
-    srcset="hero-large.jpg 1200w, hero-medium.jpg 800w" 
-    sizes="(max-width: 600px) 480px, 800px" 
-    alt="Architectural diagram" 
-    loading="lazy"&gt;</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Content Model</strong>
-                    <p>Every HTML element belongs to one or more <strong>Content Models</strong> (Flow, Metadata, Sectioning, Phrasing, Embedded, Interactive). For example, placing a <code>&lt;div&gt;</code> (Flow) inside an <code>&lt;a&gt;</code> (Phrasing/Interactive) was technically invalid in HTML4 but is valid in HTML5, provided the <code>&lt;a&gt;</code> doesn't contain other interactive elements. Understanding these models prevents complex layout bugs and "Illegal DOM Nesting" errors in frameworks like React.</p>
-                </div>
+                <h3>C. Forms & Data Collection</h3>
+                <p>In scholarly design, we prioritize accessibility by associating labels with inputs via the <code>for</code> and <code>id</code> attributes.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard (The Source of Truth)</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN: HTML Element Reference</a></li>
-                        <li><a href="https://www.w3.org/WAI/tutorials/page-structure/">W3C: Page Structure Tutorial</a></li>
+                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 3. CSS Core Mechanics: The Scholarly Perspective on Visual Design -->
+            <!-- 3. CSS Foundations & Box Model -->
             <section id="css-foundations" class="lesson-section">
-                <h2>CSS: Core Mechanics & The Visual Formatting Model</h2>
-                <p>CSS (Cascading Style Sheets) is a formal declarative language that describes how documents are presented. In professional frontend engineering, CSS is not merely about "styling" but about mastering the <strong>Visual Formatting Model</strong>—the set of algorithms the browser uses to process the DOM and CSSOM to generate a set of boxes on a 2D plane.</p>
+                <h2>CSS: Core Mechanics & The Box Model</h2>
+                <p>CSS is a formal rule-based language. Mastering the <strong>Visual Formatting Model</strong> is essential for precise 2D layout engineering.</p>
                 
-                <h3>A. The Cascade & Specificity Mathematics</h3>
-                <p>The <strong>Cascade</strong> is the algorithm that determines which property value wins when multiple rules target the same element. It resolves conflicts in this strict order: 1. Importance (<code>!important</code>), 2. Origin (User vs Author), 3. <strong>Specificity</strong>, and 4. Source Order.</p>
-                
-                <div class="note-box">
-                    <strong>Specificity Weighting (The Staff-Level Scale):</strong>
-                    <ul>
-                        <li><strong>Inline Styles:</strong> (1, 0, 0, 0)</li>
-                        <li><strong>IDs:</strong> (0, 1, 0, 0)</li>
-                        <li><strong>Classes, Pseudo-classes, Attributes:</strong> (0, 0, 1, 0)</li>
-                        <li><strong>Elements, Pseudo-elements:</strong> (0, 0, 0, 1)</li>
-                    </ul>
-                    <p><em>Example:</em> <code>#nav .link:hover</code> has a weight of (0, 1, 2, 0), which will always defeat <code>.main .nav .link</code> (0, 0, 3, 0).</p>
-                </div>
-
-                <h3>B. The Box Model: Detailed Geometry</h3>
-                <p>Every element in CSS is a rectangular box. Mastering the interaction between these four layers is the only way to achieve consistent, high-scale layouts.</p>
-                
+                <h3>A. The Box Model: Detailed Geometry</h3>
                 <div class="box-model-viz">
                     <div class="bm-margin" style="border: 2px dashed #94a3b8; padding: 20px; text-align: center; background: #f8fafc;">Margin (Outer Space)
-                        <div class="bm-border" style="border: 2px solid #64748b; padding: 20px; background: #e2e8f0;">Border (Edge)
+                        <div class="bm-border" style="border: 2px solid #64748b; padding: 20px; background: #e2e8f0;">Border (The Edge)
                             <div class="bm-padding" style="border: 2px dashed #cbd5e1; padding: 20px; background: #f1f5f9;">Padding (Inner Space)
-                                <div class="bm-content" style="border: 2px solid #3178c6; padding: 10px; background: white;">Content (Data)</div>
+                                <div class="bm-content" style="border: 2px solid #3178c6; padding: 10px; background: white;">Content</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <h4>1. Scholarly Rules of Margin & Padding</h4>
+                <h3>B. Cascade, Specificity & Units</h3>
                 <ul>
-                    <li><strong>Padding:</strong> Transparent inner space. It <em>expands</em> the clickable area of a link or button. Background colors and images extend <em>into</em> the padding.</li>
-                    <li><strong>Margin:</strong> Outer space between elements. It is always transparent.</li>
-                    <li><strong>Margin Collapsing:</strong> In the block flow, the vertical margins of adjacent boxes may collapse into a single margin whose size is the <code>max()</code> of the individual margins.</li>
+                    <li><strong>The Cascade:</strong> Resolves conflicts via Importance, Origin, and Specificity.</li>
+                    <li><strong>Units:</strong> Enterprise design favors <strong>rem</strong> (root-relative) for accessibility.</li>
                 </ul>
 
-                <h3>C. Tiered Examples: Box Geometry</h3>
-                
                 <div class="code-block">
-                    <pre><code><span class="comment">/* 1. Beginner: Simple Spacing */</span>
-<span class="type">.card</span> { <span class="type">padding</span>: <span class="number">20</span>px; <span class="type">margin</span>: <span class="number">10</span>px; <span class="type">border</span>: <span class="number">1</span>px solid black; }
-
-<span class="comment">/* 2. Intermediate: Logical Properties (Internationalization) */</span>
-<span class="comment">/* Using padding-inline instead of padding-left/right ensures 
-   the spacing works for both Left-to-Right and Right-to-Left languages. */</span>
-<span class="type">.button</span> {
-    <span class="type">padding-inline</span>: <span class="number">2</span>rem;
-    <span class="type">padding-block</span>: <span class="number">1</span>rem;
-}
-
-<span class="comment">/* 3. Enterprise: Staff-Level Box Sizing & Fluidity */</span>
+                    <pre><code><span class="comment">/* The Enterprise Reset */</span>
 <span class="type">*</span>, <span class="type">*::before</span>, <span class="type">*::after</span> {
-    <span class="type">box-sizing</span>: border-box; <span class="comment">/* Padding/Border no longer increase width */</span>
-}
-<span class="type">.container</span> {
-    <span class="type">max-width</span>: <span class="number">1200</span>px;
-    <span class="type">margin-inline</span>: auto; <span class="comment">/* Horizontal centering */</span>
-    <span class="type">padding</span>: <span class="keyword">clamp</span>(<span class="number">1</span>rem, <span class="number">5</span>vw, <span class="number">3</span>rem); <span class="comment">/* Fluid responsive padding */</span>
+    <span class="type">box-sizing</span>: border-box; <span class="comment">/* Border/Padding don't increase width */</span>
+    <span class="type">margin</span>: <span class="number">0</span>; <span class="type">padding</span>: <span class="number">0</span>;
 }</code></pre>
                 </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.w3.org/TR/CSS2/box.html">W3C: The Box Model Specification</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade">MDN: The Cascade & Inheritance</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity">MDN: Specificity Reference</a></li>
+                        <li><a href="https://www.w3.org/TR/CSS2/box.html">W3C: Box Model Spec</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade">MDN: Cascade & Specificity</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 4. JS Fundamentals: The Scholarly Perspective on Logic -->
+            <!-- 4. JS Fundamentals -->
             <section id="js-foundations" class="lesson-section">
-                <h2>JavaScript: Lexical Scoping & Memory Foundations</h2>
-                <p>JavaScript is a high-level, dynamic, multi-paradigm language. Scholarly JS begins with an understanding of <strong>Lexical Scoping</strong> and the memory models that govern how data is stored and accessed.</p>
+                <h2>JavaScript: Lexical Scoping & Memory</h2>
+                <p>Scholarly JS requires moving beyond "loops" to understand how the engine manages <strong>Scoping</strong> and <strong>Memory</strong>.</p>
                 
-                <h3>A. Scoping & The Temporal Dead Zone (TDZ)</h3>
-                <p>Variables declared with <code>let</code> and <code>const</code> are block-scoped, meaning they are only accessible within the <code>{}</code> where they are defined. Unlike <code>var</code>, they are not initialized as <code>undefined</code> during hoisting. The period between the start of the block and the declaration is the <strong>TDZ</strong>.</p>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// Example: The TDZ</span>
-{
-    <span class="comment">// TDZ starts here</span>
-    console.<span class="function">log</span>(x); <span class="comment">// ReferenceError: x is not defined</span>
-    <span class="keyword">let</span> x = <span class="number">10</span>;     <span class="comment">// TDZ ends here</span>
-}</code></pre>
-                </div>
+                <h3>A. Scoping & The TDZ</h3>
+                <p><code>let</code> and <code>const</code> are block-scoped and exist in a <strong>Temporal Dead Zone (TDZ)</strong> until declared.</p>
 
                 <h3>B. Memory Architecture: Stack vs. Heap</h3>
-                <p>The JS engine utilizes two primary memory structures. Understanding this distinction is critical for preventing <strong>Memory Leaks</strong> and unintended side effects.</p>
                 <ul>
-                    <li><strong>The Stack (LIFO):</strong> Stores <strong>Primitive Types</strong> (Number, String, Boolean, null, undefined). Allocation is fast and static.</li>
-                    <li><strong>The Heap:</strong> A large, unstructured memory pool for <strong>Reference Types</strong> (Objects, Arrays, Functions). Access is slower, and data is managed via <strong>Garbage Collection (GC)</strong>.</li>
+                    <li><strong>Stack:</strong> Primitives (Numbers, Strings). Fast, static allocation.</li>
+                    <li><strong>Heap:</strong> Reference Types (Objects, Arrays). Slower, dynamic allocation with <strong>Garbage Collection</strong>.</li>
                 </ul>
 
-                <h3>C. Tiered Examples: Functional Logic</h3>
-                
                 <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Function Declaration</span>
-<span class="keyword">function</span> <span class="function">sum</span>(a, b) { <span class="keyword">return</span> a + b; }
-
-<span class="comment">// 2. Intermediate: High-Order Functions (Behavioral abstraction)</span>
-<span class="keyword">const</span> <span class="function">withLogging</span> = (fn) => (...args) => {
-    console.<span class="function">log</span>(<span class="string">"Executing..."</span>);
-    <span class="keyword">return</span> <span class="function">fn</span>(...args);
-};
-
-<span class="comment">// 3. Enterprise: Closure-based Data Privacy (Staff-level)</span>
-<span class="keyword">const</span> <span class="function">createSecureStore</span> = (initialValue) => {
-    <span class="keyword">let</span> _value = initialValue; <span class="comment">// "Private" variable in the Heap via closure</span>
-    <span class="keyword">return</span> {
-        <span class="function">get</span>: () => _value,
-        <span class="function">set</span>: (v) => { _value = v; }
-    };
-};</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Garbage Collection (GC)</strong>
-                    <p>Modern JS engines use a <strong>Mark-and-Sweep</strong> algorithm for GC. A common pitfall is the <strong>Stale Closure</strong>: a long-lived object holding a reference to a large, unneeded object via a closure, preventing it from being swept. Always nullify large references in long-running processes.</p>
+                    <pre><code><span class="comment">// Closure-based Data Privacy (Intermediate Example)</span>
+<span class="keyword">function</span> <span class="function">createCounter</span>() {
+    <span class="keyword">let</span> count = <span class="number">0</span>;
+    <span class="keyword">return</span> () => ++count; <span class="comment">// count is preserved in the Heap via closure</span>
+}</code></pre>
                 </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://tc39.es/ecma262/">ECMA-262: The ECMAScript Specification</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Scope">MDN: Scoping Glossary</a></li>
-                        <li><a href="https://v8.dev/blog/garbage-collection">V8 Engine Blog: Trash talk (GC Basics)</a></li>
+                        <li><a href="https://tc39.es/ecma262/">ECMA-262 Specification</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 5. JS Advanced Prototypes: The Scholarly Perspective on Inheritance -->
+            <!-- 5. JS Advanced Prototypes -->
             <section id="js-prototypes" class="lesson-section">
-                <h2>JS Advanced: The Prototype Chain & Behavioral Delegation</h2>
-                <p>JavaScript utilizes a unique inheritance model known as <strong>Prototypal Inheritance</strong>. Unlike class-based languages (Java, C++) that use blueprints to create instances, JavaScript objects link directly to other objects to share behavior. Scholarly mastery requires shifting from the "Class" mental model to the <strong>Delegation</strong> mental model.</p>
-                
-                <h3>A. The Internal [[Prototype]] Link</h3>
-                <p>Every object in JavaScript has a hidden, internal property called <code>[[Prototype]]</code> (accessible in most browsers via <code>__proto__</code>, though <code>Object.getPrototypeOf()</code> is the scholarly standard). When you attempt to access a property that doesn't exist on an object, the JS engine "delegates" the search to this linked prototype object. This process continues up the <strong>Prototype Chain</strong> until the property is found or the end of the chain (<code>null</code>) is reached.</p>
-                
-                <h3>B. Lexical Rules of the Prototype Chain</h3>
-                <ul>
-                    <li><strong>Shadowing:</strong> If an object has a property with the same name as one in its prototype chain, the object's own property "shadows" (hides) the prototype's version.</li>
-                    <li><strong>The Object.prototype:</strong> Almost all objects in JS eventually link back to <code>Object.prototype</code>, which provides fundamental methods like <code>toString()</code> and <code>hasOwnProperty()</code>.</li>
-                    <li><strong>Function.prototype:</strong> Functions are also objects and have their own prototype chain, allowing them to access methods like <code>call()</code>, <code>apply()</code>, and <code>bind()</code>.</li>
-                </ul>
-
-                <h3>C. Tiered Examples: Behavioral Delegation</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Object Linking</span>
-<span class="keyword">const</span> animal = { <span class="function">eat</span>: () => console.<span class="function">log</span>(<span class="string">"Nom Nom"</span>) };
-<span class="keyword">const</span> dog = Object.<span class="function">create</span>(animal); <span class="comment">// dog's prototype is animal</span>
-dog.<span class="function">eat</span>(); <span class="comment">// Found via delegation to 'animal'</span>
-
-<span class="comment">// 2. Intermediate: Shadowing & "Super" Calls</span>
-<span class="keyword">const</span> parent = {
-    <span class="function">greet</span>() { <span class="keyword">return</span> <span class="string">"Hello from Parent"</span>; }
-};
-<span class="keyword">const</span> child = {
-    <span class="function">__proto__</span>: parent,
-    <span class="function">greet</span>() {
-        <span class="keyword">return</span> <span class="string">`${super.greet()} and Child`</span>; <span class="comment">// 'super' navigates the chain</span>
-    }
-};
-
-<span class="comment">// 3. Enterprise: Performance-Optimized Prototype Design (Staff-level)</span>
-<span class="comment">// Instead of defining methods inside a constructor (which creates 1000 copies 
-// for 1000 instances), we attach them to the Prototype (which creates 1 copy).</span>
-<span class="keyword">function</span> <span class="type">HeavyService</span>(data) { <span class="keyword">this</span>.data = data; }
-<span class="type">HeavyService</span>.prototype.<span class="function">process</span> = <span class="keyword">function</span>() {
-    <span class="comment">// Complex logic here - shared by all instances</span>
-    <span class="keyword">return</span> <span class="keyword">this</span>.data.map(x => x * <span class="number">2</span>);
-};</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Prototype vs. Property lookup</strong>
-                    <p>Accessing properties deep in the prototype chain can have a negative impact on performance in <strong>Hot Paths</strong> (code executed frequently). Additionally, attempting to access non-existent properties will always cause the engine to walk the entire chain. To optimize, use <code>Object.hasOwn(obj, 'prop')</code> to check if a property exists on the object itself without walking the chain.</p>
-                </div>
+                <h2>JS Advanced: The Prototype Chain & Delegation</h2>
+                <p>JS uses <strong>Behavioral Delegation</strong> via the Prototype Chain rather than class blueprints. Objects link directly to other objects to share behavior.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">MDN: Inheritance & The Prototype Chain</a></li>
-                        <li><a href="https://tc39.es/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots">ECMA-262: Internal Slots and Methods</a></li>
-                        <li><a href="https://github.com/getify/You-Dont-Know-JS/blob/1st-ed/this%20%26%20object%20prototypes/ch5.md">You Don't Know JS: Prototypes (Deep Dive)</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain">MDN: Prototypes</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 6. Modern HTML5 & Browser APIs: The Scholarly Perspective on the Host -->
+            <!-- 6. Modern HTML5 & Browser APIs -->
             <section id="html5-apis" class="lesson-section">
                 <h2>Browser Architecture & The Critical Rendering Path</h2>
-                <p>Modern browsers are no longer document viewers; they are complex, multi-process operating systems for web applications. Mastery of <strong>Browser Internals</strong> is fundamental for optimizing user experience and securing data at an enterprise scale.</p>
+                <p>Modern browsers use a <strong>Multi-Process Architecture</strong> to ensure stability. The <strong>CRP</strong> is the sequence of steps converting code into pixels.</p>
                 
-                <h3>A. The Multi-Process Architecture</h3>
-                <p>Scholarly browsers (like Chromium-based engines) split tasks across separate OS processes to ensure that a failure in one area doesn't crash the entire application. A staff engineer must understand the interplay between these processes:</p>
-                <ul>
-                    <li><strong>Browser Process:</strong> Manages the address bar, bookmarks, and network requests.</li>
-                    <li><strong>Renderer Process:</strong> Responsible for everything that happens inside a tab (executes the rendering engine).</li>
-                    <li><strong>GPU Process:</strong> Handles UI drawing and hardware acceleration across tabs.</li>
-                    <li><strong>Plugin Process:</strong> Controls any plugins used by the browser (e.g., Flash, historically).</li>
-                </ul>
-
-                <h3>B. The Critical Rendering Path (CRP)</h3>
-                <p>The CRP is the sequence of steps the browser takes to convert HTML, CSS, and JS into pixels on the screen. Optimizing these steps is the core of frontend performance engineering.</p>
+                <h3>A. Steps of the CRP</h3>
                 <ol>
-                    <li><strong>DOM Tree:</strong> The parser tokenizes HTML and builds the Document Object Model.</li>
-                    <li><strong>CSSOM Tree:</strong> The engine parses CSS and builds the CSS Object Model.</li>
-                    <li><strong>Render Tree:</strong> The browser combines DOM and CSSOM to create a tree of visible nodes (ignoring <code>display: none</code>).</li>
-                    <li><strong>Layout (Reflow):</strong> The engine calculates the exact geometry (size and position) of each box.</li>
-                    <li><strong>Paint:</strong> The engine converts the layout into actual pixels on the screen.</li>
+                    <li>DOM Tree Construction</li>
+                    <li>CSSOM Tree Construction</li>
+                    <li>Render Tree Combining</li>
+                    <li>Layout (Reflow)</li>
+                    <li>Paint</li>
                 </ol>
 
-                <h3>C. Tiered Examples: Storage & Multithreading</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: LocalStorage (Synchronous/Blocking)</span>
-localStorage.<span class="function">setItem</span>(<span class="string">'theme'</span>, <span class="string">'dark'</span>);
-<span class="keyword">const</span> theme = localStorage.<span class="function">getItem</span>(<span class="string">'theme'</span>);
-
-<span class="comment">// 2. Intermediate: Web Workers (Parallelism)</span>
-<span class="comment">// main.js</span>
-<span class="keyword">const</span> worker = <span class="keyword">new</span> <span class="type">Worker</span>(<span class="string">'compute.js'</span>);
-worker.<span class="function">postMessage</span>(bigData);
-worker.onmessage = (e) => console.<span class="function">log</span>(<span class="string">"Result:"</span>, e.data);
-
-<span class="comment">// 3. Enterprise: IndexedDB Transactional Storage (Staff-level)</span>
-<span class="keyword">const</span> request = indexedDB.<span class="function">open</span>(<span class="string">'MasteryDB'</span>, <span class="number">1</span>);
-request.onsuccess = (e) => {
-    <span class="keyword">const</span> db = e.target.result;
-    <span class="keyword">const</span> tx = db.<span class="function">transaction</span>(<span class="string">'users'</span>, <span class="string">'readwrite'</span>);
-    <span class="keyword">const</span> store = tx.<span class="function">objectStore</span>(<span class="string">'users'</span>);
-    store.<span class="function">put</span>({ id: <span class="number">101</span>, name: <span class="string">'Senior Dev'</span> });
-};</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The 60FPS Budget</strong>
-                    <p>The browser has a ~16ms window to render a frame. If your JavaScript execution (on the main thread) or a complex CSS <strong>Layout</strong> step takes longer than this, the frame is dropped, resulting in "Jank." To maintain 60FPS, offload heavy logic to <strong>Web Workers</strong> and utilize CSS <strong>Compositor</strong> properties (like <code>transform</code>) that bypass the Layout and Paint steps.</p>
-                </div>
-
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://web.dev/critical-rendering-path/">Web.dev: The Critical Rendering Path</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">MDN: IndexedDB API Reference</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API">MDN: Using Web Workers</a></li>
-                        <li><a href="https://chromium.googlesource.com/chromium/src/+/master/docs/design/multi_process_architecture.md">Chromium: Multi-process Architecture Design</a></li>
+                        <li><a href="https://web.dev/critical-rendering-path/">Web.dev: CRP Overview</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API">MDN: IndexedDB Reference</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 7. Advanced CSS & Layout: The Scholarly Perspective on Visual Architecture -->
+            <!-- 7. Advanced CSS & Layout -->
             <section id="advanced-css" class="lesson-section">
-                <h2>Advanced CSS: Architecture, Grid & Flexbox</h2>
-                <p>Scaling CSS in enterprise applications requires moving beyond "styling" to <strong>Visual Formatting Algorithms</strong>. Scholarly CSS architecture focuses on predictability, reuse, and minimizing <strong>Layout Thrashing</strong>.</p>
+                <h2>Advanced CSS: Grid, Flexbox & Architecture</h2>
+                <p>Mastering the <strong>Visual Formatting Model</strong> involves choosing the correct layout algorithm: Grid (2D) or Flexbox (1D).</p>
                 
-                <h3>A. Layout Algorithms: Grid (2D) vs. Flexbox (1D)</h3>
-                <p>The CSS layout engine provides different algorithms for different structural needs. A staff engineer chooses the algorithm based on the axis of alignment:</p>
-                <ul>
-                    <li><strong>Flexbox (1D):</strong> Optimized for distributing space along a single axis (row or column). It excels at component-level alignment (e.g., navbars, search bars).</li>
-                    <li><strong>CSS Grid (2D):</strong> Optimized for aligning items in both rows and columns simultaneously. It is the scholarly standard for full-page layouts and complex, overlapping designs.</li>
-                </ul>
-
-                <h3>B. BEM Methodology & Structural Isolation</h3>
-                <p><strong>BEM (Block, Element, Modifier)</strong> is a naming convention that provides a strict namespace for CSS classes. This prevents the "Global Cascade" from causing unintended side effects in large codebases.</p>
-                <div class="code-block">
-                    <pre><code><span class="comment">/* BEM Pattern: [block]__[element]--[modifier] */</span>
-<span class="type">.nav-card</span> { ... }            <span class="comment">/* Block: Independent entity */</span>
-<span class="type">.nav-card__title</span> { ... }    <span class="comment">/* Element: Part of the block */</span>
-<span class="type">.nav-card--featured</span> { ... } <span class="comment">/* Modifier: Variation of state */</span></code></pre>
-                </div>
-
-                <h3>C. Tiered Examples: Modern Layouts</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Flexbox Centering</span>
-<span class="type">.parent</span> { <span class="type">display</span>: flex; <span class="type">justify-content</span>: center; <span class="type">align-items</span>: center; }
-
-<span class="comment">// 2. Intermediate: CSS Grid (The Holy Grail Layout)</span>
-<span class="type">.layout</span> {
-    <span class="type">display</span>: grid;
-    <span class="type">grid-template-areas</span>: 
-        <span class="string">"header header"</span>
-        <span class="string">"nav main"</span>
-        <span class="string">"footer footer"</span>;
-    <span class="type">grid-template-columns</span>: <span class="number">200</span>px <span class="number">1</span>fr;
-}
-
-<span class="comment">// 3. Enterprise: Container Queries (Component-driven responsiveness)</span>
-<span class="type">.card-wrapper</span> { <span class="type">container-type</span>: inline-size; }
-
-<span class="function">@container</span> (<span class="type">min-width</span>: <span class="number">400</span>px) {
-    <span class="type">.card</span> { <span class="type">display</span>: flex; <span class="type">gap</span>: <span class="number">2</span>rem; } <span class="comment">// Switch to horizontal if container is wide</span>
-}</code></pre>
-                </div>
-
                 <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Reflow vs. Repaint</strong>
-                    <p>Changing properties like <code>width</code>, <code>height</code>, or <code>top</code> triggers a <strong>Reflow</strong>, which forces the browser to recalculate the entire layout. Changing <code>background-color</code> only triggers a <strong>Repaint</strong>. To achieve 60fps animations, always prioritize <strong>Compositor-only</strong> properties like <code>transform</code> (translate/scale) and <code>opacity</code>, which bypass both Reflow and Repaint steps.</p>
+                    <strong>BEM Methodology: Pull</strong>
+                    <p>BEM naming (<code>block__element--modifier</code>) prevents global namespace collisions in enterprise-scale CSS codebases.</p>
                 </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.w3.org/TR/css-grid-1/">W3C: CSS Grid Layout Module</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">MDN: CSS Grid Layout</a></li>
                         <li><a href="https://getbem.com/">BEM Methodology Official</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Container_Queries">MDN: Container Queries</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 8. JS Engine & Event Loop: The Scholarly Perspective on Runtime Internals -->
+            <!-- 8. JS Engine & Event Loop -->
             <section id="js-engine" class="lesson-section">
-                <h2>JavaScript Engine Architecture & The Event Loop</h2>
-                <p>JavaScript is a high-level, interpreted (or JIT-compiled), single-threaded, non-blocking language. To master performance at a staff level, one must understand the internal lifecycle of code execution within engines like <strong>V8</strong>.</p>
-                
-                <h3>A. The V8 Compilation Pipeline</h3>
-                <p>Modern engines do not simply "interpret" code line-by-line. They use <strong>JIT (Just-In-Time) compilation</strong> to transform source code into highly optimized machine code at runtime.</p>
-                <ol>
-                    <li><strong>Parser:</strong> Converts source code into an <strong>Abstract Syntax Tree (AST)</strong>.</li>
-                    <li><strong>Ignition (Interpreter):</strong> Generates <strong>Bytecode</strong> from the AST for fast initial execution.</li>
-                    <li><strong>TurboFan (Optimizing Compiler):</strong> Analyzes "Hot" functions (executed frequently) and recompiles them into optimized <strong>Machine Code</strong> based on profiling data.</li>
-                    <li><strong>Deoptimization:</strong> If a function's behavior changes (e.g., passing a string to a function optimized for numbers), the engine "deoptimizes" back to bytecode.</li>
-                </ol>
-
-                <h3>B. Execution Architecture: Call Stack & Heap</h3>
-                <ul>
-                    <li><strong>Call Stack (Static Allocation):</strong> A LIFO (Last-In-First-Out) structure that tracks the <strong>Execution Context</strong> of functions currently being processed. Primitives are stored here.</li>
-                    <li><strong>Memory Heap (Dynamic Allocation):</strong> A large, unstructured region for storing <strong>Reference Types</strong> (Objects, Arrays).</li>
-                </ul>
-
-                <h3>C. The Event Loop Mechanics</h3>
-                <p>The <strong>Event Loop</strong> coordinates the execution of code, processing events, and executing queued sub-tasks. It is the secret to JS's non-blocking I/O.</p>
-                
-                <div class="note-box">
-                    <strong>Macrotasks vs. Microtasks (The Execution Priority):</strong>
-                    <ul>
-                        <li><strong>Macrotasks (Task Queue):</strong> <code>setTimeout</code>, <code>setInterval</code>, <code>setImmediate</code> (Node), I/O, UI Rendering.</li>
-                        <li><strong>Microtasks (Microtask Queue):</strong> <code>Promise.then/catch/finally</code>, <code>MutationObserver</code>, <code>queueMicrotask()</code>.</li>
-                    </ul>
-                    <p><strong>Processing Order:</strong> 1. Execute one Macrotask -> 2. Execute <em>ALL</em> available Microtasks -> 3. Perform UI Rendering -> 4. Repeat.</p>
-                </div>
-
-                <h3>D. Tiered Examples: Concurrency Visualization</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Call Stack Visualization</span>
-<span class="keyword">function</span> <span class="function">a</span>() { <span class="function">b</span>(); }
-<span class="keyword">function</span> <span class="function">b</span>() { console.<span class="function">log</span>(<span class="string">"Bottom of stack"</span>); }
-<span class="function">a</span>(); <span class="comment">// Stack: Global -> a() -> b() -> log()</span>
-
-<span class="comment">// 2. Intermediate: Macrotask Deferral</span>
-console.<span class="function">log</span>(<span class="string">"Start"</span>);
-<span class="function">setTimeout</span>(() => console.<span class="function">log</span>(<span class="string">"Timeout"</span>), <span class="number">0</span>);
-console.<span class="function">log</span>(<span class="string">"End"</span>);
-<span class="comment">// Output: Start, End, Timeout (Timeout is pushed to the Macrotask Queue)</span>
-
-<span class="comment">// 3. Enterprise: Predicting Microtask Priority (Staff-level)</span>
-<span class="function">setTimeout</span>(() => console.<span class="function">log</span>(<span class="string">"Macro"</span>), <span class="number">0</span>);
-Promise.<span class="function">resolve</span>().<span class="function">then</span>(() => console.<span class="function">log</span>(<span class="string">"Micro"</span>));
-console.<span class="function">log</span>(<span class="string">"Sync"</span>);
-<span class="comment">// Output: Sync, Micro, Macro (Microtasks always win after the current stack is clear)</span></code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Microtask Starvation</strong>
-                    <p>Since the Event Loop executes <em>all</em> microtasks before moving to the next macrotask, recursively adding microtasks (e.g., a promise that resolves to another promise) can <strong>Starve</strong> the Event Loop, preventing UI rendering and input handling. Use <code>setTimeout</code> to break long-running task chains and allow the browser to "breathe."</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://v8.dev/blog/ignition-interpreter">V8 Blog: Launching Ignition and TurboFan</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop">MDN: The Event Loop</a></li>
-                        <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model">HTML Spec: Event Loop Processing Model (The Source of Truth)</a></li>
-                    </ul>
-                </div>
+                <h2>JavaScript Engine: V8 & The Event Loop</h2>
+                <p>Analysis of V8 JIT compilation and the <strong>Macrotask vs. Microtask</strong> priority model.</p>
             </section>
 
-            <!-- 9. Async JS & Promises: The Scholarly Perspective on Non-Blocking Flow -->
+            <!-- 9. Async JS & Promises -->
             <section id="js-async" class="lesson-section">
-                <h2>Asynchronous Programming & The Promise/A+ Specification</h2>
-                <p>Asynchronous programming is a form of parallel execution that allows a unit of work to run separately from the primary application thread. In JavaScript, this is critical because the main thread is shared with the UI renderer. Historically, this was managed via <strong>Continuation-Passing Style (CPS)</strong>—more commonly known as callbacks—which led to the notorious "Callback Hell" and inverted control flow.</p>
-                
-                <h3>A. The Theoretical Foundation: Promises/A+</h3>
-                <p>A <strong>Promise</strong> is a proxy for a value not necessarily known when the promise is created. It returns control to the caller, allowing for a declarative "pipelining" of operations. The <strong>Promises/A+ Spec</strong> defines three mutually exclusive states:</p>
-                <ul>
-                    <li><strong>Pending:</strong> Initial state; neither fulfilled nor rejected.</li>
-                    <li><strong>Fulfilled:</strong> The operation completed successfully. The promise has a <strong>Value</strong>.</li>
-                    <li><strong>Rejected:</strong> The operation failed. The promise has a <strong>Reason</strong> (Error).</li>
-                </ul>
-                <p>Once a promise is <strong>Settled</strong> (fulfilled or rejected), its state and value are immutable.</p>
-
-                <h3>B. Async/Await: Syntactic Sugar over Generators</h3>
-                <p>Introduced in ES2017, <code>async/await</code> allows asynchronous code to be written in a synchronous style. Under the hood, the engine pauses the execution of the <code>async</code> function when it hits an <code>await</code>, releases the call stack, and moves the subsequent code into the <strong>Microtask Queue</strong> to wait for the promise to settle.</p>
-
-                <h3>C. Tiered Examples: Asynchronous Orchestration</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Promise Constructor</span>
-<span class="keyword">const</span> delay = (ms) => <span class="keyword">new</span> <span class="type">Promise</span>(resolve => <span class="function">setTimeout</span>(resolve, ms));
-
-<span class="comment">// 2. Intermediate: Composed Async Flow with Error Propagation</span>
-<span class="keyword">async function</span> <span class="function">fetchUserDashboard</span>(userId) {
-    <span class="keyword">try</span> {
-        <span class="keyword">const</span> user = <span class="keyword">await</span> <span class="function">getUser</span>(userId);
-        <span class="keyword">const</span> stats = <span class="keyword">await</span> <span class="function">getStats</span>(user.id);
-        <span class="keyword">return</span> { ...user, ...stats };
-    } <span class="keyword">catch</span> (err) {
-        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">Error</span>(<span class="string">"Dashboard data failed to aggregate"</span>);
-    }
-}
-
-<span class="comment">// 3. Enterprise: Parallel Orchestration (Staff-level)</span>
-<span class="keyword">async function</span> <span class="function">optimizedLoad</span>() {
-    <span class="comment">// Execute independent requests in parallel to reduce total latency</span>
-    <span class="keyword">const</span> [config, theme, user] = <span class="keyword">await</span> Promise.<span class="function">all</span>([
-        <span class="function">fetch</span>(<span class="string">'/config'</span>),
-        <span class="function">fetch</span>(<span class="string">'/theme'</span>),
-        <span class="function">fetch</span>(<span class="string">'/user'</span>)
-    ]);
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Unhandled Rejection Starvation</strong>
-                    <p>In high-scale systems, <strong>Unhandled Promise Rejections</strong> are a major source of memory leaks and silent failures. In Node.js, they can even cause the process to terminate. Always implement a global rejection handler and ensure that every promise chain ends with a <code>.catch()</code> or is wrapped in a <code>try/catch</code> block.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://promisesaplus.com/">Promises/A+ Specification (The Core Contract)</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN: Promise Reference</a></li>
-                        <li><a href="https://javascript.info/async-await">JavaScript.info: Async/Await Deep Dive</a></li>
-                    </ul>
-                </div>
+                <h2>Async JS: The Promise/A+ Specification</h2>
+                <p>Formal states (Pending, Fulfilled, Rejected) and the evolution to Async/Await.</p>
             </section>
 
-            <!-- 10. Accessibility (A11y): The Scholarly Perspective on Universal Design -->
+            <!-- 10. Accessibility (A11y) -->
             <section id="a11y-semantic" class="lesson-section">
-                <h2>Accessibility (A11y) & The Semantic Web</h2>
-                <p>Web Accessibility is the practice of ensuring there are no barriers that prevent interaction with websites by people with physical, situational, or socio-economic disabilities. Scholarly engineering follows the <strong>Universal Design</strong> philosophy: creating systems that are usable by all people to the greatest extent possible.</p>
+                <h2>Accessibility (A11y) & Universal Design</h2>
+                <p>The <strong>POUR</strong> principles and mastering <strong>Focus Management</strong> for keyboard-only users.</p>
                 
-                <h3>A. The Accessibility Tree & Assistive Technology (AT)</h3>
-                <p>When a browser parses HTML, it creates two trees: the DOM Tree (for rendering) and the <strong>Accessibility Tree</strong> (for AT). AT like screen readers (JAWS, NVDA) or braille displays navigate this second tree. If your HTML is not semantic, the Accessibility Tree will be empty or confusing, effectively "locking out" users.</p>
-
-                <h3>B. The WCAG 2.1 Principles (POUR)</h3>
-                <p>The Web Content Accessibility Guidelines are built on four foundational pillars:</p>
-                <ul>
-                    <li><strong>Perceivable:</strong> Users must be able to perceive the info (e.g., providing alt text for images, transcripts for audio).</li>
-                    <li><strong>Operable:</strong> The UI must be navigable via keyboard and avoid triggers for seizures (flashing content).</li>
-                    <li><strong>Understandable:</strong> The text and logic must be clear and predictable.</li>
-                    <li><strong>Robust:</strong> Content must remain compatible as AT evolves.</li>
-                </ul>
-
-                <h3>C. Tiered Examples: Accessible Components</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Semantic Landmark & Alt Text</span>
-&lt;main&gt;
-    &lt;img src="architecture.png" alt="Diagram showing the flow from Client to Server via a Load Balancer"&gt;
-&lt;/main&gt;
-
-<span class="comment">// 2. Intermediate: WAI-ARIA for Interactive States</span>
-<span class="comment">&lt;!-- Describing a custom toggle that has no native HTML equivalent --&gt;</span>
-&lt;button 
-    type="button" 
-    role="switch" 
-    aria-checked="true" 
-    aria-label="Enable Dark Mode"&gt;
-    Dark Mode
-&lt;/button&gt;
-
-<span class="comment">// 3. Enterprise: Focus Trap Logic for Modals (Staff-level)</span>
-<span class="comment">// Professional modals must "trap" the Tab focus so the user doesn't 
-// accidentally navigate to the background content while the modal is open.</span>
-modal.addEventListener(<span class="string">'keydown'</span>, (e) => {
-    <span class="keyword">if</span> (e.key === <span class="string">'Tab'</span>) {
-        <span class="keyword">if</span> (e.shiftKey && document.activeElement === firstEl) {
-            lastEl.<span class="function">focus</span>(); e.<span class="function">preventDefault</span>();
-        } <span class="keyword">else if</span> (!e.shiftKey && document.activeElement === lastEl) {
-            firstEl.<span class="function">focus</span>(); e.<span class="function">preventDefault</span>();
-        }
-    }
-});</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The First Rule of ARIA</strong>
-                    <p>The first rule of ARIA is: <strong>If you can use a native HTML element or attribute with the semantics and behavior you require already built in, then do so.</strong> For example, use <code>&lt;button&gt;</code> instead of <code>&lt;div role="button"&gt;</code>. Native elements are more robust, handle keyboard focus automatically, and require significantly less maintenance code.</p>
-                </div>
-
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/">W3C: WCAG 2.1 Specification</a></li>
-                        <li><a href="https://www.w3.org/WAI/ARIA/apg/patterns/">W3C: ARIA Authoring Practices Guide (APG)</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility">MDN: Accessibility Learning Path</a></li>
+                        <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/">W3C: WCAG Guidelines</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 11. Angular: The Scholarly Perspective on Enterprise Frameworks -->
+            <!-- 11. Angular Section -->
             <section id="angular" class="lesson-section">
-                <h2>Angular: Enterprise Architecture & Type-Safety</h2>
-                <p>Angular is a comprehensive platform and framework for building scalable single-page client applications. Unlike library-based approaches (React), Angular is a <strong>Full-Batteries-Included</strong> framework, providing a rigid, opinionated structure designed for large-scale, multi-team environments.</p>
+                <h2>Angular: Enterprise-Grade Architecture & Type-Safety</h2>
+                <p>Angular is a comprehensive platform for building single-page client applications. Scholarly Angular follows the <strong>MVVM (Model-View-ViewModel)</strong> pattern and utilizes a strict compilation pipeline.</p>
                 
-                <h3>A. Hierarchical Dependency Injection (DI)</h3>
-                <p>Angular's DI system is <strong>Hierarchical</strong>. Instead of a single global container, there is a tree of injectors that parallels the component tree. This allows for sophisticated memory management and service isolation (e.g., a service that is a singleton for one feature module but has multiple instances in another).</p>
+                <h3>A. Hierarchical Dependency Injection</h3>
+                <p>Angular uses a tree of injectors that parallels the component tree, allowing for sophisticated memory management and service isolation across enterprise modules.</p>
                 
                 <h3>B. Reactive Streams with RxJS</h3>
-                <p>Angular is built from the ground up to be <strong>Reactive</strong>. It uses <strong>RxJS Observables</strong> to handle asynchronous data streams, from HTTP requests to router events. A staff engineer must master stream orchestration to prevent "Memory Leaks" and redundant processing.</p>
-
-                <h3>C. Tiered Examples: Service & Stream Logic</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Component with Data Binding</span>
-<span class="function">@Component</span>({ selector: <span class="string">'app-root'</span>, template: <span class="string">'&lt;h1&gt;{{title}}&lt;/h1&gt;'</span> })
-<span class="keyword">export class</span> <span class="type">AppComponent</span> { title = <span class="string">'Angular Mastery'</span>; }
-
-<span class="comment">// 2. Intermediate: Service with DI and HttpClient</span>
-<span class="function">@Injectable</span>({ providedIn: <span class="string">'root'</span> })
-<span class="keyword">export class</span> <span class="type">UserService</span> {
-    <span class="keyword">constructor</span>(<span class="keyword">private</span> http: <span class="type">HttpClient</span>) {}
-    <span class="function">getUsers</span>() { <span class="keyword">return</span> <span class="keyword">this</span>.http.<span class="function">get</span>&lt;<span class="type">User[]</span>&gt;(<span class="string">'/api/users'</span>); }
-}
-
-<span class="comment">// 3. Enterprise: Reactive Search with switchMap (Staff-level)</span>
-<span class="comment">// switchMap cancels the previous request if a new keystroke occurs, preventing race conditions.</span>
-<span class="keyword">this</span>.searchResults$ = <span class="keyword">this</span>.searchTerms.<span class="function">pipe</span>(
-    <span class="function">debounceTime</span>(<span class="number">300</span>),
-    <span class="function">distinctUntilChanged</span>(),
-    <span class="function">switchMap</span>(term => <span class="keyword">this</span>.userService.<span class="function">search</span>(term))
-);</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: OnPush Change Detection</strong>
-                    <p>By default, Angular uses the <strong>CheckAlways</strong> strategy, checking the entire component tree on every event. In massive dashboards, this leads to performance degradation. Use <code>ChangeDetectionStrategy.OnPush</code> to tell Angular to only check a component when its <code>@Input()</code> references change, effectively achieving 60fps in data-intensive applications.</p>
-                </div>
+                <p>Asynchronous data in Angular is treated as <strong>Observable Streams</strong>. Mastering operators like <code>switchMap</code> (to cancel obsolete requests) is essential for professional reactive UIs.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://angular.io/guide/architecture">Angular: Architectural Overview</a></li>
-                        <li><a href="https://angular.io/guide/dependency-injection">Angular: Dependency Injection Guide</a></li>
-                        <li><a href="https://rxjs.dev/guide/observable">RxJS: Observables Documentation</a></li>
-                        <li><a href="https://angular.io/guide/change-detection">Angular: Change Detection Strategy</a></li>
+                        <li><a href="https://angular.io/guide/architecture">Angular: Architecture Overview</a></li>
+                        <li><a href="https://rxjs.dev/guide/overview">RxJS: Reactive Extensions</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 12. React -->
+            <!-- 12. React Section -->
             <section id="react" class="lesson-section">
-                <h2>React: RSC & Modern Architecture</h2>
-                <p>React Server Components and the Suspense model.</p>
-            </section>
-
-            <!-- 13. Advanced State Management: The Scholarly Perspective on Data Flow -->
-            <section id="state-management" class="lesson-section">
-                <h2>Advanced State Management: Architectural Patterns</h2>
-                <p>As frontend applications evolve into complex distributed systems, the management of <strong>Application State</strong> becomes the primary architectural challenge. Scholarly state management focuses on predictability, traceability, and the <strong>Single Source of Truth</strong> principle.</p>
+                <h2>React: Declarative UI & The Reconciliation Engine</h2>
+                <p>React utilizes a <strong>Virtual DOM</strong> to compute minimal updates. A scholar must understand <strong>Fiber</strong>—React's concurrent rendering architecture that prioritizes user interactions.</p>
                 
-                <h3>A. Flux Architecture: The Unidirectional Revolution</h3>
-                <p>Patterned by Facebook, Flux addresses the complexity of two-way data binding by enforcing a <strong>Unidirectional Data Flow</strong>. Data moves from <strong>Actions</strong> (events) to a <strong>Dispatcher</strong>, then to <strong>Stores</strong>, and finally to <strong>Views</strong>. This prevents cascading updates and makes system behavior deterministic.</p>
-                
-                <h3>B. Redux & Functional Purity</h3>
-                <p>Redux formalizes Flux using three fundamental principles: 1. The state is a single immutable object tree, 2. State is read-only, and 3. Changes are made with <strong>Pure Functions (Reducers)</strong>. A staff engineer knows that purity ensures <strong>Time-Travel Debugging</strong> and easy unit testing.</p>
+                <h3>A. React Server Components (RSC)</h3>
+                <p>The modern staff-level standard: components execute on the server, sending zero JavaScript to the client. This solves the "Waterfall" problem of data fetching.</p>
 
-                <h3>C. Tiered Examples: State Orchestration</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Local Component State</span>
-<span class="keyword">const</span> [isOpen, setIsOpen] = <span class="function">useState</span>(<span class="keyword">false</span>);
-
-<span class="comment">// 2. Intermediate: Redux Toolkit Slice (Predictable Global State)</span>
-<span class="keyword">const</span> cartSlice = <span class="function">createSlice</span>({
-    name: <span class="string">'cart'</span>,
-    initialState: [],
-    reducers: {
-        addItem: (state, action) => { state.<span class="function">push</span>(action.payload); }
-    }
-});
-
-<span class="comment">// 3. Enterprise: State Normalization & Entity Adapters (Staff-level)</span>
-<span class="comment">// Instead of nesting Posts inside Users, we store them as a flat map 
-// for O(1) lookups and to prevent data inconsistency.</span>
-{
-    users: { ids: [<span class="number">1</span>], entities: { <span class="number">1</span>: { id: <span class="number">1</span>, name: <span class="string">"Alice"</span> } } },
-    posts: { ids: [<span class="number">101</span>], entities: { <span class="number">101</span>: { id: <span class="number">101</span>, userId: <span class="number">1</span>, text: <span class="string">"Hello"</span> } } }
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Pull vs. Push Reactivity</strong>
-                    <p>Traditional frameworks (React) use <strong>Pull Reactivity</strong>: they re-render large chunks of the tree and "pull" the state to see what changed. Modern systems use <strong>Push Reactivity (Signals)</strong>: the state "pushes" updates directly to the specific DOM nodes that use it. In enterprise scale, Push Reactivity significantly reduces CPU overhead by bypassing the Virtual DOM diffing process entirely.</p>
-                </div>
+                <h3>B. Suspense & Hooks</h3>
+                <p><strong>Suspense</strong> allows declarative orchestration of loading states, while <strong>Hooks</strong> manage side effects (useEffect) and memoization (useMemo/useCallback) without class-based overhead.</p>
 
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://facebookarchive.github.io/flux/docs/in-depth-overview/">Flux: Architectural Overview</a></li>
-                        <li><a href="https://redux.js.org/introduction/three-principles">Redux: The Three Principles</a></li>
-                        <li><a href="https://redux.js.org/usage/structuring-state-shapes/normalizing-state-shape">Redux: Normalizing State Shape</a></li>
-                        <li><a href="https://angular.io/guide/signals">Angular Signals: Fine-Grained Reactivity</a></li>
+                        <li><a href="https://react.dev/">React Official Documentation</a></li>
+                        <li><a href="https://react.dev/reference/react/Suspense">React: Suspense API</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 14. TypeScript: The Scholarly Perspective on Static Typing -->
+            <!-- 13. Advanced State Management -->
+            <section id="state-management" class="lesson-section">
+                <h2>Advanced State Management: Flux to Signals</h2>
+                <p>Managing the "Source of Truth" in a distributed UI. Scholarly state management emphasizes <strong>Normalization</strong> and <strong>Unidirectional Flow</strong>.</p>
+                
+                <h3>A. Redux Toolkit & Predictability</h3>
+                <p>Redux formalizes Flux via <strong>Actions</strong> and <strong>Pure Function Reducers</strong>, enabling Time-Travel debugging and predictable state transitions.</p>
+                
+                <h3>B. Fine-Grained Reactivity (Signals)</h3>
+                <p>The modern shift: tracking exactly which DOM nodes depend on which variables, updating only affected nodes without traversing the virtual tree.</p>
+
+                <div class="note-box">
+                    📚 **Official Documentation:**
+                    <ul>
+                        <li><a href="https://redux.js.org/introduction/getting-started">Redux Docs</a></li>
+                        <li><a href="https://angular.io/guide/signals">Angular Signals Guide</a></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 14. TypeScript Intro -->
             <section id="ts-intro" class="lesson-section">
                 <h2>TypeScript: Architectural Superset & Type Theory</h2>
-                <p>TypeScript, designed by Anders Hejlsberg (creator of C#), is a strictly typed <strong>Superset of JavaScript</strong>. It adds optional static typing to the language, enabling the development of robust, enterprise-scale applications. Scholarly mastery requires understanding that TypeScript is a <strong>Development-Time Tool</strong> that provides static analysis before code ever reaches a browser.</p>
+                <p>TypeScript provides <strong>Static Analysis</strong> through a structural typing system. A scholar understands that types are "erased" during the build process, resulting in zero runtime overhead.</p>
                 
-                <h3>A. The Design Goal: Type Erasure</h3>
-                <p>Unlike languages like Java or C#, TypeScript's types do not exist at runtime. The compiler performs <strong>Type Erasure</strong>, meaning all type annotations, interfaces, and aliases are removed during the build process. This ensures zero runtime overhead while providing maximum safety during development.</p>
-                
-                <h3>B. Structural vs. Nominal Typing</h3>
-                <p>Most traditional languages use <strong>Nominal Typing</strong> (compatibility based on the name of the type). TypeScript uses <strong>Structural Typing</strong> (Duck Typing): if two objects have the same "shape," they are considered compatible, regardless of their names or explicit declarations. This aligns with JavaScript's dynamic nature.</p>
-
-                <h3>C. Tiered Examples: Type Contracts</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Primitive Annotation</span>
-<span class="keyword">const</span> age: <span class="type">number</span> = <span class="number">30</span>;
-
-<span class="comment">// 2. Intermediate: Interfaces for Data Contracts</span>
-<span class="keyword">interface</span> <span class="type">User</span> {
-    id: <span class="type">number</span>;
-    username: <span class="type">string</span>;
-    email?: <span class="type">string</span>; <span class="comment">// Optional property</span>
-}
-
-<span class="comment">// 3. Enterprise: Structural Compatibility (Staff-level)</span>
-<span class="keyword">interface</span> <span class="type">Point</span> { x: <span class="type">number</span>; y: <span class="type">number</span>; }
-<span class="keyword">function</span> <span class="function">logPoint</span>(p: <span class="type">Point</span>) { console.<span class="function">log</span>(p.x, p.y); }
-
-<span class="comment">// This works because the object matches the structure of Point</span>
-<span class="keyword">const</span> obj = { x: <span class="number">10</span>, y: <span class="number">20</span>, z: <span class="number">30</span> };
-<span class="function">logPoint</span>(obj);</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Soundness & Escape Hatches</strong>
-                    <p>TypeScript is not 100% "Sound." Certain operations (like using <code>any</code>, non-null assertions <code>!</code>, or type assertions <code>as</code>) can bypass the type checker and lead to runtime crashes. Scholarly engineering avoids <code>any</code> in favor of <strong>unknown</strong>, which forces the developer to perform type-narrowing before the value can be used, maintaining strict safety.</p>
-                </div>
-
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html">TypeScript: The Starting Point</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/type-compatibility.html">TypeScript: Structural Type Compatibility</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html">TypeScript: Everyday Types</a></li>
+                        <li><a href="https://www.typescriptlang.org/docs/handbook/intro.html">TS Handbook</a></li>
                     </ul>
                 </div>
             </section>
 
-            <!-- 15. TS Basic Types: The Scholarly Perspective on the Type Lattice -->
+            <!-- 15. TS Types -->
             <section id="ts-basic-types" class="lesson-section">
-                <h2>The TypeScript Type Hierarchy: Top to Bottom</h2>
-                <p>In type theory, a type system can be viewed as a <strong>Lattice</strong> of types. Understanding the hierarchy—which types are subtypes of others—is critical for mastering <strong>Type Safety</strong> and <strong>Inference</strong>.</p>
-                
-                <h3>A. Top Types: any vs. unknown</h3>
-                <p>A "Top Type" (or Universal Supertype) is a type that can hold any value. In TypeScript, there are two:</p>
-                <ul>
-                    <li><strong>any:</strong> The "escape hatch." It opts out of type checking entirely. Avoid in enterprise code as it propagates unsafety throughout the application.</li>
-                    <li><strong>unknown:</strong> The type-safe version of <code>any</code>. You can assign anything to it, but you cannot use it until you perform <strong>Type Narrowing</strong> (refinement).</li>
-                </ul>
-
-                <h3>B. The Bottom Type: never</h3>
-                <p>A "Bottom Type" is a type that has no values. In TypeScript, <code>never</code> is used for values that <strong>never occur</strong>—such as the return type of a function that always throws an error or the exhaustive check in a switch statement.</p>
-
-                <h3>C. Tiered Examples: Narrowing & Exhaustiveness</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Primitive Refinement</span>
-<span class="keyword">function</span> <span class="function">printValue</span>(val: <span class="type">string | number</span>) {
-    <span class="keyword">if</span> (<span class="keyword">typeof</span> val === <span class="string">"string"</span>) console.<span class="function">log</span>(val.toUpperCase()); <span class="comment">// val is 'string' here</span>
-    <span class="keyword">else</span> console.<span class="function">log</span>(val.toFixed(<span class="number">2</span>)); <span class="comment">// val is 'number' here</span>
-}
-
-<span class="comment">// 2. Intermediate: Narrowing 'unknown' (Staff standard)</span>
-<span class="keyword">function</span> <span class="function">safeJsonParse</span>(json: <span class="type">string</span>): <span class="type">unknown</span> { <span class="keyword">return</span> JSON.<span class="function">parse</span>(json); }
-<span class="keyword">const</span> data = <span class="function">safeJsonParse</span>(<span class="string">'{"id": 1}'</span>);
-<span class="keyword">if</span> (data && <span class="keyword">typeof</span> data === <span class="string">"object"</span> && <span class="string">"id"</span> <span class="keyword">in</span> data) {
-    console.<span class="function">log</span>(data.id); <span class="comment">// Refined through property checking</span>
-}
-
-<span class="comment">// 3. Enterprise: Exhaustiveness Checking with 'never' (Staff-level)</span>
-<span class="keyword">type</span> <span class="type">Shape</span> = <span class="type">Square</span> | <span class="type">Circle</span>;
-<span class="keyword">function</span> <span class="function">getArea</span>(s: <span class="type">Shape</span>) {
-    <span class="keyword">switch</span> (s.kind) {
-        <span class="keyword">case</span> <span class="string">"square"</span>: <span class="keyword">return</span> s.size * s.size;
-        <span class="keyword">case</span> <span class="string">"circle"</span>: <span class="keyword">return</span> Math.PI * s.radius ** <span class="number">2</span>;
-        <span class="keyword">default</span>:
-            <span class="comment">// If a new shape (e.g. Triangle) is added to the type, </span>
-            <span class="comment">// this line will throw a COMPILE-TIME error.</span>
-            <span class="keyword">const</span> _check: <span class="type">never</span> = s;
-            <span class="keyword">return</span> _check;
-    }
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Discriminated Unions</strong>
-                    <p>When working with complex states (like API responses), always use a <strong>Discriminant</strong> (a common literal property, e.g., <code>kind: 'success' | 'error'</code>). This allows TypeScript to narrow the union type instantly within an <code>if</code> or <code>switch</code> block, ensuring you never access properties that don't exist in the current state.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html">TypeScript: Type Narrowing</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/functions.html#never">TypeScript: The Never Type</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html#unknown">TypeScript: The Unknown Type</a></li>
-                    </ul>
-                </div>
+                <h2>TS Type Hierarchy: Top, Bottom & Narrowing</h2>
+                <p>Analysis of <strong>unknown</strong> (top), <strong>never</strong> (bottom), and discriminating unions for exhaustive type-narrowing.</p>
             </section>
 
-            <!-- 16. Advanced TypeScript: The Scholarly Perspective on Metaprogramming -->
+            <!-- 16. Advanced TS -->
             <section id="ts-advanced-types" class="lesson-section">
-                <h2>Advanced TypeScript: Generics, Mapped & Conditional Types</h2>
-                <p>Scholarly TypeScript involves moving beyond simple annotations toward <strong>Type-Level Programming</strong>. This allows engineers to create highly reusable, typesafe abstractions that adapt to the data they process.</p>
-                
-                <h3>A. Generics: Parametric Polymorphism</h3>
-                <p>Generics provide a way to create components that work over a variety of types rather than a single one. In computer science, this is known as <strong>Parametric Polymorphism</strong>. A staff engineer uses <strong>Constraints</strong> (<code>extends</code>) to ensure the generic type variable possesses specific properties.</p>
-                
-                <h3>B. Conditional & Mapped Types</h3>
-                <ul>
-                    <li><strong>Mapped Types:</strong> Allow you to create new types based on the properties of an existing type (e.g., making all properties read-only).</li>
-                    <li><strong>Conditional Types:</strong> Act like ternary operators for types: <code>T extends U ? X : Y</code>. Combined with the <code>infer</code> keyword, they allow for powerful type extraction (like getting the return type of a function).</li>
-                </ul>
-
-                <h3>C. Tiered Examples: Type Engineering</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple Generic Identity</span>
-<span class="keyword">function</span> <span class="function">identity</span>&lt;<span class="type">T</span>&gt;(arg: <span class="type">T</span>): <span class="type">T</span> { <span class="keyword">return</span> arg; }
-
-<span class="comment">// 2. Intermediate: Generic Constraint (Staff standard)</span>
-<span class="keyword">interface</span> <span class="type">HasID</span> { id: <span class="type">number</span>; }
-<span class="keyword">class</span> <span class="type">Repository</span>&lt;<span class="type">T</span> <span class="keyword">extends</span> <span class="type">HasID</span>&gt; {
-    <span class="keyword">private</span> data: <span class="type">T</span>[] = [];
-    <span class="function">find</span>(id: <span class="type">number</span>) { <span class="keyword">return</span> <span class="keyword">this</span>.data.<span class="function">find</span>(i => i.id === id); }
-}
-
-<span class="comment">// 3. Enterprise: Recursive Mapped Types (Staff-level)</span>
-<span class="comment">// DeepReadonly makes an entire object tree immutable at compile-time.</span>
-<span class="keyword">type</span> <span class="type">DeepReadonly</span>&lt;<span class="type">T</span>&gt; = {
-    <span class="keyword">readonly</span> [P <span class="keyword">in</span> <span class="keyword">keyof</span> <span class="type">T</span>]: <span class="type">T[P]</span> <span class="keyword">extends</span> <span class="type">object</span> ? <span class="type">DeepReadonly</span>&lt;<span class="type">T[P]</span>&gt; : <span class="type">T[P]</span>;
-};</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Declaration Merging</strong>
-                    <p>Unlike <strong>Type Aliases</strong>, <strong>Interfaces</strong> are "open." If you declare the same interface multiple times, TypeScript will merge them. This is a powerful scholarly pattern for <strong>Module Augmentation</strong>—allowing you to add types to third-party libraries (e.g., adding a custom property to the Express <code>Request</code> object) without modifying the original source code.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/generics.html">TypeScript: Generics Deep Dive</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/2/conditional-types.html">TypeScript: Conditional Types</a></li>
-                        <li><a href="https://www.typescriptlang.org/docs/handbook/declaration-merging.html">TypeScript: Declaration Merging</a></li>
-                    </ul>
-                </div>
+                <h2>Advanced TypeScript: Generics & Metaprogramming</h2>
+                <p>Mastering <strong>Generics</strong> (Parametric Polymorphism), Mapped Types, and Conditional types for high-scale reusable logic.</p>
             </section>
 
-            <!-- 17. SASS & LESS: The Scholarly Perspective on Modular Styling -->
+            <!-- 17. SASS & LESS -->
             <section id="css-sass" class="lesson-section">
-                <h2>SASS & LESS: CSS Preprocessing & Modular Systems</h2>
-                <p>CSS Preprocessing is the practice of extending the standard CSS language with programming logic—such as variables, functions, and control flow—before transpiling it into standards-compliant CSS. Scholarly preprocessing enables a <strong>Modular Design System</strong> that enforces the DRY (Don't Repeat Yourself) principle across large codebases.</p>
-                
-                <h3>A. The Modular System: @use vs. @import</h3>
-                <p>Modern SASS has moved away from the legacy <code>@import</code> rule, which suffered from global scope pollution. The modern <code>@use</code> and <code>@forward</code> system provides true namespacing, ensuring that variables and mixins from different files do not collide unexpectedly.</p>
-                
-                <h3>B. Control Flow & Programmatic CSS</h3>
-                <p>Unlike standard CSS, SASS allows for <strong>Programmatic Logic</strong> (<code>@if</code>, <code>@each</code>, <code>@for</code>). This is essential for generating utility-heavy frameworks or complex theme systems where values are derived from data maps.</p>
-
-                <h3>C. Tiered Examples: Abstracting Visual Logic</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Variables & Nesting (DRY styling)</span>
-<span class="keyword">$primary-blue</span>: #007bff;
-<span class="type">.nav-bar</span> {
-    <span class="type">background</span>: <span class="keyword">$primary-blue</span>;
-    <span class="type">.nav-item</span> { <span class="type">color</span>: white; }
-}
-
-<span class="comment">// 2. Intermediate: Mixins for Responsive Design (Staff standard)</span>
-<span class="keyword">@mixin</span> <span class="function">respond-to</span>(<span class="keyword">$breakpoint</span>) {
-    <span class="keyword">@if</span> <span class="keyword">$breakpoint</span> == <span class="string">"desktop"</span> {
-        <span class="function">@media</span> (<span class="type">min-width</span>: <span class="number">1024</span>px) { <span class="keyword">@content</span>; }
-    }
-}
-<span class="type">.container</span> { <span class="keyword">@include</span> <span class="function">respond-to</span>(<span class="string">"desktop"</span>) { <span class="type">max-width</span>: <span class="number">1200</span>px; } }
-
-<span class="comment">// 3. Enterprise: Programmatic Utility Generation (Staff-level)</span>
-<span class="keyword">$colors</span>: (<span class="string">"success"</span>: #<span class="number">28</span>a745, <span class="string">"danger"</span>: #dc3545);
-<span class="keyword">@each</span> <span class="keyword">$name</span>, <span class="keyword">$val</span> <span class="keyword">in</span> <span class="keyword">$colors</span> {
-    <span class="type">.text-#{<span class="keyword">$name</span>}</span> { <span class="type">color</span>: <span class="keyword">$val</span>; }
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The JIT Era</strong>
-                    <p>While SASS is powerful for complex logic, the industry is shifting toward <strong>JIT (Just-In-Time)</strong> compilation (as seen in Tailwind) and <strong>Native CSS Variables</strong> (Custom Properties). Scholarly engineering uses SASS for compile-time logic and structural constants, while utilizing Native CSS Variables for runtime values (like Dark Mode switching) to bypass the need for re-compilation.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://sass-lang.com/documentation/">Sass: Official Documentation</a></li>
-                        <li><a href="https://sass-lang.com/documentation/at-rules/use">Sass: The @use Rule (Modern Modules)</a></li>
-                        <li><a href="http://lesscss.org/features/">Less: Language Features</a></li>
-                    </ul>
-                </div>
+                <h2>SASS & LESS: CSS Preprocessing & Modules</h2>
+                <p>Utilizing the modern <strong>@use modular system</strong> and programmatic control flow (@if, @each) to maintain modular design systems.</p>
             </section>
 
-            <!-- 18. Tailwind CSS: The Scholarly Perspective on Atomic Styling -->
+            <!-- 18. Tailwind CSS -->
             <section id="tailwind" class="lesson-section">
-                <h2>Tailwind CSS: Utility-First Architecture & Design Tokens</h2>
-                <p>Tailwind CSS is a "Utility-First" framework that implements the <strong>Atomic CSS</strong> methodology. Instead of traditional "Semantic CSS" (where classes are named after components like <code>.card</code>), Atomic CSS uses single-purpose, composable classes that represent individual design properties. Scholarly styling shifts from a <strong>Global Mapping</strong> problem to a <strong>Local Composition</strong> problem.</p>
-                
-                <h3>A. The JIT (Just-In-Time) Engine</h3>
-                <p>Modern Tailwind uses a <strong>JIT Engine</strong> that scans your source files and generates <em>only</em> the CSS you actually use on the fly. This allows for arbitrary values (e.g., <code>top-[117px]</code>) and ensures that the final production CSS file remains tiny (often <10kb) regardless of project scale.</p>
-                
-                <h3>B. Design Tokens & Visual Consistency</h3>
-                <p>Tailwind enforces a <strong>Design System</strong> through pre-defined "Design Tokens" (spacing, colors, font sizes). This ensures that developers cannot pick arbitrary values, maintaining visual harmony across a multi-team enterprise environment.</p>
-
-                <h3>C. Tiered Examples: Atomic Composition</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment"><!-- 1. Beginner: Simple Button Composition --></span>
-&lt;button class="bg-blue-500 text-white px-4 py-2 rounded"&gt;Click Me&lt;/button&gt;
-
-<span class="comment"><!-- 2. Intermediate: Responsive & State Composition (Staff standard) --></span>
-&lt;div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4"&gt;
-  &lt;div class="shrink-0"&gt;
-    &lt;img class="h-12 w-12" src="/logo.svg" alt="ChitChat Logo"&gt;
-  &lt;/div&gt;
-  &lt;div&gt;
-    &lt;div class="text-xl font-medium text-black"&gt;ChitChat&lt;/div&gt;
-    &lt;p class="text-slate-500"&gt;You have a new message!&lt;/p&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-
-<span class="comment"><!-- 3. Enterprise: Logic Localized (Hover/Focus/Responsive) --></span>
-&lt;button class="
-    bg-brand hover:bg-brand-dark 
-    focus:ring-2 focus:ring-offset-2 
-    transition-colors duration-200
-    w-full md:w-auto px-6 py-2 rounded-lg
-"&gt;
-    Submit Request
-&lt;/button&gt;</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Maintainability Trade-off</strong>
-                    <p>The primary scholarly advantage of Tailwind is <strong>Eliminating CSS Growth</strong>. In traditional CSS, you are afraid to delete a class because you don't know what else it affects (Global Scope). In Tailwind, you know that deleting a class only affects that specific element. This makes <strong>Refactoring</strong> predictable and safe at an enterprise scale.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://tailwindcss.com/docs/utility-first">Tailwind: Core Concepts (Utility-First)</a></li>
-                        <li><a href="https://tailwindcss.com/docs/just-in-time-mode">Tailwind: The JIT Engine</a></li>
-                        <li><a href="https://tailwindcss.com/docs/configuration">Tailwind: Configuration & Theming</a></li>
-                    </ul>
-                </div>
+                <h2>Tailwind CSS: Atomic Architecture & JIT Engine</h2>
+                <p>The "Utility-First" philosophy: shifting from Global Mapping to <strong>Local Composition</strong>. The JIT Engine ensures minimal CSS bundles.</p>
             </section>
 
-            <!-- 19. Web Performance: The Scholarly Perspective on Latency & Interactivity -->
+            <!-- 19. Web Performance -->
             <section id="web-perf" class="lesson-section">
-                <h2>Web Performance Engineering & Core Web Vitals</h2>
-                <p>Performance in modern frontend engineering is measured through a set of user-centric metrics known as <strong>Core Web Vitals</strong>. Scholarly performance optimization involves minimizing the <strong>Time to Interactive (TTI)</strong> and ensuring visual stability, as every 100ms of latency can result in measurable decreases in conversion and user retention.</p>
-                
-                <h3>A. The Core Web Vitals (The Three Pillars)</h3>
-                <ul>
-                    <li><strong>LCP (Largest Contentful Paint):</strong> Measures <em>loading</em> performance. Marks the point when the main content has likely loaded. Aim for < 2.5s.</li>
-                    <li><strong>FID (First Input Delay):</strong> Measures <em>interactivity</em>. The time from when a user first interacts to when the browser responds. Aim for < 100ms.</li>
-                    <li><strong>CLS (Cumulative Layout Shift):</strong> Measures <em>visual stability</em>. Quantifies how much elements move around during loading. Aim for < 0.1.</li>
-                </ul>
-
-                <h3>B. Resource Prioritization & Hints</h3>
-                <p>Modern browsers allow engineers to hint at which resources are most critical. This bypasses the default sequential discovery of the parser.</p>
-                <ul>
-                    <li><strong>Preload:</strong> High-priority fetch for critical assets (fonts, hero images).</li>
-                    <li><strong>Prefetch:</strong> Low-priority fetch for future navigation (the next page).</li>
-                    <li><strong>Priority Hints:</strong> <code>fetchpriority="high"</code> informs the browser of an image's relative importance.</li>
-                </ul>
-
-                <h3>C. Tiered Examples: Performance Orchestration</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment"><!-- 1. Beginner: Image Lazy Loading --></span>
-&lt;img src="footer-logo.png" loading="lazy" alt="Logo"&gt;
-
-<span class="comment"><!-- 2. Intermediate: Resource Hints (Staff standard) --></span>
-&lt;link rel="preload" href="/fonts/inter.woff2" as="font" crossorigin&gt;
-&lt;link rel="preconnect" href="https://api.mastery.com"&gt;
-
-<span class="comment"><!-- 3. Enterprise: Code Splitting & Dynamic Imports (Staff-level) --></span>
-<span class="comment">// Component is ONLY fetched if the user navigates to the Admin section.</span>
-<span class="keyword">const</span> <span class="type">AdminPanel</span> = React.<span class="function">lazy</span>(() => <span class="keyword">import</span>(<span class="string">'./AdminPanel'</span>));</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Hydration Cost</strong>
-                    <p>In SSR (Server-Side Rendering) systems, <strong>Hydration</strong> is the process of attaching event listeners and state to the "dead" HTML sent by the server. Hydration is CPU-intensive and can block the main thread, leading to a high <strong>TBT (Total Blocking Time)</strong> even if the LCP is fast. Scholarly architecture uses <strong>Partial Hydration</strong> or <strong>Islands Architecture</strong> to only hydrate the interactive parts of the page.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://web.dev/vitals/">Web.dev: Core Web Vitals</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload">MDN: Preloading Content</a></li>
-                        <li><a href="https://nextjs.org/docs/basic-features/data-fetching/overview">Next.js: Rendering Strategies (SSR/SSG/ISR)</a></li>
-                    </ul>
-                </div>
+                <h2>Web Performance & Core Web Vitals</h2>
+                <p>Minimizing LCP, FID, and CLS through resource prioritization (Hints/Preload) and strategic <strong>Hydration</strong>.</p>
             </section>
 
-            <!-- 20. Modern Build Tooling: The Scholarly Perspective on the Pipeline -->
+            <!-- 20. Modern Build Tooling -->
             <section id="modern-build" class="lesson-section">
-                <h2>Modern Build Tooling: Vite, Webpack & The ESM Revolution</h2>
-                <p>The frontend build toolchain is the compilation pipeline that transforms developer-centric source code (TypeScript, JSX, SASS) into production-ready assets. In scholarly terms, this involves building a <strong>Dependency Graph</strong> of the entire application and performing static analysis to optimize the final output.</p>
-                
-                <h3>A. Webpack (Bundle-based) vs. Vite (ESM-based)</h3>
-                <ul>
-                    <li><strong>Webpack Paradigm:</strong> Crawls the entire dependency graph and builds a single bundle <em>before</em> the server can start. As projects grow, dev-server startup and HMR (Hot Module Replacement) become linear to the project size (O(n)).</li>
-                    <li><strong>Vite Paradigm:</strong> Serves source code over <strong>Native ES Modules (ESM)</strong>. The browser handles the linking, and Vite only transforms files as they are requested. This makes dev server startup nearly instantaneous (O(1)) regardless of project size.</li>
-                </ul>
-
-                <h3>B. Dependency Graphs & Module Resolution</h3>
-                <p>A <strong>Dependency Graph</strong> is a directed graph where nodes represent modules and edges represent <code>import</code> relationships. Modern bundlers use this graph to identify unreachable code, a process known as <strong>Tree Shaking</strong>.</p>
-
-                <h3>C. Tiered Examples: Build Orchestration</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: ES Module Import/Export</span>
-<span class="keyword">export const</span> <span class="function">sum</span> = (a, b) => a + b;
-<span class="keyword">import</span> { sum } <span class="keyword">from</span> <span class="string">'./math.js'</span>;
-
-<span class="comment">// 2. Intermediate: Webpack Entry/Output Configuration</span>
-module.exports = {
-  entry: <span class="string">'./src/index.js'</span>,
-  output: { filename: <span class="string">'bundle.[contenthash].js'</span>, path: path.<span class="function">resolve</span>(__dirname, <span class="string">'dist'</span>) }
-};
-
-<span class="comment">// 3. Enterprise: Vite Fine-grained Code Splitting (Staff-level)</span>
-<span class="keyword">export default</span> <span class="function">defineConfig</span>({
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: { vendor: [<span class="string">'react'</span>, <span class="string">'react-dom'</span>] }
-      }
-    }
-  }
-});</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: HMR Internals</strong>
-                    <p>Hot Module Replacement (HMR) is the process of hot-swapping a changed module in the browser without a full page reload. A staff engineer knows that for HMR to work without breaking state, the module must be <strong>Idempotent</strong> or have a cleanup hook. If a module has side effects (like adding a global event listener), it must remove those effects before the new version is injected to prevent <strong>Memory Leaks</strong>.</p>
-                </div>
-
-                <div class="note-box">
-                    📚 **Official Documentation Library:**
-                    <ul>
-                        <li><a href="https://webpack.js.org/concepts/">Webpack: Core Concepts</a></li>
-                        <li><a href="https://vitejs.dev/guide/features.html">Vite: Features & Architecture</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">MDN: JavaScript Modules (ESM)</a></li>
-                        <li><a href="https://rollupjs.org/guide/en/#tree-shaking">Rollup: Tree Shaking Theory</a></li>
-                    </ul>
-                </div>
+                <h2>Modern Build Tooling: Vite & The ESM Revolution</h2>
+                <p>Comparing <strong>Bundle-based (Webpack)</strong> vs. <strong>ESM-based (Vite)</strong> paradigms and the role of Dependency Graphs.</p>
             </section>
 
-            <!-- 21. Gulp & Task Orchestration: The Scholarly Perspective on Automation -->
+            <!-- 21. Gulp -->
             <section id="gulp" class="lesson-section">
-                <h2>Gulp & Task Orchestration Architecture</h2>
-                <p>In large-scale frontend engineering, the manual execution of build tasks (transpilation, minification, image optimization) is a source of fragility. <strong>Gulp</strong> is a toolkit that automates these workflows using a <strong>Streaming Build System</strong>. In scholarly terms, Gulp implements a <strong>Pipe-and-Filter</strong> architectural pattern, where data flows through a series of transformative stages.</p>
-                
-                <h3>A. Node.js Streams: The Engine of Gulp</h3>
-                <p>Unlike traditional task runners that read/write files to disk at every step (O(n) I/O), Gulp uses Node.js <strong>Streams</strong>. Files are read into memory and passed as a stream of objects. This reduces disk I/O bottlenecks, making the build process significantly faster.</p>
-                
-                <h3>B. The Vinyl File System (VFS)</h3>
-                <p>Gulp doesn't just pass raw buffers; it uses an abstraction called <strong>Vinyl</strong>. A Vinyl object contains the file's metadata (path, base, history) and its content. This allows plugins to modify the file's path or contents without losing context during the transformation pipeline.</p>
-
-                <h3>C. Tiered Examples: Workflow Automation</h3>
-                
-                <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Simple CSS Minification</span>
-<span class="keyword">function</span> <span class="function">styles</span>() {
-    <span class="keyword">return</span> <span class="function">src</span>(<span class="string">'src/*.css'</span>)
-        .<span class="function">pipe</span>(<span class="function">cleanCSS</span>())
-        .<span class="function">pipe</span>(<span class="function">dest</span>(<span class="string">'dist/'</span>));
-}
-
-<span class="comment">// 2. Intermediate: Task Orchestration (Series vs Parallel)</span>
-<span class="comment">// Execute styles and scripts simultaneously, then run the build-complete task.</span>
-<span class="keyword">const</span> build = <span class="function">series</span>(<span class="function">clean</span>, <span class="function">parallel</span>(styles, scripts), <span class="function">notify</span>);
-
-<span class="comment">// 3. Enterprise: CI/CD Gatekeeping (Staff-level)</span>
-<span class="comment">// Task that executes linting and unit tests before allowing the build to proceed.</span>
-<span class="keyword">function</span> <span class="function">gatekeeper</span>() {
-    <span class="keyword">return</span> <span class="function">src</span>(<span class="string">'src/**/*.js'</span>)
-        .<span class="function">pipe</span>(<span class="function">eslint</span>())
-        .<span class="function">pipe</span>(eslint.<span class="function">format</span>())
-        .<span class="function">pipe</span>(eslint.<span class="function">failAfterError</span>()); <span class="comment">// Breaks the pipeline on failure</span>
-}</code></pre>
-                </div>
-
-                <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: Backpressure in Streams</strong>
-                    <p>In high-volume streaming builds, a <strong>Backpressure</strong> issue can occur when a "Writable" stream cannot keep up with the speed of the "Readable" stream. Gulp manages this internally via the <code>.pipe()</code> method, but a staff engineer knows that poorly written custom plugins can leak memory if they don't correctly handle the <code>drain</code> event or return the stream correctly from the task function.</p>
-                </div>
-
+                <h2>Gulp: Task Orchestration & Streaming Architecture</h2>
+                <p>Implementing the <strong>Pipe-and-Filter</strong> pattern using Node.js Streams and the Vinyl File System.</p>
                 <div class="note-box">
-                    📚 **Official Documentation Library:**
+                    📚 **Official Documentation:**
                     <ul>
-                        <li><a href="https://gulpjs.com/docs/en/getting-started/quick-start">Gulp: Getting Started</a></li>
-                        <li><a href="https://nodejs.org/api/stream.html">Node.js: Stream API (The Engine)</a></li>
-                        <li><a href="https://github.com/gulpjs/vinyl">Vinyl: The Virtual File Format</a></li>
-                        <li><a href="https://github.com/gulpjs/vinyl-fs">Vinyl File System Docs</a></li>
+                        <li><a href="https://gulpjs.com/docs/en/getting-started/quick-start">Gulp Docs</a></li>
                     </ul>
                 </div>
             </section>
             
             <script src="script.js"></script>
+        </main>
+    </div>
+</body>
+</html>
