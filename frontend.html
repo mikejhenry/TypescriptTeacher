@@ -79,32 +79,85 @@
                 </div>
             </section>
 
-            <!-- 2. HTML Foundations -->
+            <!-- 2. HTML Essentials: The Scholarly Perspective on Document Structure -->
             <section id="html-foundations" class="lesson-section">
                 <h2>HTML5: The Structural Semantic Foundation</h2>
-                <p>HTML provides the <strong>Semantic Hierarchy</strong> of a document. It defines <em>what</em> each piece of content is before visual styling is applied.</p>
+                <p>HTML (HyperText Markup Language) is the declarative data model of the web. It defines the <strong>Semantic Hierarchy</strong> of a document, providing the "What" (meaning) before CSS provides the "How" (presentation). A scholar understands that valid HTML is the primary interface for search engines and assistive technologies.</p>
                 
-                <h3>A. Anatomy of the Boilerplate</h3>
+                <h3>A. Anatomy of the Professional Boilerplate</h3>
+                <p>The <code>&lt;head&gt;</code> contains metadata—information *about* the document that is not displayed. A staff-level engineer optimizes these instructions for performance and social sharing.</p>
                 <div class="code-block">
-                    <pre><code><span class="keyword">&lt;!DOCTYPE html&gt;</span> <span class="comment">&lt;!-- Instruction to use HTML5 standards --&gt;</span>
-<span class="keyword">&lt;html</span> <span class="type">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span>
+                    <pre><code><span class="keyword">&lt;!DOCTYPE html&gt;</span> <span class="comment">&lt;!-- Instruction: Use the modern HTML Living Standard --&gt;</span>
+<span class="keyword">&lt;html</span> <span class="type">lang</span>=<span class="string">"en"</span><span class="keyword">&gt;</span> <span class="comment">&lt;!-- Critical for screen readers and SEO --&gt;</span>
 <span class="keyword">&lt;head&gt;</span>
-    <span class="keyword">&lt;meta</span> <span class="type">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span>
-    <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"viewport"</span> <span class="type">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span>
-    <span class="keyword">&lt;title&gt;</span>Document Title<span class="keyword">&lt;/title&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="type">charset</span>=<span class="string">"UTF-8"</span><span class="keyword">&gt;</span> <span class="comment">&lt;!-- Support for all universal characters (UTF-8) --&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"viewport"</span> <span class="type">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span><span class="keyword">&gt;</span> <span class="comment">&lt;!-- Responsive scaling --&gt;</span>
+    <span class="keyword">&lt;meta</span> <span class="type">name</span>=<span class="string">"description"</span> <span class="type">content</span>=<span class="string">"Staff-level engineering curriculum"</span><span class="keyword">&gt;</span>
+    <span class="keyword">&lt;title&gt;</span>Frontend Mastery | Edition 1<span class="keyword">&lt;/title&gt;</span>
 <span class="keyword">&lt;/head&gt;</span></code></pre>
                 </div>
 
-                <h3>B. Popular Tags & Semantic Roles</h3>
-                <p>Landmark tags (<code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>) build the **Accessibility Tree**. Void tags (<code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>) represent elements that cannot have child nodes.</p>
+                <h3>B. Taxonomy of Tags: Structural vs. Content</h3>
+                <p>Scholarly HTML differentiates between <strong>Container Elements</strong> (which have children) and <strong>Void Elements</strong> (which are atomic and self-closing).</p>
+                <ul>
+                    <li><strong>Landmark Structures:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>. These build the layout's skeleton.</li>
+                    <li><strong>Text-Level Semantics:</strong> 
+                        <ul>
+                            <li><code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>: Document hierarchy (Only one H1 per page recommended).</li>
+                            <li><code>&lt;p&gt;</code>: Paragraphs of text.</li>
+                            <li><code>&lt;strong&gt;</code>: High importance (Bold by default).</li>
+                            <li><code>&lt;em&gt;</code>: Stress emphasis (Italics by default).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Grouping & Lists:</strong> 
+                        <ul>
+                            <li><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code>: Unordered (bulleted) and Ordered (numbered) lists.</li>
+                            <li><code>&lt;li&gt;</code>: List items (the only valid children of ul/ol).</li>
+                        </ul>
+                    </li>
+                </ul>
 
-                <h3>C. Forms & Data Collection</h3>
-                <p>In scholarly design, we prioritize accessibility by associating labels with inputs via the <code>for</code> and <code>id</code> attributes.</p>
+                <h3>C. Media, Links & Attributes</h3>
+                <p>Attributes provide extra information about an element. Global attributes (like <code>id</code> and <code>class</code>) can be applied to any tag.</p>
+                <div class="code-block">
+                    <pre><code><span class="comment">// 1. Links: The Web's Connective Tissue</span>
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;External Link&lt;/a&gt;
+
+<span class="comment">// 2. Media: Void Elements (No closing tag)</span>
+&lt;img src="hero.jpg" alt="A detailed architectural diagram" loading="lazy"&gt;
+
+<span class="comment">// 3. Rich Media Container</span>
+&lt;video controls poster="preview.jpg"&gt;
+  &lt;source src="lesson.mp4" type="video/mp4"&gt;
+  Your browser does not support video.
+&lt;/video&gt;</code></pre>
+                </div>
+
+                <h3>D. Intermediate Form Engineering</h3>
+                <p>Forms are the most complex part of HTML. A professional form uses <strong>Fieldsets</strong> for grouping and <strong>Labels</strong> for accessibility.</p>
+                <div class="code-block">
+                    <pre><code><span class="keyword">&lt;form</span> <span class="type">action</span>=<span class="string">"/submit"</span> <span class="type">method</span>=<span class="string">"POST"</span><span class="keyword">&gt;</span>
+  <span class="keyword">&lt;fieldset&gt;</span>
+    <span class="keyword">&lt;legend&gt;</span>User Identity<span class="keyword">&lt;/legend&gt;</span>
+    <span class="keyword">&lt;label</span> <span class="type">for</span>=<span class="string">"username"</span><span class="keyword">&gt;</span>Username:<span class="keyword">&lt;/label&gt;</span>
+    <span class="keyword">&lt;input</span> <span class="type">type</span>=<span class="string">"text"</span> <span class="type">id</span>=<span class="string">"username"</span> <span class="type">name</span>=<span class="string">"user"</span> <span class="type">required</span><span class="keyword">&gt;</span>
+  <span class="keyword">&lt;/fieldset&gt;</span>
+  
+  <span class="keyword">&lt;button</span> <span class="type">type</span>=<span class="string">"submit"</span><span class="keyword">&gt;</span>Initialize<span class="keyword">&lt;/button&gt;</span>
+<span class="keyword">&lt;/form&gt;</span></code></pre>
+                </div>
+
+                <div class="pro-tip-box">
+                    <strong>Staff-Level Insight: The Content Model</strong>
+                    <p>Every element belongs to specific categories (Flow, Phrasing, Sectioning). Placing a <code>&lt;h2&gt;</code> inside a <code>&lt;p&gt;</code> is a violation of the <strong>Content Model</strong>; the browser will automatically close the <code>&lt;p&gt;</code> tag before starting the header, leading to "ghost" elements and broken CSS styling. Always validate your nesting logic.</p>
+                </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Official Documentation Library:**
                     <ul>
-                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard</a></li>
+                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard (The Source of Truth)</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN: HTML Element Reference</a></li>
+                        <li><a href="https://www.w3.org/WAI/tutorials/forms/">W3C: Form Accessibility Tutorial</a></li>
                     </ul>
                 </div>
             </section>
