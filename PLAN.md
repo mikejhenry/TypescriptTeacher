@@ -19,7 +19,7 @@ As we refine each "Edition," we evaluate topics against these four pillars:
 ## Module 1: Frontend Mastery (`frontend.html`)
 - [x] **Web Foundations**
     - [x] Network Foundations (DNS, TCP/TLS, HTTP/3)
-    - [x] HTML Essentials (Boilerplate, Semantic Hierarchy, Void Tags)
+    - [2] HTML Essentials (Boilerplate, Semantic Hierarchy, Void Tags)
     - [x] CSS Core Mechanics (Box Model, Specificity, Cascade)
     - [x] JS Fundamentals (Scoping, TDZ, Memory/Heap vs Stack)
     - [x] JS Advanced Prototypes (Delegation, Prototype Chain)
@@ -28,7 +28,7 @@ As we refine each "Edition," we evaluate topics against these four pillars:
     - [x] Advanced CSS & Layout (Grid, Flexbox, Containers, BEM)
     - [x] JS Engine & Event Loop (V8, Microtasks vs Macrotasks)
     - [x] Async JS & Promises (Promises/A+, Combinators, Error Propagation)
-    - [x] Accessibility (POUR, ARIA, Focus Management)
+    - [2] Accessibility (POUR, ARIA, Focus Management)
 - [x] **Frameworks & State**
     - [x] Angular 2+ (DI, RxJS, Ivy, Lifecycle)
     - [x] React Ecosystem (Virtual DOM, Fiber, Hooks, RSC, Suspense)

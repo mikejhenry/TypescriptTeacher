@@ -166,41 +166,80 @@
                 </div>
             </section>
 
-            <!-- 3. CSS Foundations & Box Model -->
+            <!-- 3. CSS Core Mechanics: The Scholarly Perspective on Visual Design -->
             <section id="css-foundations" class="lesson-section">
-                <h2>CSS: Core Mechanics & The Box Model</h2>
-                <p>CSS is a formal rule-based language. Mastering the <strong>Visual Formatting Model</strong> is essential for precise 2D layout engineering.</p>
+                <h2>CSS: Core Mechanics & The Visual Formatting Model</h2>
+                <p>CSS (Cascading Style Sheets) is a formal declarative language that describes how documents are presented. In professional frontend engineering, CSS is not merely about "styling" but about mastering the <strong>Visual Formatting Model</strong>—the set of algorithms the browser uses to process the DOM and CSSOM to generate a set of boxes on a 2D plane.</p>
                 
                 <h3>A. The Box Model: Detailed Geometry</h3>
+                <p>In CSS, every element is a rectangular box. Mastering the interaction between these four layers is the only way to achieve precise, consistent layouts across browser engines.</p>
+                
                 <div class="box-model-viz">
-                    <div class="bm-margin" style="border: 2px dashed #94a3b8; padding: 20px; text-align: center; background: #f8fafc;">Margin (Outer Space)
+                    <div class="bm-margin" style="border: 2px dashed #94a3b8; padding: 20px; text-align: center; background: #f8fafc; font-size: 0.8rem;">Margin (Outer Space)
                         <div class="bm-border" style="border: 2px solid #64748b; padding: 20px; background: #e2e8f0;">Border (The Edge)
                             <div class="bm-padding" style="border: 2px dashed #cbd5e1; padding: 20px; background: #f1f5f9;">Padding (Inner Space)
-                                <div class="bm-content" style="border: 2px solid #3178c6; padding: 10px; background: white;">Content</div>
+                                <div class="bm-content" style="border: 2px solid #3178c6; padding: 10px; background: white; font-weight: bold;">Content (Data)</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <h3>B. Cascade, Specificity & Units</h3>
+                <h3>B. Selectors, Colors & Typography</h3>
+                <p>Scholarly CSS involves a deep understanding of how rules are targeted and how properties are inherited down the document tree.</p>
                 <ul>
-                    <li><strong>The Cascade:</strong> Resolves conflicts via Importance, Origin, and Specificity.</li>
-                    <li><strong>Units:</strong> Enterprise design favors <strong>rem</strong> (root-relative) for accessibility.</li>
+                    <li><strong>Selectors:</strong>
+                        <ul>
+                            <li><strong>Type:</strong> Targets elements by tag name (e.g., <code>h1</code>).</li>
+                            <li><strong>Class:</strong> Targets elements by attribute (e.g., <code>.card</code>). Reusable.</li>
+                            <li><strong>ID:</strong> Targets a unique element (e.g., <code>#main-header</code>). High specificity.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Color Models:</strong>
+                        <ul>
+                            <li><strong>HEX:</strong> Base-16 representation (e.g., <code>#FF5733</code>).</li>
+                            <li><strong>RGB:</strong> Functional notation (e.g., <code>rgb(255, 87, 51)</code>).</li>
+                            <li><strong>HSL:</strong> Hue, Saturation, and Lightness (e.g., <code>hsl(11, 100%, 60%)</code>). Scholarly choice for creating dynamic theme variations.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Typography & Inheritance:</strong> Properties like <code>font-family</code> and <code>color</code> flow from parent to child. Enterprise developers use <strong>Font Stacks</strong> (e.g., <code>"Inter", system-ui, sans-serif</code>) to ensure graceful degradation.</li>
                 </ul>
 
+                <h3>C. Tiered Examples: Styling Strategy</h3>
+                
                 <div class="code-block">
-                    <pre><code><span class="comment">/* The Enterprise Reset */</span>
+                    <pre><code><span class="comment">/* 1. Beginner: The Rule-Pair Paradigm */</span>
+<span class="type">body</span> {
+    <span class="type">background-color</span>: #f0f2f5;
+    <span class="type">font-family</span>: sans-serif;
+}
+
+<span class="comment">/* 2. Intermediate: Relative Units & HSL Theming */</span>
+<span class="type">.btn-primary</span> {
+    <span class="type">background-color</span>: <span class="keyword">hsl</span>(<span class="number">210</span>, <span class="number">100</span>%, <span class="number">50</span>%); <span class="comment">/* Accessible Blue */</span>
+    <span class="type">padding</span>: <span class="number">0.75</span>rem <span class="number">1.5</span>rem; <span class="comment">/* Scales with root font-size */</span>
+    <span class="type">border-radius</span>: <span class="number">0.5</span>em;  <span class="comment">/* Scales relative to element font-size */</span>
+}
+
+<span class="comment">/* 3. Enterprise: The Universal Reset & Constraint (Staff-level) */</span>
 <span class="type">*</span>, <span class="type">*::before</span>, <span class="type">*::after</span> {
-    <span class="type">box-sizing</span>: border-box; <span class="comment">/* Border/Padding don't increase width */</span>
+    <span class="type">box-sizing</span>: border-box; <span class="comment">/* Padding/Border no longer expand width */</span>
     <span class="type">margin</span>: <span class="number">0</span>; <span class="type">padding</span>: <span class="number">0</span>;
-}</code></pre>
+}
+<span class="type">html</span> { <span class="type">font-size</span>: <span class="number">100</span>%; } <span class="comment">/* Usually 16px, respects user settings */</span></code></pre>
+                </div>
+
+                <div class="pro-tip-box">
+                    <strong>Staff-Level Insight: Absolute vs. Relative Units</strong>
+                    <p>Never use <code>px</code> for font-sizes in enterprise production. If a user increases their browser's default font size for accessibility, <code>px</code> values will remain "frozen," breaking readability. Always use <code>rem</code> for typography and <code>em</code> for properties that should scale with the text (like icon padding), maintaining a truly <strong>Liquid Layout</strong>.</p>
                 </div>
 
                 <div class="note-box">
-                    📚 **Official Documentation:**
+                    📚 **Official Documentation Library:**
                     <ul>
                         <li><a href="https://www.w3.org/TR/CSS2/box.html">W3C: Box Model Spec</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade">MDN: Cascade & Specificity</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Values_and_Units">MDN: CSS Values and Units</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value">MDN: CSS Color Data Type</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Inheritance">MDN: Inheritance in CSS</a></li>
                     </ul>
                 </div>
             </section>
@@ -303,42 +342,53 @@
 
             <!-- 10. Accessibility (A11y): The Scholarly Perspective on Universal Design -->
             <section id="a11y-semantic" class="lesson-section">
-                <h2>Accessibility (A11y) & The Semantic Web</h2>
+                <h2>Accessibility (A11y): Universal Design & Assistive Technology</h2>
                 <p>Web Accessibility is the practice of ensuring there are no barriers that prevent interaction with websites by people with physical, situational, or socio-economic disabilities. Scholarly engineering follows the <strong>Universal Design</strong> philosophy: creating systems that are usable by all people to the greatest extent possible.</p>
                 
-                <h3>A. The Accessibility Tree & Assistive Technology (AT)</h3>
-                <p>When a browser parses HTML, it creates two trees: the DOM Tree (for rendering) and the <strong>Accessibility Tree</strong> (for AT). AT like screen readers (JAWS, NVDA) or braille displays navigate this second tree. Semantic elements provide "roles" and "landmarks" automatically, allowing users to skip directly to the <code>&lt;main&gt;</code> content or navigate via <code>&lt;nav&gt;</code>, which is impossible with generic <code>&lt;div&gt;</code> tags.</p>
+                <h3>A. The Accessibility Tree & Navigation Landmarks</h3>
+                <p>When a browser parses HTML, it creates an <strong>Accessibility Tree</strong>—a subset of the DOM used by Assistive Technologies (AT) like screen readers (JAWS, NVDA). Semantic elements provide "Landmarks" automatically, allowing users to skip directly to the <code>&lt;main&gt;</code> content or navigate via <code>&lt;nav&gt;</code>. A staff-level engineer ensures the tree is clean by avoiding redundant landmarks and using <code>aria-label</code> when multiple landmarks of the same type (e.g., two <code>&lt;nav&gt;</code> elements) exist.</p>
 
-                <h3>B. The Machine-Readable Web & SEO</h3>
-                <p>Semantic HTML provides <strong>Meaning</strong> rather than just <strong>Presentation</strong>. This "Meaning Layer" is critical for search engines. Elements like <code>&lt;time datetime="2026-04-15"&gt;</code> allow crawlers to index events with temporal precision, leading to "Rich Snippets" and improved search rankings. In scholarly terms, Semantic HTML is the bridge between human-readable content and machine-interpretable data.</p>
+                <h3>B. Keyboard Navigation: TabIndex & AccessKeys</h3>
+                <p>For users who cannot use a mouse, the <strong>Tab Order</strong> is the primary interface.
+                <ul>
+                    <li><strong>tabindex="0":</strong> Includes an element in the natural tab order (used for custom interactive components).</li>
+                    <li><strong>tabindex="-1":</strong> Removes an element from the tab order but allows it to be focused programmatically via <code>.focus()</code> (essential for modals).</li>
+                    <li><strong>accesskey:</strong> A global attribute that allows a user to jump to a specific element using a keyboard shortcut (e.g., <code>accesskey="s"</code> for a search bar).</li>
+                </ul></p>
 
-                <h3>C. Cognitive Accessibility: Native Interactivity</h3>
-                <p>Using native semantic elements like <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> provides interactive disclosures that are keyboard-accessible by default. This reduces the mental load and prevents the "Broken Tab Order" common in custom JavaScript-driven dropdowns.</p>
+                <h3>C. The Heading Hierarchy: A Structural Map</h3>
+                <p>Heading tags (<code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code>) are the primary way screen reader users "skim" a page. A scholarly document must follow a strict, non-skipping hierarchy. An <code>&lt;h3&gt;</code> must always be a child of an <code>&lt;h2&gt;</code>, never skipping from <code>&lt;h1&gt;</code> to <code>&lt;h3&gt;</code>, as this breaks the mental model of the document structure for the user.</p>
 
+                <h3>D. Tiered Examples: Accessible Patterns</h3>
+                
                 <div class="code-block">
-                    <pre><code><span class="comment"><!-- Accessible Interactive Widget --></span>
-&lt;details&gt;
-  &lt;summary&gt;Staff-Level Architecture Details&lt;/summary&gt;
-  &lt;p&gt;Deep dive into the V8 memory heap and garbage collection algorithms...&lt;/p&gt;
-&lt;/details&gt;</code></pre>
+                    <pre><code><span class="comment">// 1. Beginner: Meaningful Alt Text</span>
+<span class="comment">// Avoid "Image of a dog". Use "Golden Retriever playing with a tennis ball".</span>
+&lt;img src="dog.jpg" alt="Golden Retriever playing with a tennis ball"&gt;
+
+<span class="comment">// 2. Intermediate: Skip Navigation Link</span>
+<span class="comment">// Essential for allowing keyboard users to bypass repetitive nav bars.</span>
+&lt;a href="#main-content" class="sr-only focus:not-sr-only"&gt;Skip to Main Content&lt;/a&gt;
+
+<span class="comment">// 3. Enterprise: ARIA Live Regions (Staff-level)</span>
+<span class="comment">// Informs the screen reader to announce updates instantly without losing focus.</span>
+&lt;div role="status" aria-live="polite"&gt;
+    &lt;p&gt;Transaction processed successfully.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
                 </div>
 
                 <div class="pro-tip-box">
-                    <strong>The POUR Principles: Pull</strong>
-                    <ul>
-                        <li><strong>Perceivable:</strong> Info must be presentable to senses (Alt text, captions).</li>
-                        <li><strong>Operable:</strong> UI components must be navigable (Keyboard only, no traps).</li>
-                        <li><strong>Understandable:</strong> Operation must be clear (Consistent nav, error feedback).</li>
-                        <li><strong>Robust:</strong> Content must remain compatible as AT evolves.</li>
-                    </ul>
+                    <strong>Staff-Level Insight: Contrast Ratios & Visual A11y</strong>
+                    <p>Accessibility includes visual perception. The <strong>WCAG 2.1 AA</strong> standard requires a contrast ratio of at least <strong>4.5:1</strong> for normal text and <strong>3:1</strong> for large text. Automated tools (like Lighthouse) catch many errors, but manual verification of "Color as Meaning" (e.g., using only red to indicate an error) is required to support users with color-blindness.</p>
                 </div>
 
                 <div class="note-box">
                     📚 **Official Documentation Library:**
                     <ul>
                         <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/">W3C: WCAG 2.1 Specification</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility">MDN: Accessibility Learning Path</a></li>
-                        <li><a href="https://web.dev/semantic-html/">Web.dev: Semantic HTML for SEO</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/accesskey">MDN: The accesskey attribute</a></li>
+                        <li><a href="https://web.dev/headings-and-landmarks/">Web.dev: Headings and Landmarks</a></li>
+                        <li><a href="https://accessibility.huit.harvard.edu/skip-navigation-links">Harvard: Skip Navigation Links Pattern</a></li>
                     </ul>
                 </div>
             </section>
