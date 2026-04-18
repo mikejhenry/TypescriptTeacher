@@ -119,48 +119,51 @@
                     </li>
                 </ul>
 
-                <h3>C. Tiered Examples: Semantic Composition</h3>
+                <h3>C. Multimedia Masterclass: Audio & Video</h3>
+                <p>Modern HTML5 replaced the need for proprietary plugins (like Flash) with native multimedia primitives. These elements support multiple sources for maximum cross-browser compatibility.</p>
                 <div class="code-block">
-                    <pre><code><span class="comment">// 1. Beginner: Machine-Readable Time</span>
-&lt;p&gt;Updated on &lt;time datetime="2023-10-27"&gt;October 27th&lt;/time&gt;&lt;/p&gt;
+                    <pre><code><span class="comment">// 1. Basic Audio with Controls</span>
+&lt;audio controls&gt;
+  &lt;source src="podcast.mp3" type="audio/mpeg"&gt;
+  &lt;source src="podcast.ogg" type="audio/ogg"&gt;
+  Your browser does not support the audio element.
+&lt;/audio&gt;
 
-<span class="comment">// 2. Intermediate: Media with Captions (Scholarly Pattern)</span>
-&lt;figure&gt;
-  &lt;img src="graph.svg" alt="Line chart showing performance increase"&gt;
-  &lt;figcaption&gt;Figure 1: Performance metrics after V8 optimization.&lt;/figcaption&gt;
-&lt;/figure&gt;
-
-<span class="comment">// 3. Enterprise: Accessible Interactive Disclosure</span>
-&lt;details&gt;
-  &lt;summary&gt;Staff-Level Architecture Details&lt;/summary&gt;
-  &lt;p&gt;Deep dive into the V8 memory heap and garbage collection algorithms...&lt;/p&gt;
-&lt;/details&gt;</code></pre>
+<span class="comment">// 2. Video with Poster and Preload (Staff Pattern)</span>
+&lt;video controls width="640" poster="preview.jpg" preload="metadata"&gt;
+  &lt;source src="lesson.mp4" type="video/mp4"&gt;
+  &lt;track label="English" kind="subtitles" srclang="en" src="subs.vtt" default&gt;
+&lt;/video&gt;</code></pre>
                 </div>
 
-                <h3>D. Intermediate Form Engineering</h3>
-                <p>Forms are the primary mechanism for user interaction. A professional form uses <strong>Fieldsets</strong> for grouping and <strong>Labels</strong> for accessibility.</p>
+                <h3>D. The HTML Input Taxonomy</h3>
+                <p>The <code>&lt;input&gt;</code> tag is the most versatile element in the HTML specification. Its behavior is dictated entirely by the <code>type</code> attribute.</p>
+                <ul>
+                    <li><strong>Textual:</strong> <code>text</code>, <code>password</code>, <code>email</code>, <code>url</code>, <code>search</code>.</li>
+                    <li><strong>Numeric/Range:</strong> <code>number</code>, <code>range</code> (Slider).</li>
+                    <li><strong>Selection:</strong> <code>checkbox</code>, <code>radio</code>, <code>file</code>, <code>color</code>.</li>
+                    <li><strong>Temporal:</strong> <code>date</code>, <code>time</code>, <code>datetime-local</code>, <code>week</code>.</li>
+                </ul>
+
                 <div class="code-block">
-                    <pre><code><span class="keyword">&lt;form</span> <span class="type">action</span>=<span class="string">"/submit"</span> <span class="type">method</span>=<span class="string">"POST"</span><span class="keyword">&gt;</span>
-  <span class="keyword">&lt;fieldset&gt;</span>
-    <span class="keyword">&lt;legend&gt;</span>User Identity<span class="keyword">&lt;/legend&gt;</span>
-    <span class="keyword">&lt;label</span> <span class="type">for</span>=<span class="string">"username"</span><span class="keyword">&gt;</span>Username:<span class="keyword">&lt;/label&gt;</span>
-    <span class="keyword">&lt;input</span> <span class="type">type</span>=<span class="string">"text"</span> <span class="type">id</span>=<span class="string">"username"</span> <span class="type">name</span>=<span class="string">"user"</span> <span class="type">required</span><span class="keyword">&gt;</span>
-  <span class="keyword">&lt;/fieldset&gt;</span>
-  
-  <span class="keyword">&lt;button</span> <span class="type">type</span>=<span class="string">"submit"</span><span class="keyword">&gt;</span>Initialize<span class="keyword">&lt;/button&gt;</span>
-<span class="keyword">&lt;/form&gt;</span></code></pre>
+                    <pre><code><span class="comment">// Professional Form Control Composition</span>
+&lt;label for="volume"&gt;Volume Control:&lt;/label&gt;
+&lt;input type="range" id="volume" name="vol" min="0" max="100" step="5"&gt;
+
+&lt;label for="color-picker"&gt;Brand Color:&lt;/label&gt;
+&lt;input type="color" id="color-picker" value="#3178c6"&gt;</code></pre>
                 </div>
 
                 <div class="pro-tip-box">
-                    <strong>Staff-Level Insight: The Content Model</strong>
-                    <p>Every HTML element belongs to specific categories (Flow, Phrasing, Sectioning). Placing a <code>&lt;h2&gt;</code> inside a <code>&lt;p&gt;</code> is a violation of the <strong>Content Model</strong>; the browser will automatically close the <code>&lt;p&gt;</code> tag before starting the header, leading to "ghost" elements and broken CSS styling. Always validate your nesting logic.</p>
+                    <strong>Staff-Level Insight: Client-Side Validation vs Security</strong>
+                    <p>HTML5 attributes like <code>required</code>, <code>pattern</code> (regex), and <code>type="email"</code> provide immediate UX feedback. However, a scholar knows that <strong>Client-side validation is not security</strong>. It can be easily bypassed by disabling JavaScript or using a proxy. Always implement rigorous server-side validation for any data arriving from an HTML form.</p>
                 </div>
 
                 <div class="note-box">
                     📚 **Official Documentation Library:**
                     <ul>
-                        <li><a href="https://html.spec.whatwg.org/multipage/">WHATWG: HTML Living Standard (The Source of Truth)</a></li>
-                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element">MDN: HTML Element Reference</a></li>
+                        <li><a href="https://html.spec.whatwg.org/multipage/media.html">WHATWG: Media Elements (Video/Audio)</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">MDN: The Input element Reference</a></li>
                         <li><a href="https://www.w3.org/WAI/tutorials/forms/">W3C: Form Accessibility Tutorial</a></li>
                     </ul>
                 </div>
