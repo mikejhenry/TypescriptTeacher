@@ -98,43 +98,47 @@
                 </div>
 
                 <h3>B. Taxonomy of Tags: Structural vs. Content</h3>
-                <p>Scholarly HTML differentiates between <strong>Container Elements</strong> (which have children) and <strong>Void Elements</strong> (which are atomic and self-closing).</p>
+                <p>Scholarly HTML differentiates between <strong>Landmark Elements</strong> (layout skeleton) and <strong>Specific Semantic Elements</strong> (data description).</p>
                 <ul>
-                    <li><strong>Landmark Structures:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>. These build the layout's skeleton.</li>
-                    <li><strong>Text-Level Semantics:</strong> 
+                    <li><strong>Landmark Structures:</strong> 
                         <ul>
-                            <li><code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>: Document hierarchy (Only one H1 per page recommended).</li>
-                            <li><code>&lt;p&gt;</code>: Paragraphs of text.</li>
-                            <li><code>&lt;strong&gt;</code>: High importance (Bold by default).</li>
-                            <li><code>&lt;em&gt;</code>: Stress emphasis (Italics by default).</li>
+                            <li><code>&lt;header&gt;</code> / <code>&lt;footer&gt;</code>: Top and bottom of a section or page.</li>
+                            <li><code>&lt;nav&gt;</code>: Container for primary navigation links.</li>
+                            <li><code>&lt;main&gt;</code>: The unique, dominant content of the body.</li>
+                            <li><code>&lt;aside&gt;</code>: Content indirectly related to the main (sidebars, call-outs).</li>
                         </ul>
                     </li>
-                    <li><strong>Grouping & Lists:</strong> 
+                    <li><strong>Specific Semantics (The Machine-Readable Web):</strong> 
                         <ul>
-                            <li><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code>: Unordered (bulleted) and Ordered (numbered) lists.</li>
-                            <li><code>&lt;li&gt;</code>: List items (the only valid children of ul/ol).</li>
+                            <li><code>&lt;article&gt;</code>: Self-contained, independently distributable content (e.g., a blog post).</li>
+                            <li><code>&lt;section&gt;</code>: Thematic grouping of content, typically with a heading.</li>
+                            <li><code>&lt;details&gt;</code> & <code>&lt;summary&gt;</code>: Native interactive disclosure widgets for cognitive accessibility.</li>
+                            <li><code>&lt;figure&gt;</code> & <code>&lt;figcaption&gt;</code>: Self-contained content (images, diagrams) with a caption.</li>
+                            <li><code>&lt;time&gt;</code>: Represents a specific period in time, helping crawlers index events with temporal precision.</li>
                         </ul>
                     </li>
                 </ul>
 
-                <h3>C. Media, Links & Attributes</h3>
-                <p>Attributes provide extra information about an element. Global attributes (like <code>id</code> and <code>class</code>) can be applied to any tag.</p>
+                <h3>C. Tiered Examples: Semantic Composition</h3>
                 <div class="code-block">
-                    <pre><code><span class="comment">// 1. Links: The Web's Connective Tissue</span>
-&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;External Link&lt;/a&gt;
+                    <pre><code><span class="comment">// 1. Beginner: Machine-Readable Time</span>
+&lt;p&gt;Updated on &lt;time datetime="2023-10-27"&gt;October 27th&lt;/time&gt;&lt;/p&gt;
 
-<span class="comment">// 2. Media: Void Elements (No closing tag)</span>
-&lt;img src="hero.jpg" alt="A detailed architectural diagram" loading="lazy"&gt;
+<span class="comment">// 2. Intermediate: Media with Captions (Scholarly Pattern)</span>
+&lt;figure&gt;
+  &lt;img src="graph.svg" alt="Line chart showing performance increase"&gt;
+  &lt;figcaption&gt;Figure 1: Performance metrics after V8 optimization.&lt;/figcaption&gt;
+&lt;/figure&gt;
 
-<span class="comment">// 3. Rich Media Container</span>
-&lt;video controls poster="preview.jpg"&gt;
-  &lt;source src="lesson.mp4" type="video/mp4"&gt;
-  Your browser does not support video.
-&lt;/video&gt;</code></pre>
+<span class="comment">// 3. Enterprise: Accessible Interactive Disclosure</span>
+&lt;details&gt;
+  &lt;summary&gt;Staff-Level Architecture Details&lt;/summary&gt;
+  &lt;p&gt;Deep dive into the V8 memory heap and garbage collection algorithms...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
                 </div>
 
                 <h3>D. Intermediate Form Engineering</h3>
-                <p>Forms are the most complex part of HTML. A professional form uses <strong>Fieldsets</strong> for grouping and <strong>Labels</strong> for accessibility.</p>
+                <p>Forms are the primary mechanism for user interaction. A professional form uses <strong>Fieldsets</strong> for grouping and <strong>Labels</strong> for accessibility.</p>
                 <div class="code-block">
                     <pre><code><span class="keyword">&lt;form</span> <span class="type">action</span>=<span class="string">"/submit"</span> <span class="type">method</span>=<span class="string">"POST"</span><span class="keyword">&gt;</span>
   <span class="keyword">&lt;fieldset&gt;</span>
@@ -149,7 +153,7 @@
 
                 <div class="pro-tip-box">
                     <strong>Staff-Level Insight: The Content Model</strong>
-                    <p>Every element belongs to specific categories (Flow, Phrasing, Sectioning). Placing a <code>&lt;h2&gt;</code> inside a <code>&lt;p&gt;</code> is a violation of the <strong>Content Model</strong>; the browser will automatically close the <code>&lt;p&gt;</code> tag before starting the header, leading to "ghost" elements and broken CSS styling. Always validate your nesting logic.</p>
+                    <p>Every HTML element belongs to specific categories (Flow, Phrasing, Sectioning). Placing a <code>&lt;h2&gt;</code> inside a <code>&lt;p&gt;</code> is a violation of the <strong>Content Model</strong>; the browser will automatically close the <code>&lt;p&gt;</code> tag before starting the header, leading to "ghost" elements and broken CSS styling. Always validate your nesting logic.</p>
                 </div>
 
                 <div class="note-box">
@@ -297,15 +301,44 @@
                 <p>Formal states (Pending, Fulfilled, Rejected) and the evolution to Async/Await.</p>
             </section>
 
-            <!-- 10. Accessibility (A11y) -->
+            <!-- 10. Accessibility (A11y): The Scholarly Perspective on Universal Design -->
             <section id="a11y-semantic" class="lesson-section">
-                <h2>Accessibility (A11y) & Universal Design</h2>
-                <p>The <strong>POUR</strong> principles and mastering <strong>Focus Management</strong> for keyboard-only users.</p>
+                <h2>Accessibility (A11y) & The Semantic Web</h2>
+                <p>Web Accessibility is the practice of ensuring there are no barriers that prevent interaction with websites by people with physical, situational, or socio-economic disabilities. Scholarly engineering follows the <strong>Universal Design</strong> philosophy: creating systems that are usable by all people to the greatest extent possible.</p>
                 
-                <div class="note-box">
-                    📚 **Official Documentation:**
+                <h3>A. The Accessibility Tree & Assistive Technology (AT)</h3>
+                <p>When a browser parses HTML, it creates two trees: the DOM Tree (for rendering) and the <strong>Accessibility Tree</strong> (for AT). AT like screen readers (JAWS, NVDA) or braille displays navigate this second tree. Semantic elements provide "roles" and "landmarks" automatically, allowing users to skip directly to the <code>&lt;main&gt;</code> content or navigate via <code>&lt;nav&gt;</code>, which is impossible with generic <code>&lt;div&gt;</code> tags.</p>
+
+                <h3>B. The Machine-Readable Web & SEO</h3>
+                <p>Semantic HTML provides <strong>Meaning</strong> rather than just <strong>Presentation</strong>. This "Meaning Layer" is critical for search engines. Elements like <code>&lt;time datetime="2026-04-15"&gt;</code> allow crawlers to index events with temporal precision, leading to "Rich Snippets" and improved search rankings. In scholarly terms, Semantic HTML is the bridge between human-readable content and machine-interpretable data.</p>
+
+                <h3>C. Cognitive Accessibility: Native Interactivity</h3>
+                <p>Using native semantic elements like <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> provides interactive disclosures that are keyboard-accessible by default. This reduces the mental load and prevents the "Broken Tab Order" common in custom JavaScript-driven dropdowns.</p>
+
+                <div class="code-block">
+                    <pre><code><span class="comment"><!-- Accessible Interactive Widget --></span>
+&lt;details&gt;
+  &lt;summary&gt;Staff-Level Architecture Details&lt;/summary&gt;
+  &lt;p&gt;Deep dive into the V8 memory heap and garbage collection algorithms...&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+                </div>
+
+                <div class="pro-tip-box">
+                    <strong>The POUR Principles: Pull</strong>
                     <ul>
-                        <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/">W3C: WCAG Guidelines</a></li>
+                        <li><strong>Perceivable:</strong> Info must be presentable to senses (Alt text, captions).</li>
+                        <li><strong>Operable:</strong> UI components must be navigable (Keyboard only, no traps).</li>
+                        <li><strong>Understandable:</strong> Operation must be clear (Consistent nav, error feedback).</li>
+                        <li><strong>Robust:</strong> Content must remain compatible as AT evolves.</li>
+                    </ul>
+                </div>
+
+                <div class="note-box">
+                    📚 **Official Documentation Library:**
+                    <ul>
+                        <li><a href="https://www.w3.org/WAI/standards-guidelines/wcag/">W3C: WCAG 2.1 Specification</a></li>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility">MDN: Accessibility Learning Path</a></li>
+                        <li><a href="https://web.dev/semantic-html/">Web.dev: Semantic HTML for SEO</a></li>
                     </ul>
                 </div>
             </section>
